@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:tusgrupos/screens/home_screen.dart';
 
@@ -10,58 +9,77 @@ class CreateGroup extends StatelessWidget {
     // TODO: crear grupo screen
 
     return Scaffold(
+      //--------------------appbar--------------------
       appBar: AppBar(
-        backgroundColor: Colors.grey,
-        title: const Text("Crear Grupo"),
-        leading: GestureDetector( //todo: conectar a buscar grupos
-          onTap: () {
-            Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => const HomeScreen())
-            );
-          },
-          child: const Icon(Icons.arrow_back),
-        ),
-      ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-
-          Container( //todo: implementar cuadros de registro
-            decoration: BoxDecoration(
-              shape: BoxShape.rectangle,
-              color: Colors.orange,
-              borderRadius: BorderRadius.circular(15.0),
+          backgroundColor: Colors.orange,
+          title: const Text("Crear Grupo"),
+          leading: Builder(
+            builder: (BuildContext context) {
+              return IconButton(
+                icon: const Icon(Icons.menu),
+                onPressed: () {
+                  Scaffold.of(context).openDrawer();
+                },
+              );
+            },
+          ),
+          actions: <Widget>[
+            IconButton(
+              //todo: conectar a buscar grupo
+              onPressed: () {},
+              icon: const Icon(Icons.search),
+              tooltip: 'buscar grupos',
             ),
-            alignment: Alignment.center,
-            padding: const EdgeInsets.all(50.0),
-            margin: const EdgeInsets.all(20.0),
-            child: const Text("titulo")
+          ]),
+      //--------------------body--------------------
+      body: Column(
+        //crossAxisAlignment: CrossAxisAlignment.start,
+        children: const <Widget>[
+          TextField(
+            decoration: InputDecoration(
+              border: OutlineInputBorder(),
+              labelText: 'Nombre',
+            ),
           ),
-
-
-          Container( //todo: implementar cuadro de registro descripcion
-              decoration: BoxDecoration(
-                shape: BoxShape.rectangle,
-                color: Colors.orange,
-                borderRadius: BorderRadius.circular(15.0),
-              ),
-              alignment: Alignment.center,
-              padding: const EdgeInsets.all(160.0),
-              margin: const EdgeInsets.all(20.0),
-              child: const Text("Descripcion")
+          TextField(
+            decoration: InputDecoration(
+              border: OutlineInputBorder(),
+              labelText: 'Descripcion',
+            ),
           ),
-
-
-
+          TextField(
+            decoration: InputDecoration(
+              border: OutlineInputBorder(),
+              labelText: 'Clave',
+            ),
+          ),
         ],
       ),
-      floatingActionButton: FloatingActionButton.large(
-        onPressed: () {  },
-        elevation: 10,
-        child: const Icon(Icons.add_circle_outline),
+      //--------------------BottomNavigationBar------------------------------
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.check),
+            label: 'Confirmar',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.cancel),
+            label: 'Cancelar',
+          )
+        ],
+        currentIndex: 0,
+        selectedItemColor: Colors.green,
+        unselectedItemColor: Colors.red,
+        onTap: (index) {
+          if (index == 0) {
+            Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => const HomeScreen()));
+          } else if (index == 1) {
+            Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => const HomeScreen()));
+          }
+        },
       ),
-
     );
   }
-
 }
