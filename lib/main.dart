@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tusgrupos/screens/crear_grup_screen.dart';
 import 'package:tusgrupos/screens/home_screen.dart';
-//import 'package:tusgrupos/screens/home_screen.dart';
 
 void main() {
   runApp(const MyApp());

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tusgrupos/screens/home_screen.dart';
+import 'package:tusgrupos/screens/menu_drawer.dart';
 
 class CreateGroup extends StatelessWidget {
   const CreateGroup({super.key});
@@ -31,6 +32,10 @@ class CreateGroup extends StatelessWidget {
               tooltip: 'buscar grupos',
             ),
           ]),
+
+      //--------------------drawer--------------------
+      drawer: const MenuDrawer(),
+
       //--------------------body--------------------
       body: Column(
         //crossAxisAlignment: CrossAxisAlignment.start,
