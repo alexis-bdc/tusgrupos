@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tusgrupos/screens/buscar_grupo_screen.dart';
 import 'package:tusgrupos/screens/crear_grup_screen.dart';
 import 'package:tusgrupos/screens/menu_drawer.dart';
 
@@ -12,22 +13,18 @@ class HomeScreen extends StatelessWidget {
     // TODO: implement build home screen scaffold
     return Scaffold(
         //--------------------appbar--------------------
-        appBar:
-            AppBar(backgroundColor: Colors.orange, title: const Text("Menu"),
-                // leading: Builder(
-                //   builder: (BuildContext context) {
-                //     return IconButton(
-                //       icon: const Icon(Icons.menu),
-                //       onPressed: () {
-                //         const MenuDrawer();
-                //       },
-                //     );
-                //   },
-                // ),
-                actions: <Widget>[
+        appBar: AppBar(
+            backgroundColor: Colors.orange,
+            title: const Text("Menu"),
+            actions: <Widget>[
               IconButton(
                 //todo: conectar a buscar grupo
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => BuscarGrupo()),
+                  );
+                },
                 icon: const Icon(Icons.search),
                 tooltip: 'buscar grupos',
               ),

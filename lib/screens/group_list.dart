@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 
 class ListaGrupos extends StatelessWidget {
@@ -10,5 +8,4 @@ class ListaGrupos extends StatelessWidget {
     // TODO: implement build
     throw UnimplementedError();
   }
-
 }

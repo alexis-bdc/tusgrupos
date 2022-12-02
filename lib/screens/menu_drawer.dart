@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tusgrupos/screens/home_screen.dart';
 
 class MenuDrawer extends StatelessWidget {
   const MenuDrawer({super.key});
@@ -14,11 +15,16 @@ class MenuDrawer extends StatelessWidget {
               color: Colors.orange,
             ),
             curve: Curves.easeIn,
-            child: Text('Menu'),
+            child: Text('profile picture'),
           ),
           ListTile(
             title: Text('Mis Grupos'),
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const HomeScreen()),
+              );
+            },
           ),
           ListTile(
             title: Text('Grupos Creados'),
@@ -28,10 +34,10 @@ class MenuDrawer extends StatelessWidget {
             title: Text('Cerrar Sesion'),
             onTap: () {},
           ),
-          ListTile(
-            title: Text('Acerca de'),
-            onTap: () {},
-          ),
+          // ListTile(
+          //   title: Text('Acerca de'),
+          //   onTap: () {},
+          // ),
         ],
       ),
     );
