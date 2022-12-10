@@ -10,21 +10,21 @@ String userModelToJson(userModel data) => json.encode(data.toJson());
 // ignore: camel_case_types
 class userModel {
   userModel({
-    required this.Id,
-    required this.Email,
+    required this.id,
     required this.Name,
     required this.LastName,
+    required this.Email,
     required this.Password,
   });
 
-  ObjectId Id;
+  ObjectId id;
   String Name;
   String LastName;
   String Email;
   String Password;
 
   factory userModel.fromJson(Map<String, dynamic> json) => userModel(
-        Id: json["id"],
+        id: json["id"],
         Name: json["nombre"],
         LastName: json["apellido"],
         Email: json["email"],
@@ -32,7 +32,7 @@ class userModel {
       );
 
   Map<String, dynamic> toJson() => {
-        "id": Id,
+        "id": id,
         "nombre": Name,
         "apellido": LastName,
         "email": Email,

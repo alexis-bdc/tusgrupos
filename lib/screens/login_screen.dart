@@ -61,7 +61,7 @@ class _LoginPageState extends State<LoginPage> {
             ),
           );
         },
-        child: Text('Log In', style: TextStyle(color: Colors.white)),
+        child: const Text('Log In', style: TextStyle(color: Colors.white)),
       ),
     );
 

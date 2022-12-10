@@ -12,7 +12,7 @@ class SignUpPage extends StatefulWidget {
   // final String title;
 
   @override
-  _SignUpPageState createState() async => _SignUpPageState();
+  _SignUpPageState createState() => _SignUpPageState();
 }
 
 class _SignUpPageState extends State<SignUpPage> {
@@ -187,7 +187,7 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 
-  Future<String> _insertUser(
+  Future<void> _insertUser(
       // ignore: non_constant_identifier_names
       String Nombre,
       String Apellido,
@@ -195,7 +195,7 @@ class _SignUpPageState extends State<SignUpPage> {
       String password) async {
     var _id = M.ObjectId();
     final user = userModel(
-        Id: _id,
+        id: _id,
         Name: Nombre,
         LastName: Apellido,
         Email: email,
@@ -203,7 +203,6 @@ class _SignUpPageState extends State<SignUpPage> {
 
     // ignore: unused_local_variable
     var result = await MongoDatabase.insertUser(user);
-
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
         content: Text('Nuevo Usuario'),

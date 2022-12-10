@@ -5,12 +5,16 @@ import 'package:tusgrupos/dbHelper/constant.dart';
 import 'package:tusgrupos/models/user_model.dart';
 
 class MongoDatabase {
-  static var db, userCollection;
+  static var db;
+  static var users;
+  static var groups;
+
   static connect() async {
     db = await Db.create(MONGO_CONN_URL);
     await db.open();
     inspect(db);
-    userCollection = db.collection(USER_COLLECTION);
+    users = db.collection(USER_COLLECTION);
+    groups = db.collection(GROUP_COLLECTION);
   }
 
   static Future<void> insert() async {
@@ -22,11 +26,12 @@ class MongoDatabase {
   static Future<String> insertUser(userModel user) async {
     try {
       // return await userCollection.insert(user.toJson());
-      var result = await userCollection.insertOne(user.toJson());
+      var result = await users.insertOne(user.toJson());
       if (result.isSuccess) {
-        return "Usuario registrado con éxito";
+        print(user);
+        return "Success";
       } else {
-        return "Error al registrar usuario";
+        return "Error";
       }
     } catch (e) {
       print(e.toString());
