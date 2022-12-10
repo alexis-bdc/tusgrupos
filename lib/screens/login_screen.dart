@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:tusgrupos/screens/home_screen.dart';
+import 'package:tusgrupos/screens/sign_up_screen.dart';
 
 class LoginPage extends StatefulWidget {
   static String tag = 'login-page';
   @override
-  _LoginPageState createState() => new _LoginPageState();
+  _LoginPageState createState() => _LoginPageState();
 }
 
 class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     final logo = Hero(
-      tag: 'hero',
+      tag: 'Tus Grupos',
       child: CircleAvatar(
         backgroundColor: Colors.transparent,
         radius: 48.0,
@@ -72,6 +73,22 @@ class _LoginPageState extends State<LoginPage> {
       onPressed: () {},
     );
 
+    final signUpLabel = TextButton(
+      child: const Text(
+        'Sign Up',
+        style: TextStyle(color: Colors.black54),
+      ),
+      onPressed: () {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) {
+              return const SignUpPage();
+            },
+          ),
+        );
+      },
+    );
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: Center(
@@ -86,7 +103,8 @@ class _LoginPageState extends State<LoginPage> {
             password,
             SizedBox(height: 24.0),
             loginButton,
-            forgotLabel
+            forgotLabel,
+            signUpLabel
           ],
         ),
       ),
