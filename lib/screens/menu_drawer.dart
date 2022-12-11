@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tusgrupos/screens/home_screen.dart';
 import 'package:tusgrupos/screens/login_screen.dart';
+import 'package:tusgrupos/screens/ver_mis_grupos_screen.dart';
 
 class MenuDrawer extends StatelessWidget {
   const MenuDrawer({super.key});
@@ -23,7 +24,7 @@ class MenuDrawer extends StatelessWidget {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const HomeScreen()),
+                MaterialPageRoute(builder: (context) => VerMisGrupos()),
               );
             },
           ),

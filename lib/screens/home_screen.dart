@@ -15,21 +15,22 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
         //--------------------appbar--------------------
         appBar: AppBar(
-            backgroundColor: Colors.orange,
-            title: const Text("Menu"),
-            actions: <Widget>[
-              IconButton(
-                //todo: conectar a buscar grupo
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => BuscarGrupo()),
-                  );
-                },
-                icon: const Icon(Icons.search),
-                tooltip: 'buscar grupos',
-              ),
-            ]),
+          backgroundColor: Colors.orange,
+          title: const Text("Menu"),
+          actions: <Widget>[
+            IconButton(
+              //todo: conectar a buscar grupo
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => BuscarGrupo()),
+                );
+              },
+              icon: const Icon(Icons.search),
+              tooltip: 'buscar grupos',
+            ),
+          ],
+        ),
         //--------------------drawer--------------------
         drawer: const MenuDrawer(),
 

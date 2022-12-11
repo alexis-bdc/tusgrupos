@@ -49,7 +49,7 @@ class _LoginPageState extends State<LoginPage> {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(24),
           ),
-          backgroundColor: Colors.lightBlueAccent,
+          backgroundColor: Colors.orange,
           padding: const EdgeInsets.all(12),
         ),
         onPressed: () {
