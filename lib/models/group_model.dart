@@ -12,38 +12,36 @@ String groupModelToJson(groupModel data) => json.encode(data.toJson());
 class groupModel {
   groupModel(
       {required this.id,
-      required this.Owner,
+      // required this.Owner,
       required this.Name,
       required this.Description,
-      required this.Admin,
-      required this.Members,
       required this.password});
 
   ObjectId id;
-  userModel Owner;
+  // ObjectId Owner;
   String Name;
   String Description;
-  String Admin;
-  List<String> Members;
+  // String Admin;
+  // List<String> Members;
   String password;
 
   factory groupModel.fromJson(Map<String, dynamic> json) => groupModel(
         id: json["_id"],
-        Owner: json["owner"],
+        // Owner: json["owner"],
         Name: json["nombre"],
         Description: json["descripcion"],
-        Admin: json["admin"],
-        Members: json["miembros"],
+        // Admin: json["admin"],
+        // Members: json["miembros"],
         password: json["password"],
       );
 
   Map<String, dynamic> toJson() => {
         "_id": id,
-        "owner": Owner,
+        // "owner": Owner,
         "nombre": Name,
         "descripcion": Description,
-        "admin": Admin,
-        "miembros": Members,
+        // "admin": Admin,
+        // "miembros": Members,
         "password": password,
       };
 }
