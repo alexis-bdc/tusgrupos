@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tusgrupos/screens/home_screen.dart';
+import 'package:tusgrupos/screens/login_screen.dart';
 
 class MenuDrawer extends StatelessWidget {
   const MenuDrawer({super.key});
@@ -32,7 +33,10 @@ class MenuDrawer extends StatelessWidget {
           ),
           ListTile(
             title: Text('Cerrar Sesion'),
-            onTap: () {},
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => LoginPage()));
+            },
           ),
           // ListTile(
           //   title: Text('Acerca de'),

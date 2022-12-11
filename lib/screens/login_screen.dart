@@ -15,7 +15,7 @@ class _LoginPageState extends State<LoginPage> {
       tag: 'Tus Grupos',
       child: CircleAvatar(
         backgroundColor: Colors.transparent,
-        radius: 48.0,
+        radius: 60.0,
         child: Image.asset('assets/TusGrupos.png'),
       ),
     );
@@ -33,7 +33,7 @@ class _LoginPageState extends State<LoginPage> {
 
     final password = TextFormField(
       autofocus: false,
-      initialValue: 'some password',
+      // initialValue: 'some password',
       obscureText: true,
       decoration: InputDecoration(
         hintText: 'Password',

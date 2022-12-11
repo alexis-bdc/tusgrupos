@@ -46,8 +46,8 @@ class HomeScreen extends StatelessWidget {
         floatingActionButton: FloatingActionButton(
             //todo: conectar a crear grupos
             onPressed: () {
-              Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => const CreateGroup()));
+              Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (context) => CreateGroup()));
             },
             child: const Icon(Icons.add)));
   }
