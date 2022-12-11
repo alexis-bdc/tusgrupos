@@ -11,7 +11,7 @@ String groupModelToJson(groupModel data) => json.encode(data.toJson());
 // ignore: camel_case_types
 class groupModel {
   groupModel(
-      {required this.Id,
+      {required this.id,
       required this.Owner,
       required this.Name,
       required this.Description,
@@ -19,7 +19,7 @@ class groupModel {
       required this.Members,
       required this.password});
 
-  ObjectId Id;
+  ObjectId id;
   userModel Owner;
   String Name;
   String Description;
@@ -28,7 +28,7 @@ class groupModel {
   String password;
 
   factory groupModel.fromJson(Map<String, dynamic> json) => groupModel(
-        Id: json["id"],
+        id: json["_id"],
         Owner: json["owner"],
         Name: json["nombre"],
         Description: json["descripcion"],
@@ -38,7 +38,7 @@ class groupModel {
       );
 
   Map<String, dynamic> toJson() => {
-        "id": Id,
+        "_id": id,
         "owner": Owner,
         "nombre": Name,
         "descripcion": Description,

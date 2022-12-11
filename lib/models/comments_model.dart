@@ -11,21 +11,21 @@ String commentModelToJson(commentModel data) => json.encode(data.toJson());
 // ignore: camel_case_types
 class commentModel {
   commentModel({
-    required this.Id,
+    required this.id,
     required this.Owner,
     required this.Group,
     required this.Comment,
     required this.Date,
   });
 
-  ObjectId Id;
+  ObjectId id;
   String Owner;
   String Group;
   String Comment;
   DateTime Date;
 
   factory commentModel.fromJson(Map<String, dynamic> json) => commentModel(
-        Id: json["id"],
+        id: json["_id"],
         Owner: json["owner"],
         Group: json["group"],
         Comment: json["comment"],
@@ -33,7 +33,7 @@ class commentModel {
       );
 
   Map<String, dynamic> toJson() => {
-        "id": Id,
+        "_id": id,
         "owner": Owner,
         "group": Group,
         "comment": Comment,
