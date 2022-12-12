@@ -1,14 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:tusgrupos/dbHelper/mongodb.dart';
 import 'package:tusgrupos/screens/home_screen.dart';
 import 'package:tusgrupos/screens/sign_up_screen.dart';
 
 class LoginPage extends StatefulWidget {
-  static String tag = 'login-page';
+  const LoginPage({super.key});
+
+  // static String tag = 'login-page';
   @override
   _LoginPageState createState() => _LoginPageState();
 }
 
 class _LoginPageState extends State<LoginPage> {
+  // final _formKey = GlobalKey<FormState>();
+  var emailController = TextEditingController(text: 'ejemplo@usach.cl');
+  var passwordController = TextEditingController(text: '1234');
+
   @override
   Widget build(BuildContext context) {
     final logo = Hero(
@@ -21,18 +28,33 @@ class _LoginPageState extends State<LoginPage> {
     );
 
     final email = TextFormField(
+      // key: _formKey,
       keyboardType: TextInputType.emailAddress,
-      autofocus: false,
-      initialValue: 'example@usach.cl',
+      // autofocus: false,
+      // initialValue: 'example@usach.cl',
+      controller: emailController,
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Favor ingresar su email';
+        }
+        return null;
+      },
       decoration: InputDecoration(
         hintText: 'Email',
-        contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+        contentPadding: const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
       ),
     );
 
     final password = TextFormField(
-      autofocus: false,
+      controller: passwordController,
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Favor ingresar su contraseña';
+        }
+        return null;
+      },
+      // autofocus: false,
       // initialValue: 'some password',
       obscureText: true,
       decoration: InputDecoration(
@@ -52,41 +74,29 @@ class _LoginPageState extends State<LoginPage> {
           backgroundColor: Colors.orange,
           padding: const EdgeInsets.all(12),
         ),
-        onPressed: () {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) {
-                return const HomeScreen();
-              },
-            ),
-          );
-        },
+        onPressed: () =>
+            _validateUser(emailController.text, passwordController.text),
         child: const Text('Log In', style: TextStyle(color: Colors.white)),
       ),
     );
 
-    final forgotLabel = TextButton(
-      child: const Text(
-        'Forgot password?',
-        style: TextStyle(color: Colors.black54),
-      ),
-      onPressed: () {},
-    );
+    // final forgotLabel = TextButton(
+    //   child: const Text(
+    //     'Forgot password?',
+    //     style: TextStyle(color: Colors.black54),
+    //   ),
+    //   onPressed: () {},
+    // );
 
     final signUpLabel = TextButton(
       child: const Text(
         'Sign Up',
         style: TextStyle(color: Colors.black54),
       ),
-      onPressed: () {
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) {
-              return const SignUpPage();
-            },
-          ),
-        );
-      },
+      onPressed: () =>
+          Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+        return const SignUpPage();
+      })),
     );
 
     return Scaffold(
@@ -103,11 +113,33 @@ class _LoginPageState extends State<LoginPage> {
             password,
             SizedBox(height: 24.0),
             loginButton,
-            forgotLabel,
+            // forgotLabel,
             signUpLabel
           ],
         ),
       ),
     );
+  }
+
+  Future<void> _validateUser(String email, String password) async {
+    var result = await MongoDatabase.findUser(email, password);
+
+    if (email == '' || password == '') {
+      // ignore: use_build_context_synchronously
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text('Agregue un email y contraseña'),
+      ));
+    } else {
+      if (result == true) {
+        Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+          return const HomeScreen();
+        }));
+      } else {
+        // ignore: use_build_context_synchronously
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text('Credenciales incorrectas'),
+        ));
+      }
+    }
   }
 }

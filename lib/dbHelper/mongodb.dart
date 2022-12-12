@@ -62,4 +62,17 @@ class MongoDatabase {
       return e.toString();
     }
   }
+
+  static Future<bool> findUser(String Email, String Password) async {
+    var res = await users.findOne(where.eq('email', Email));
+    if (res != null) {
+      if (res['password'] == Password) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
+  }
 }
