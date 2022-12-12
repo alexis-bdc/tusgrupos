@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:tusgrupos/screens/grupo_screen.dart';
 import 'package:tusgrupos/screens/grupos_card.dart';
+import 'package:tusgrupos/dbHelper/mongodb.dart';
+import 'package:tusgrupos/models/group_model.dart';
 
 class VerMisGrupos extends StatelessWidget {
   @override
@@ -9,9 +12,39 @@ class VerMisGrupos extends StatelessWidget {
         backgroundColor: Colors.orange,
         title: Text('Mis grupos'),
       ),
-      body: ListView.builder(
-          itemCount: 10,
-          itemBuilder: (BuildContext context, int index) => GruposCard()),
+      body: FutureBuilder(
+        future: MongoDatabase.getGrupos(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          } else {
+            if (snapshot.hasData) {
+              var totalData = snapshot.data?.length;
+              //print("total Data" + totalData.toString());
+              return ListView.builder(
+                itemCount: totalData,
+                itemBuilder: (BuildContext context, int index) =>
+                    GestureDetector(
+                        onTap: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const GrupoScreen(),
+                              ),
+                            ),
+                        child: GruposCard(
+                          grupo: groupModel.fromJson(snapshot.data![index]),
+                        )),
+              );
+            } else {
+              return Center(
+                child: Text("No data available."),
+              );
+            }
+          }
+        },
+      ),
     );
   }
 }

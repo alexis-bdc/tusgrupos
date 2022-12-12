@@ -20,6 +20,11 @@ class MongoDatabase {
     groups = db.collection(GROUP_COLLECTION);
   }
 
+  static Future<List<Map<String, dynamic>>> getGrupos() async {
+    final arrData = await groups.find().toList();
+    return arrData;
+  }
+
   static Future<void> insert() async {
     try {} catch (e) {
       print(e.toString());

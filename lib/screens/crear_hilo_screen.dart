@@ -88,12 +88,14 @@ class CrearHilo extends StatelessWidget {
                     if (value == null) return 'Campo requerido';
                     return value.length < 8 ? 'Ingresar cuerpo del Hilo' : null;
                   },
+                  minLines: 5,
+                  maxLines: 10,
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   decoration: const InputDecoration(
                     hintText: 'Hilo',
                     labelText: 'Cuerpo del Hilo',
                     contentPadding:
-                        EdgeInsets.symmetric(horizontal: 50, vertical: 50),
+                        EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                     icon: Icon(Icons.verified_user_outlined),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.only(

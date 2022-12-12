@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:tusgrupos/dbHelper/mongodb.dart';
+import 'package:tusgrupos/models/group_model.dart';
 
 class GruposCard extends StatelessWidget {
+  final groupModel grupo;
+
+  const GruposCard({Key? key, required this.grupo}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -12,7 +18,7 @@ class GruposCard extends StatelessWidget {
         decoration: _cardBorders(),
         child: Stack(
           alignment: Alignment.bottomLeft,
-          children: [_BackgroundImage(), _DetalleGrupo()],
+          children: [_BackgroundImage(), _DetalleGrupo(grupo: grupo)],
         ),
       ),
     );
@@ -20,9 +26,9 @@ class GruposCard extends StatelessWidget {
 }
 
 class _DetalleGrupo extends StatelessWidget {
-  const _DetalleGrupo({
-    Key? key,
-  }) : super(key: key);
+  final groupModel grupo;
+
+  const _DetalleGrupo({Key? key, required this.grupo}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -33,14 +39,14 @@ class _DetalleGrupo extends StatelessWidget {
       child: Column(
         children: [
           Text(
-            'Nombre Grupo',
+            '${grupo.Name}',
             style: TextStyle(
                 fontSize: 20, color: Colors.black, fontWeight: FontWeight.bold),
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
           ),
           Text(
-            'Descripción del grupo AHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA',
+            '${grupo.Description}',
             style: TextStyle(
                 fontSize: 15, color: Colors.black, fontWeight: FontWeight.bold),
             maxLines: 3,

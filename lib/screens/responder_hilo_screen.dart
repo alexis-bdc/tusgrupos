@@ -74,6 +74,8 @@ class ResponderHilo extends StatelessWidget {
                     if (value == null) return 'Campo requerido';
                     return value.length < 8 ? 'Ingresar título' : null;
                   },
+                  minLines: 5,
+                  maxLines: 10,
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   decoration: const InputDecoration(
                     hintText: 'Respuesta',
