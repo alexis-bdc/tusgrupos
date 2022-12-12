@@ -30,7 +30,9 @@ class VerMisGrupos extends StatelessWidget {
                         onTap: () => Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => const GrupoScreen(),
+                                builder: (context) => GrupoScreen(
+                                    grupo: groupModel
+                                        .fromJson(snapshot.data![index])),
                               ),
                             ),
                         child: GruposCard(
