@@ -15,9 +15,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: LoginPage(),
+      home: const LoginPage(),
       theme: ThemeData.light().copyWith(
-          appBarTheme: AppBarTheme(
+          appBarTheme: const AppBarTheme(
         color: Colors.orange,
       )),
     );

@@ -25,24 +25,24 @@ class MongoDatabase {
     return arrData;
   }
 
-  static Future<void> insert() async {
-    try {} catch (e) {
-      print(e.toString());
-    }
-  }
+  // static Future<void> insert() async {
+  //   try {} catch (e) {
+  //     print(e.toString());
+  //   }
+  // }
 
   static Future<String> insertUser(userModel user) async {
     try {
       // return await userCollection.insert(user.toJson());
       var result = await users.insertOne(user.toJson());
       if (result.isSuccess) {
-        print(user);
+        // print(user);
         return "Success";
       } else {
         return "Error";
       }
     } catch (e) {
-      print(e.toString());
+      // print(e.toString());
       return e.toString();
     }
   }
@@ -52,27 +52,36 @@ class MongoDatabase {
       // return await userCollection.insert(user.toJson());
       var result = await groups.insertOne(group.toJson());
       if (result.isSuccess) {
-        print(group);
+        // print(group);
         return "Success";
       } else {
         return "Error";
       }
     } catch (e) {
-      print(e.toString());
+      // print(e.toString());
       return e.toString();
     }
   }
 
-  static Future<bool> findUser(String Email, String Password) async {
-    var res = await users.findOne(where.eq('email', Email));
+  static Future<bool> findUser(String email, String password) async {
+    var res = await users.findOne(where.eq('email', email));
     if (res != null) {
-      if (res['password'] == Password) {
+      if (res['password'] == password) {
         return true;
       } else {
         return false;
       }
     } else {
       return false;
+    }
+  }
+
+  static Future<String> getUserId(String email) async {
+    var res = await users.findOne(where.eq('email', email));
+    if (res != null) {
+      return res['_id'].toString();
+    } else {
+      return '';
     }
   }
 }
