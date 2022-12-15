@@ -11,6 +11,7 @@ class MongoDatabase {
   static var db;
   static var users;
   static var groups;
+  static var inscriptions;
 
   static connect() async {
     db = await Db.create(MONGO_CONN_URL);
@@ -18,6 +19,7 @@ class MongoDatabase {
     inspect(db);
     users = db.collection(USER_COLLECTION);
     groups = db.collection(GROUP_COLLECTION);
+    inscriptions = db.collection(INSCRIPTIONS_COLLECTION);
   }
 
   static Future<List<Map<String, dynamic>>> getGrupos() async {
