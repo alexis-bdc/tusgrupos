@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tusgrupos/dbHelper/mongodb.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:tusgrupos/models/group_model.dart';
-import 'package:tusgrupos/models/user_model.dart';
-
-import 'package:mongo_dart/mongo_dart.dart' as M;
 import 'package:tusgrupos/screens/landing_screen.dart';
+import 'package:tusgrupos/models/user_model.dart';
+import 'package:tusgrupos/screens/menus.dart';
+import 'package:mongo_dart/mongo_dart.dart' as M;
 
 class CreateGroup extends StatefulWidget {
   const CreateGroup({Key? key}) : super(key: key);
@@ -16,19 +17,22 @@ class CreateGroup extends StatefulWidget {
 }
 
 class _CreateGroupState extends State<CreateGroup> {
-  @override
   final _formkey = GlobalKey<FormState>();
   var NombreControler = TextEditingController();
   var descripcionControler = TextEditingController();
   var claveControler = TextEditingController();
+  var user;
 
+  @override
   Widget build(BuildContext context) {
     // TODO: crear grupo screen
 
     return Scaffold(
+      backgroundColor: Color.fromARGB(255, 190, 173, 185),
+
       //--------------------appbar--------------------
       appBar: AppBar(
-          backgroundColor: Colors.orange,
+          backgroundColor: const Color.fromARGB(255, 120, 58, 100),
           title: const Text("Crear Grupo"),
           leading: Builder(
             builder: (BuildContext context) {
@@ -50,6 +54,7 @@ class _CreateGroupState extends State<CreateGroup> {
           ]),
 
       //--------------------drawer--------------------
+      drawer: const MenuDrawer(),
 
       //--------------------body--------------------
       body: Container(
@@ -63,10 +68,19 @@ class _CreateGroupState extends State<CreateGroup> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  //-------------------nombre-------------------------
                   TextFormField(
                     controller: NombreControler,
-                    decoration: const InputDecoration(
+                    decoration: InputDecoration(
                       hintText: 'Nombre del grupo',
+                      filled: true,
+                      fillColor: Colors.grey.shade200,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
                     ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -75,10 +89,19 @@ class _CreateGroupState extends State<CreateGroup> {
                       return null;
                     },
                   ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  //-------------------descripcion-------------------------
                   TextFormField(
                     controller: descripcionControler,
-                    decoration: const InputDecoration(
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Colors.grey.shade200,
                       hintText: 'Descripcion del grupo',
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
                     ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -89,10 +112,22 @@ class _CreateGroupState extends State<CreateGroup> {
                     minLines: 5,
                     maxLines: 10,
                   ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  //---------------activar clave--------------------
+
+                  //-------------------clave-------------------------
                   TextFormField(
                     controller: claveControler,
-                    decoration: const InputDecoration(
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Colors.grey.shade200,
                       hintText: 'Clave del grupo',
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      prefixIcon: const Icon(Icons.lock),
                     ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -104,51 +139,48 @@ class _CreateGroupState extends State<CreateGroup> {
                 ],
               ),
             ),
+            const SizedBox(height: 30),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                IconButton(
+                  onPressed: () {
+                    if (_formkey.currentState!.validate()) {
+                      _insertGroup(NombreControler.text,
+                          descripcionControler.text, claveControler.text);
+                    }
+                  },
+                  icon: const Icon(Icons.check),
+                  tooltip: 'confirmar',
+                  // disabledColor: Colors.grey,
+                  color: Colors.green,
+                  iconSize: 40,
+                ),
+                // IconButton(
+                //   onPressed: onPressed,
+                //   icon: const Icon(Icons.cancel)),
+              ],
+            )
           ],
         ),
-      ),
-      //--------------------BottomNavigationBar------------------------------
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.check),
-            label: 'Confirmar',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.cancel),
-            label: 'Cancelar',
-          )
-        ],
-        currentIndex: 0,
-        selectedItemColor: Colors.green,
-        unselectedItemColor: Colors.red,
-        onTap: (index) {
-          if (index == 0) {
-            _insertGroup(NombreControler.text, descripcionControler.text,
-                claveControler.text);
-            Navigator.of(context)
-                .push(MaterialPageRoute(builder: (context) => const Landing()));
-          } else if (index == 1) {
-            Navigator.of(context)
-                .push(MaterialPageRoute(builder: (context) => const Landing()));
-          }
-        },
       ),
     );
   }
 
   void _insertGroup(String nombre, String descripcion, String clave) async {
+    final prefs = await SharedPreferences.getInstance();
+
     var _id = M.ObjectId();
-    // var userid = widget.user.id;
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    final useremail = prefs.getString('emailUser');
-    //print(prefs.getString('emailUser').toString());
+    final String? dueno = prefs.getString('idUser');
+
     final group = groupModel(
-        id: _id,
-        Owner: useremail.toString(),
-        Name: nombre,
-        Description: descripcion,
-        password: clave);
+      id: _id,
+      Owner: dueno,
+      Name: nombre,
+      Description: descripcion,
+      password: clave,
+    );
 
     var result = await MongoDatabase.insertGroup(group);
     ScaffoldMessenger.of(context).showSnackBar(
