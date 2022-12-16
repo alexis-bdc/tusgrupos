@@ -12,13 +12,13 @@ String groupModelToJson(groupModel data) => json.encode(data.toJson());
 class groupModel {
   groupModel(
       {required this.id,
-      required this.Owner,
+      this.Owner,
       required this.Name,
       required this.Description,
       required this.password});
 
   ObjectId id;
-  String Owner;
+  String? Owner;
   String Name;
   String Description;
   // String Admin;

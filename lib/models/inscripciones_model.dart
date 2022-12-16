@@ -1,5 +1,3 @@
-// ignore_for_file: camel_case_types
-
 import 'package:mongo_dart/mongo_dart.dart';
 import 'dart:convert';
 

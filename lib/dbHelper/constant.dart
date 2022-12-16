@@ -6,3 +6,4 @@ const MONGO_CONN_URL =
     "mongodb+srv://develop_user:test@Cluster0.qbeiq3t.mongodb.net/TusGruposDb?retryWrites=true&w=majority";
 const USER_COLLECTION = "users";
 const GROUP_COLLECTION = "group";
+const INSCRIPTIONS_COLLECTION = "inscriptions";

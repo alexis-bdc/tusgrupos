@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:tusgrupos/screens/buscar_grupo_screen.dart';
-import 'package:tusgrupos/screens/crear_grup_screen.dart';
+import 'package:tusgrupos/screens/crear_grupo_screen.dart';
 import 'package:tusgrupos/screens/inscribir_grupo_screen.dart';
-import 'package:tusgrupos/screens/menu_drawer.dart';
+import 'package:tusgrupos/screens/menus.dart';
 import 'package:tusgrupos/screens/crear_hilo_screen.dart';
 import 'package:tusgrupos/screens/responder_hilo_screen.dart';
 
