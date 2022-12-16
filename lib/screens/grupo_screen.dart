@@ -10,7 +10,7 @@ class GrupoScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.orange,
+        backgroundColor: Color.fromARGB(255, 120, 58, 100),
         title: Text('${grupo.Name}'),
       ),
       body: SingleChildScrollView(
