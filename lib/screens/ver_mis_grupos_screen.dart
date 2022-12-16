@@ -11,7 +11,7 @@ class VerMisGrupos extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.orange,
+        backgroundColor: Colors.purple,
         title: Text('Mis grupos'),
       ),
       body: FutureBuilder(
