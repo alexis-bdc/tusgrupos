@@ -34,16 +34,16 @@ class _CreateGroupState extends State<CreateGroup> {
       appBar: AppBar(
           backgroundColor: const Color.fromARGB(255, 120, 58, 100),
           title: const Text("Crear Grupo"),
-          leading: Builder(
-            builder: (BuildContext context) {
-              return IconButton(
-                icon: const Icon(Icons.menu),
-                onPressed: () {
-                  Scaffold.of(context).openDrawer();
-                },
-              );
-            },
-          ),
+          //leading: Builder(
+          //builder: (BuildContext context) {
+          //return IconButton(
+          //icon: const Icon(Icons.menu),
+          //onPressed: () {
+          //Scaffold.of(context).openDrawer();
+          //},
+          //);
+          //},
+          //),
           actions: <Widget>[
             IconButton(
               //todo: conectar a buscar grupo
@@ -54,7 +54,7 @@ class _CreateGroupState extends State<CreateGroup> {
           ]),
 
       //--------------------drawer--------------------
-      drawer: const MenuDrawer(),
+      //drawer: const MenuDrawer(),
 
       //--------------------body--------------------
       body: Container(

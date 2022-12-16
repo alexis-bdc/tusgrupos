@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:tusgrupos/screens/menus.dart';
 
+import 'package:tusgrupos/dbHelper/mongodb.dart';
+import 'package:tusgrupos/models/group_model.dart';
+
+import 'package:tusgrupos/screens/grupo_screen.dart';
+import 'package:tusgrupos/screens/grupos_card.dart';
+
 class BuscarGrupo extends StatefulWidget {
   const BuscarGrupo({super.key});
 

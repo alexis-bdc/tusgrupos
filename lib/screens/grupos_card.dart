@@ -83,7 +83,7 @@ class _BackgroundImage extends StatelessWidget {
 }
 
 BoxDecoration _cardBorders() => BoxDecoration(
-        color: Colors.pink,
+        color: Colors.pinkAccent,
         borderRadius: BorderRadius.circular(50),
         boxShadow: [
           BoxShadow(
