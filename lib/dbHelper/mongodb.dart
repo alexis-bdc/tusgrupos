@@ -86,4 +86,9 @@ class MongoDatabase {
       return '';
     }
   }
+
+  static Future<List<groupModel>> getGroups(String nombre) async {
+    var res = await groups.find(where.eq('nombre', nombre)).tolist();
+    return res;
+  }
 }

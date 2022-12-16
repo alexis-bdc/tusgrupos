@@ -12,21 +12,21 @@ class userModel {
   userModel({
     required this.id,
     required this.Name,
-    required this.LastName,
+    // required this.LastName,
     required this.Email,
     required this.Password,
   });
 
   ObjectId id;
   String Name;
-  String LastName;
+  // String LastName;
   String Email;
   String Password;
 
   factory userModel.fromJson(Map<String, dynamic> json) => userModel(
         id: json["_id"],
         Name: json["nombre"],
-        LastName: json["apellido"],
+        // LastName: json["apellido"],
         Email: json["email"],
         Password: json["password"],
       );
@@ -34,7 +34,7 @@ class userModel {
   Map<String, dynamic> toJson() => {
         "_id": id,
         "nombre": Name,
-        "apellido": LastName,
+        // "apellido": LastName,
         "email": Email,
         "password": Password,
       };

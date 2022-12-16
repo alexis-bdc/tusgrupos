@@ -20,7 +20,7 @@ class _SignUpPageState extends State<SignUpPage> {
   var rememberValue = false;
   // var _passwordVisible = false;
   var NombreControler = TextEditingController();
-  var ApellidoController = TextEditingController();
+  // var ApellidoController = TextEditingController();
   var EmailController = TextEditingController();
   var PasswordController = TextEditingController();
 
@@ -48,53 +48,54 @@ class _SignUpPageState extends State<SignUpPage> {
               key: _formKey,
               child: Column(
                 children: [
-                  Row(
-                    children: [
-                      //--------------NombreControler------------------
-                      Expanded(
-                        child: TextFormField(
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Favor ingresar su nombre';
-                            }
-                            return null;
-                          },
-                          controller: NombreControler,
-                          maxLines: 1,
-                          decoration: InputDecoration(
-                            hintText: 'Nombre',
-                            prefixIcon: const Icon(Icons.person),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                          ),
-                        ),
+                  TextFormField(
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Favor ingresar su nombre';
+                      }
+                      return null;
+                    },
+                    controller: NombreControler,
+                    maxLines: 1,
+                    decoration: InputDecoration(
+                      hintText: 'Nombre',
+                      prefixIcon: const Icon(Icons.person),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
                       ),
-                      const SizedBox(
-                        width: 20,
-                      ),
-                      //--------------ApellidoController------------------
-                      Expanded(
-                        child: TextFormField(
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Favor ingresar su Apellido';
-                            }
-                            return null;
-                          },
-                          controller: ApellidoController,
-                          maxLines: 1,
-                          decoration: InputDecoration(
-                            hintText: 'Apellido',
-                            prefixIcon: const Icon(Icons.person),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
+                    ),
                   ),
+                  // Row(
+                  //   children: [
+                  //     //--------------NombreControler------------------
+                  //     Expanded(
+                  //       child:
+                  //     ),
+                  //     const SizedBox(
+                  //       width: 20,
+                  //     ),
+                  //     --------------ApellidoController------------------
+                  //     Expanded(
+                  //       child: TextFormField(
+                  //         validator: (value) {
+                  //           if (value == null || value.isEmpty) {
+                  //             return 'Favor ingresar su Apellido';
+                  //           }
+                  //           return null;
+                  //         },
+                  //         controller: ApellidoController,
+                  //         maxLines: 1,
+                  //         decoration: InputDecoration(
+                  //           hintText: 'Apellido',
+                  //           prefixIcon: const Icon(Icons.person),
+                  //           border: OutlineInputBorder(
+                  //             borderRadius: BorderRadius.circular(10),
+                  //           ),
+                  //         ),
+                  //       ),
+                  //     ),
+                  //   ],
+                  // ),
                   const SizedBox(
                     height: 20,
                   ),
@@ -143,7 +144,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       if (_formKey.currentState!.validate()) {
                         _insertUser(
                             NombreControler.text,
-                            ApellidoController.text,
+                            // ApellidoController.text,
                             EmailController.text,
                             PasswordController.text);
                       }
@@ -190,14 +191,14 @@ class _SignUpPageState extends State<SignUpPage> {
   Future<void> _insertUser(
       // ignore: non_constant_identifier_names
       String Nombre,
-      String Apellido,
+      // String Apellido,
       String email,
       String password) async {
     var _id = M.ObjectId();
     final user = userModel(
         id: _id,
         Name: Nombre,
-        LastName: Apellido,
+        // LastName: Apellido,
         Email: email,
         Password: password);
 
@@ -213,7 +214,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
   void _clearAll() {
     NombreControler.clear();
-    ApellidoController.clear();
+    // ApellidoController.clear();
     EmailController.clear();
     PasswordController.clear();
   }
