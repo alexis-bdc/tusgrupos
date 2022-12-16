@@ -37,8 +37,9 @@ class _SignUpPageState extends State<SignUpPage> {
             const Text(
               'Registro',
               style: TextStyle(
+                color: Color.fromARGB(255, 50, 0, 148),
                 fontWeight: FontWeight.bold,
-                fontSize: 40,
+                fontSize: 45,
               ),
             ),
             const SizedBox(
@@ -60,6 +61,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     decoration: InputDecoration(
                       hintText: 'Nombre',
                       prefixIcon: const Icon(Icons.person),
+                      prefixIconColor: const Color.fromARGB(255, 50, 0, 148),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
@@ -108,6 +110,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     maxLines: 1,
                     decoration: InputDecoration(
                       hintText: 'Correo',
+                      prefixIconColor: const Color.fromARGB(255, 50, 0, 148),
                       prefixIcon: const Icon(Icons.email),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
@@ -129,6 +132,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     maxLines: 1,
                     obscureText: true,
                     decoration: InputDecoration(
+                      prefixIconColor: const Color.fromARGB(255, 50, 0, 148),
                       prefixIcon: const Icon(Icons.lock),
                       hintText: 'Enter your password',
                       border: OutlineInputBorder(
@@ -151,7 +155,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     },
                     style: ElevatedButton.styleFrom(
                       padding: const EdgeInsets.fromLTRB(40, 15, 40, 15),
-                      backgroundColor: Colors.orange,
+                      backgroundColor: const Color.fromARGB(255, 172, 0, 101),
                     ),
                     child: const Text(
                       'Registrarse',
@@ -166,18 +170,21 @@ class _SignUpPageState extends State<SignUpPage> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Text('Ya tienes cuenta?'),
+                      const Text('Ya tienes cuenta? '),
                       TextButton(
-                        onPressed: () {
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => LoginPage(),
-                            ),
-                          );
-                        },
-                        child: const Text('Ingresa'),
-                      ),
+                          onPressed: () {
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => LoginPage(),
+                              ),
+                            );
+                          },
+                          style: TextButton.styleFrom(
+                            foregroundColor:
+                                const Color.fromARGB(255, 122, 195, 255),
+                          ),
+                          child: const Text('Ingresa')),
                     ],
                   ),
                 ],

@@ -50,8 +50,7 @@ class _LandingState extends State<Landing> {
         ],
         onChange: _handleNavigationChange,
         style: const FluidNavBarStyle(
-            // barBackgroundColor: Colors.deepPurpleAccent,
-            // iconBackgroundColor: Colors.pink,
+            barBackgroundColor: Color.fromARGB(255, 120, 58, 100),
             iconSelectedForegroundColor: Color.fromARGB(255, 63, 3, 43),
             iconUnselectedForegroundColor: Colors.grey),
         scaleFactor: 1.5,

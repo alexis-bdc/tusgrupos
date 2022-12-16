@@ -137,7 +137,7 @@ class _LoginPageState extends State<LoginPage> {
         SharedPreferences prefs = await SharedPreferences.getInstance();
         // get user id from db through email
         //var id = await MongoDatabase.getUserId(email);
-        prefs.setString('idUser', email);
+        prefs.setString('userEmail', email);
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => Landing()));
       } else {

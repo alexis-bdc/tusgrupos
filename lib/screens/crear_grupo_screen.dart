@@ -28,33 +28,34 @@ class _CreateGroupState extends State<CreateGroup> {
     // TODO: crear grupo screen
 
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 190, 173, 185),
+      // backgroundColor: Color.fromARGB(255, 190, 173, 185),
 
       //--------------------appbar--------------------
       appBar: AppBar(
-          backgroundColor: const Color.fromARGB(255, 120, 58, 100),
-          title: const Text("Crear Grupo"),
-          //leading: Builder(
-          //builder: (BuildContext context) {
-          //return IconButton(
-          //icon: const Icon(Icons.menu),
-          //onPressed: () {
-          //Scaffold.of(context).openDrawer();
-          //},
-          //);
-          //},
-          //),
-          actions: <Widget>[
-            IconButton(
-              //todo: conectar a buscar grupo
-              onPressed: () {},
-              icon: const Icon(Icons.search),
-              tooltip: 'buscar grupos',
-            ),
-          ]),
+        backgroundColor: const Color.fromARGB(255, 120, 58, 100),
+        title: const Text("Crear Grupo"),
+        // leading: Builder(
+        //   builder: (BuildContext context) {
+        //     return IconButton(
+        //       icon: const Icon(Icons.menu),
+        //       onPressed: () {
+        //         Scaffold.of(context).openDrawer();
+        //       },
+        //     );
+        //   },
+        // ),
+        // actions: <Widget>[
+        //   IconButton(
+        //     //todo: conectar a buscar grupo
+        //     onPressed: () {},
+        //     icon: const Icon(Icons.search),
+        //     tooltip: 'buscar grupos',
+        //   ),
+        // ]
+      ),
 
       //--------------------drawer--------------------
-      //drawer: const MenuDrawer(),
+      // drawer: const MenuDrawer(),
 
       //--------------------body--------------------
       body: Container(

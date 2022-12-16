@@ -10,7 +10,7 @@ class VerMisGrupos extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 190, 173, 185),
+      // backgroundColor: Color.fromARGB(255, 190, 173, 185),
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 120, 58, 100),
         title: Text('Mis grupos'),
