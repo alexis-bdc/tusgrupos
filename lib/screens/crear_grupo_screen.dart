@@ -154,7 +154,7 @@ class _CreateGroupState extends State<CreateGroup> {
                   icon: const Icon(Icons.check),
                   tooltip: 'confirmar',
                   // disabledColor: Colors.grey,
-                  color: Colors.green,
+                  color: Colors.green[800],
                   iconSize: 40,
                 ),
                 // IconButton(
