@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tusgrupos/screens/home_screen.dart';
-import 'package:tusgrupos/screens/menu_drawer.dart';
+import 'package:tusgrupos/screens/landing_screen.dart';
+import 'package:tusgrupos/screens/menus.dart';
 
 class ResponderHilo extends StatelessWidget {
   const ResponderHilo({super.key});
@@ -93,30 +93,30 @@ class ResponderHilo extends StatelessWidget {
             )),
       ),
       //--------------------BottomNavigationBar------------------------------
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.check),
-            label: 'Confirmar',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.cancel),
-            label: 'Cancelar',
-          )
-        ],
-        currentIndex: 0,
-        selectedItemColor: Colors.green,
-        unselectedItemColor: Colors.red,
-        onTap: (index) {
-          if (index == 0) {
-            Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => const HomeScreen()));
-          } else if (index == 1) {
-            Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => const HomeScreen()));
-          }
-        },
-      ),
+      // bottomNavigationBar: BottomNavigationBar(
+      //   items: const <BottomNavigationBarItem>[
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.check),
+      //       label: 'Confirmar',
+      //     ),
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.cancel),
+      //       label: 'Cancelar',
+      //     )
+      //   ],
+      //   currentIndex: 0,
+      //   selectedItemColor: Colors.green,
+      //   unselectedItemColor: Colors.red,
+      //   onTap: (index) {
+      //     if (index == 0) {
+      //       Navigator.of(context).push(
+      //           MaterialPageRoute(builder: (context) => const HomeScreen()));
+      //     } else if (index == 1) {
+      //       Navigator.of(context).push(
+      //           MaterialPageRoute(builder: (context) => const HomeScreen()));
+      //     }
+      //   },
+      // ),
     );
   }
 }

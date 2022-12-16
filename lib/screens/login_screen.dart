@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tusgrupos/dbHelper/mongodb.dart';
-import 'package:tusgrupos/screens/home_screen.dart';
+import 'package:tusgrupos/screens/landing_screen.dart';
+import 'package:tusgrupos/screens/landing_screen.dart';
 import 'package:tusgrupos/screens/sign_up_screen.dart';
 
 class LoginPage extends StatefulWidget {
@@ -137,9 +138,8 @@ class _LoginPageState extends State<LoginPage> {
         // get user id from db through email
         var id = await MongoDatabase.getUserId(email);
         prefs.setString('idUser', id);
-        Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-          return const HomeScreen();
-        }));
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => Landing()));
       } else {
         // ignore: use_build_context_synchronously
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(

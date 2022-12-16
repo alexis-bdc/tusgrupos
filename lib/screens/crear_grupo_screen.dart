@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:tusgrupos/dbHelper/mongodb.dart';
 import 'package:tusgrupos/models/group_model.dart';
+import 'package:tusgrupos/screens/landing_screen.dart';
 import 'package:tusgrupos/models/user_model.dart';
-import 'package:tusgrupos/screens/home_screen.dart';
-import 'package:tusgrupos/screens/menu_drawer.dart';
+import 'package:tusgrupos/screens/menus.dart';
 import 'package:mongo_dart/mongo_dart.dart' as M;
 
 class CreateGroup extends StatefulWidget {
@@ -107,32 +107,32 @@ class _CreateGroupState extends State<CreateGroup> {
         ),
       ),
       //--------------------BottomNavigationBar------------------------------
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.check),
-            label: 'Confirmar',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.cancel),
-            label: 'Cancelar',
-          )
-        ],
-        currentIndex: 0,
-        selectedItemColor: Colors.green,
-        unselectedItemColor: Colors.red,
-        onTap: (index) {
-          if (index == 0) {
-            _insertGroup(NombreControler.text, descripcionControler.text,
-                claveControler.text);
-            Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => const HomeScreen()));
-          } else if (index == 1) {
-            Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => const HomeScreen()));
-          }
-        },
-      ),
+      // bottomNavigationBar: BottomNavigationBar(
+      //   items: const <BottomNavigationBarItem>[
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.check),
+      //       label: 'Confirmar',
+      //     ),
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.cancel),
+      //       label: 'Cancelar',
+      //     )
+      //   ],
+      //   currentIndex: 0,
+      //   selectedItemColor: Colors.green,
+      //   unselectedItemColor: Colors.red,
+      //   onTap: (index) {
+      //     if (index == 0) {
+      //       _insertGroup(NombreControler.text, descripcionControler.text,
+      //           claveControler.text);
+      //       Navigator.of(context).push(
+      //           MaterialPageRoute(builder: (context) => const HomeScreen()));
+      //     } else if (index == 1) {
+      //       Navigator.of(context).push(
+      //           MaterialPageRoute(builder: (context) => const HomeScreen()));
+      //     }
+      //   },
+      // ),
     );
   }
 
