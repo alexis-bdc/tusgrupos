@@ -4,6 +4,8 @@ import 'package:tusgrupos/screens/grupos_card.dart';
 import 'package:tusgrupos/dbHelper/mongodb.dart';
 import 'package:tusgrupos/models/group_model.dart';
 
+import 'package:shared_preferences/shared_preferences.dart';
+
 class VerMisGrupos extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -13,7 +15,7 @@ class VerMisGrupos extends StatelessWidget {
         title: Text('Mis grupos'),
       ),
       body: FutureBuilder(
-        future: MongoDatabase.getGrupos(),
+        future: MongoDatabase.getGruposQuery(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(
@@ -48,5 +50,13 @@ class VerMisGrupos extends StatelessWidget {
         },
       ),
     );
+  }
+
+  Future<String> getUserEmail() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String? email = prefs.getString('emailUser');
+    //print(email);
+    //setState(() => _userEmail = email);
+    return email!;
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tusgrupos/screens/buscar_grupo_screen.dart';
 import 'package:tusgrupos/screens/crear_grup_screen.dart';
 import 'package:tusgrupos/screens/menu_drawer.dart';
@@ -41,7 +42,10 @@ class HomeScreen extends StatelessWidget {
             children: <Widget>[
               //todo: conectar a lista de grupos participante
               ElevatedButton(
-                onPressed: () {
+                onPressed: () async {
+                  SharedPreferences prefs =
+                      await SharedPreferences.getInstance();
+                  print(prefs.getString('idUser'));
                   Navigator.push(
                     context,
                     MaterialPageRoute(

@@ -78,7 +78,7 @@ class _LoginPageState extends State<LoginPage> {
         ),
         onPressed: () =>
             _validateUser(emailController.text, passwordController.text),
-        child: const Text('Log In', style: TextStyle(color: Colors.white)),
+        child: const Text('Ingresar', style: TextStyle(color: Colors.white)),
       ),
     );
 
@@ -92,7 +92,7 @@ class _LoginPageState extends State<LoginPage> {
 
     final signUpLabel = TextButton(
       child: const Text(
-        'Sign Up',
+        'Crear Cuenta',
         style: TextStyle(color: Colors.black54),
       ),
       onPressed: () =>
@@ -135,8 +135,11 @@ class _LoginPageState extends State<LoginPage> {
       if (result == true) {
         SharedPreferences prefs = await SharedPreferences.getInstance();
         // get user id from db through email
-        var id = await MongoDatabase.getUserId(email);
-        prefs.setString('idUser', id);
+        //var id = await MongoDatabase.getUserId(email);
+        prefs.setString('emailUser', email);
+        //print("prefs:" + prefs.getString('emailUser').toString());
+        //print(email);
+        //print(id.runtimeType);
         Navigator.of(context).push(MaterialPageRoute(builder: (context) {
           return const HomeScreen();
         }));

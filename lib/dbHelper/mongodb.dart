@@ -7,6 +7,8 @@ import 'package:tusgrupos/models/user_model.dart';
 // import 'package:tusgrupos/models/comments_model.dart';
 // import 'package:tusgrupos/models/files_model.dart';
 
+import 'package:shared_preferences/shared_preferences.dart';
+
 class MongoDatabase {
   static var db;
   static var users;
@@ -22,6 +24,14 @@ class MongoDatabase {
 
   static Future<List<Map<String, dynamic>>> getGrupos() async {
     final arrData = await groups.find().toList();
+    return arrData;
+  }
+
+  static Future<List<Map<String, dynamic>>> getGruposQuery() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String? email = prefs.getString('emailUser');
+    final arrData = await groups.find(where.eq('owner', email)).toList();
+    //print("Buscando" + email.toString() + "En Mongo");
     return arrData;
   }
 
@@ -79,6 +89,7 @@ class MongoDatabase {
   static Future<String> getUserId(String email) async {
     var res = await users.findOne(where.eq('email', email));
     if (res != null) {
+      print(res);
       return res['_id'].toString();
     } else {
       return '';

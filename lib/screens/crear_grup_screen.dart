@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:tusgrupos/dbHelper/mongodb.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 import 'package:tusgrupos/models/group_model.dart';
 import 'package:tusgrupos/models/user_model.dart';
+
 import 'package:tusgrupos/screens/home_screen.dart';
 import 'package:tusgrupos/screens/menu_drawer.dart';
+
 import 'package:mongo_dart/mongo_dart.dart' as M;
 
 class CreateGroup extends StatefulWidget {
@@ -139,13 +143,20 @@ class _CreateGroupState extends State<CreateGroup> {
   void _insertGroup(String nombre, String descripcion, String clave) async {
     var _id = M.ObjectId();
     // var userid = widget.user.id;
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final useremail = prefs.getString('emailUser');
+    //print(prefs.getString('emailUser').toString());
     final group = groupModel(
-        id: _id, Name: nombre, Description: descripcion, password: clave);
+        id: _id,
+        Owner: useremail.toString(),
+        Name: nombre,
+        Description: descripcion,
+        password: clave);
 
     var result = await MongoDatabase.insertGroup(group);
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
-        content: Text('Nuevo Usuario'),
+        content: Text('Nuevo Grupo'),
       ),
     );
     _clearAll();
