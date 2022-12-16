@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
       home: const LoginPage(),
       theme: ThemeData.light().copyWith(
           appBarTheme: const AppBarTheme(
-        color: Colors.orange,
+        color: const Color.fromARGB(255, 120, 58, 100),
       )),
     );
   }

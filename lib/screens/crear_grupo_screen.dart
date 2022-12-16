@@ -32,29 +32,30 @@ class _CreateGroupState extends State<CreateGroup> {
 
       //--------------------appbar--------------------
       appBar: AppBar(
-          backgroundColor: const Color.fromARGB(255, 120, 58, 100),
-          title: const Text("Crear Grupo"),
-          leading: Builder(
-            builder: (BuildContext context) {
-              return IconButton(
-                icon: const Icon(Icons.menu),
-                onPressed: () {
-                  Scaffold.of(context).openDrawer();
-                },
-              );
-            },
-          ),
-          actions: <Widget>[
-            IconButton(
-              //todo: conectar a buscar grupo
-              onPressed: () {},
-              icon: const Icon(Icons.search),
-              tooltip: 'buscar grupos',
-            ),
-          ]),
+        backgroundColor: const Color.fromARGB(255, 120, 58, 100),
+        title: const Text("Crear Grupo"),
+        // leading: Builder(
+        //   builder: (BuildContext context) {
+        //     return IconButton(
+        //       icon: const Icon(Icons.menu),
+        //       onPressed: () {
+        //         Scaffold.of(context).openDrawer();
+        //       },
+        //     );
+        //   },
+        // ),
+        // actions: <Widget>[
+        //   IconButton(
+        //     //todo: conectar a buscar grupo
+        //     onPressed: () {},
+        //     icon: const Icon(Icons.search),
+        //     tooltip: 'buscar grupos',
+        //   ),
+        // ]
+      ),
 
       //--------------------drawer--------------------
-      drawer: const MenuDrawer(),
+      // drawer: const MenuDrawer(),
 
       //--------------------body--------------------
       body: Container(
@@ -154,7 +155,7 @@ class _CreateGroupState extends State<CreateGroup> {
                   icon: const Icon(Icons.check),
                   tooltip: 'confirmar',
                   // disabledColor: Colors.grey,
-                  color: Colors.green,
+                  color: Colors.green[800],
                   iconSize: 40,
                 ),
                 // IconButton(

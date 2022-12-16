@@ -14,7 +14,9 @@ class _BuscarState extends State<BuscarGrupo> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 201, 146, 183),
+      backgroundColor: Color.fromARGB(255, 190, 173, 185),
+
+      // backgroundColor: const Color.fromARGB(255, 201, 146, 183),
       //--------------------appbar--------------------
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 120, 58, 100),

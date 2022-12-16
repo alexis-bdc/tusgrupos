@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tusgrupos/screens/buscar_grupo_screen.dart';
 import 'package:tusgrupos/screens/crear_grupo_screen.dart';
+import 'package:tusgrupos/screens/grupos_creados_screen.dart';
 // import 'package:tusgrupos/screens/menus.dart';
 // import 'package:tusgrupos/screens/participacion_grupo_screen.dart';
 import 'package:tusgrupos/screens/ver_mis_grupos_screen.dart';
@@ -35,7 +36,7 @@ class _LandingState extends State<Landing> {
       bottomNavigationBar: FluidNavBar(
         icons: [
           FluidNavBarIcon(
-              icon: Icons.group_add,
+              icon: Icons.groups_rounded,
               backgroundColor: Colors.pink[100],
               extras: {"label": "Crear"}),
           FluidNavBarIcon(
@@ -54,7 +55,7 @@ class _LandingState extends State<Landing> {
             iconSelectedForegroundColor: Color.fromARGB(255, 63, 3, 43),
             iconUnselectedForegroundColor: Colors.grey),
         scaleFactor: 1.5,
-        // defaultIndex: 0,
+        defaultIndex: 1,
         itemBuilder: (icon, item) => Semantics(
           label: icon.extras!["label"],
           child: item,
@@ -67,7 +68,7 @@ class _LandingState extends State<Landing> {
     setState(() {
       switch (index) {
         case 0:
-          _child = CreateGroup();
+          _child = GruposCreadosScreen();
           break;
         case 1:
           _child = VerMisGrupos();
