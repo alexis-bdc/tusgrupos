@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:mongo_dart/mongo_dart.dart';
 import 'package:tusgrupos/dbHelper/constant.dart';
+import 'package:tusgrupos/models/comments_model.dart';
 import 'package:tusgrupos/models/group_model.dart';
 import 'package:tusgrupos/models/user_model.dart';
 // import 'package:tusgrupos/models/comments_model.dart';
@@ -15,6 +16,7 @@ class MongoDatabase {
   static var users;
   static var groups;
   static var inscriptions;
+  static var comments;
 
   static connect() async {
     db = await Db.create(MONGO_CONN_URL);
@@ -23,6 +25,7 @@ class MongoDatabase {
     users = db.collection(USER_COLLECTION);
     groups = db.collection(GROUP_COLLECTION);
     inscriptions = db.collection(INSCRIPTIONS_COLLECTION);
+    comments = db.collection(COMMENTS_COLLECTION);
   }
 
   static Future<List<Map<String, dynamic>>> getGrupos() async {
@@ -120,6 +123,27 @@ class MongoDatabase {
         return res;
       }
     }
+  }
+
+  static Future<String> insertComment(commentModel comment) async {
+    try {
+      // return await userCollection.insert(user.toJson());
+      var result = await comments.insertOne(comment.toJson());
+      if (result.isSuccess) {
+        // print(group);
+        return "Success";
+      } else {
+        return "Error";
+      }
+    } catch (e) {
+      // print(e.toString());
+      return e.toString();
+    }
+  }
+
+  static Future<List<Map<String, dynamic>>> getComments() async {
+    final arrData = await comments.find().toList();
+    return arrData;
   }
 
   // static Future<List<Map<String, dynamic>>> getOwnedGroups(

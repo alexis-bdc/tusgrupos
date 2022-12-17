@@ -20,7 +20,7 @@ class commentModel {
 
   ObjectId id;
   String Owner;
-  String Group;
+  ObjectId Group;
   String Comment;
   DateTime Date;
 

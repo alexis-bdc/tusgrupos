@@ -1,12 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tusgrupos/models/comments_model.dart';
 import 'package:tusgrupos/models/group_model.dart';
-import 'package:tusgrupos/screens/landing_screen.dart';
-import 'package:tusgrupos/screens/menus.dart';
+
+import '../dbHelper/mongodb.dart';
+import 'package:mongo_dart/mongo_dart.dart' as M;
+
+//
+//TO DO: Tiene que haber una retroalimentación de la creación del hilo
+//      También falta modificar el modelo del hilo para que guarde el título
+//      Falta hacer la pantalla del hilo
+//
 
 class CrearHilo extends StatelessWidget {
   final groupModel grupo;
 
-  const CrearHilo({Key? key, required this.grupo}) : super(key: key);
+  var tituloController = TextEditingController();
+  var descripcionController = TextEditingController();
+  var user;
+
+  CrearHilo({Key? key, required this.grupo}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -38,23 +51,26 @@ class CrearHilo extends StatelessWidget {
                     ],
                   ),
                 ),
-                SizedBox(height: 30),
+                const SizedBox(height: 30),
                 TextFormField(
+                  controller: tituloController,
                   autofocus: true,
                   //initialValue: "Clave",
                   //obscureText: true,
-                  onChanged: (value) {
-                    print('value: $value');
-                  },
                   validator: (value) {
-                    if (value == null) return 'Campo requerido';
-                    return value.length < 8 ? 'Ingresar título' : null;
+                    if (value == null || value.isEmpty) {
+                      return 'Por favor ingrese un nombre';
+                    }
+                    return null;
                   },
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   decoration: const InputDecoration(
                     hintText: 'Título',
                     labelText: 'Título Hilo',
-                    icon: Icon(Icons.verified_user_outlined),
+                    icon: Icon(
+                      Icons.title_outlined,
+                      color: Colors.purple,
+                    ),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.only(
                         bottomLeft: Radius.circular(10),
@@ -63,26 +79,27 @@ class CrearHilo extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(height: 30),
+                const SizedBox(height: 30),
                 TextFormField(
                   //initialValue: "Clave",
                   //obscureText: true,
-                  onChanged: (value) {
-                    print('value: $value');
-                  },
-                  validator: (value) {
-                    if (value == null) return 'Campo requerido';
-                    return value.length < 8 ? 'Ingresar cuerpo del Hilo' : null;
-                  },
+                  controller: descripcionController,
                   minLines: 5,
                   maxLines: 10,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Por favor ingrese un nombre';
+                    }
+                    return null;
+                  },
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   decoration: const InputDecoration(
                     hintText: 'Hilo',
                     labelText: 'Cuerpo del Hilo',
                     contentPadding:
                         EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                    icon: Icon(Icons.verified_user_outlined),
+                    icon:
+                        Icon(Icons.description_outlined, color: Colors.purple),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.only(
                         bottomLeft: Radius.circular(10),
@@ -90,35 +107,57 @@ class CrearHilo extends StatelessWidget {
                       ),
                     ),
                   ),
-                )
+                ),
+                const SizedBox(height: 30),
+                IconButton(
+                  onPressed: () {
+                    _insertComment(
+                        tituloController.text, descripcionController.text);
+                    print('Comentario insertado!');
+                  },
+                  icon: const Icon(Icons.check),
+                  tooltip: 'confirmar',
+                  // disabledColor: Colors.grey,
+                  color: Colors.green[800],
+                  iconSize: 40,
+                ),
               ],
             )),
       ),
-      // //--------------------BottomNavigationBar------------------------------
-      // bottomNavigationBar: BottomNavigationBar(
-      //   items: const <BottomNavigationBarItem>[
-      //     BottomNavigationBarItem(
-      //       icon: Icon(Icons.check),
-      //       label: 'Confirmar',
-      //     ),
-      //     BottomNavigationBarItem(
-      //       icon: Icon(Icons.cancel),
-      //       label: 'Cancelar',
-      //     )
-      //   ],
-      //   currentIndex: 0,
-      //   selectedItemColor: Colors.green,
-      //   unselectedItemColor: Colors.red,
-      //   onTap: (index) {
-      //     if (index == 0) {
-      //       Navigator.of(context).push(
-      //           MaterialPageRoute(builder: (context) => const HomeScreen()));
-      //     } else if (index == 1) {
-      //       Navigator.of(context).push(
-      //           MaterialPageRoute(builder: (context) => const HomeScreen()));
-      //     }
-      //   },
-      // ),
     );
+  }
+
+  void _insertComment(String titulo, String descripcion) async {
+    final prefs = await SharedPreferences.getInstance();
+
+    var _id = M.ObjectId();
+    final String? dueno = prefs.getString('idUser');
+    final now = DateTime.now();
+
+    final comment = commentModel(
+      id: _id,
+      Owner: dueno.toString(),
+      Group: grupo.id,
+      Comment: descripcion,
+      Date: now,
+    );
+
+    var result = await MongoDatabase.insertComment(comment);
+    if (result == "Success")
+      print("Hilo Creado");
+    else
+      print("Error en la inserción");
+
+    //ScaffoldMessenger.of(context).showSnackBar(
+    //  const SnackBar(
+    //    content: Text('Nuevo Grupo'),
+    //  ),
+    //);
+    _clearAll();
+  }
+
+  void _clearAll() {
+    tituloController.text = '';
+    descripcionController.text = '';
   }
 }
