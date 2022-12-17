@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:tusgrupos/models/group_model.dart';
 import 'package:tusgrupos/screens/landing_screen.dart';
 import 'package:tusgrupos/screens/menus.dart';
 
 class CrearHilo extends StatelessWidget {
-  const CrearHilo({super.key});
+  final groupModel grupo;
+
+  const CrearHilo({Key? key, required this.grupo}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -12,29 +15,12 @@ class CrearHilo extends StatelessWidget {
     return Scaffold(
       //--------------------appbar--------------------
       appBar: AppBar(
-          backgroundColor: Colors.orange,
-          title: const Text("Crear Hilo"),
-          leading: Builder(
-            builder: (BuildContext context) {
-              return IconButton(
-                icon: const Icon(Icons.menu),
-                onPressed: () {
-                  Scaffold.of(context).openDrawer();
-                },
-              );
-            },
-          ),
-          actions: <Widget>[
-            IconButton(
-              //todo: conectar a buscar grupo
-              onPressed: () {},
-              icon: const Icon(Icons.search),
-              tooltip: 'buscar grupos',
-            ),
-          ]),
+        backgroundColor: Color.fromARGB(255, 120, 58, 100),
+        title: const Text("Crear Hilo"),
+      ),
 
       //--------------------drawer--------------------
-      drawer: const MenuDrawer(),
+      //drawer: const MenuDrawer(),
 
       //--------------------body--------------------
       body: SingleChildScrollView(
@@ -45,9 +31,9 @@ class CrearHilo extends StatelessWidget {
               children: [
                 Card(
                   child: Column(
-                    children: const [
+                    children: [
                       ListTile(
-                        title: Text('Nombre de Grupo'),
+                        title: Text(grupo.Name),
                       ),
                     ],
                   ),

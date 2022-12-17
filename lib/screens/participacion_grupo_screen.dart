@@ -55,7 +55,9 @@ class ParticipacionGrupos extends StatelessWidget {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const CrearHilo()),
+                    MaterialPageRoute(
+                        builder: (context) => const BuscarGrupo()),
+                    //Iba crear hilo sin argumento
                   );
                 },
                 // style: ButtonStyle(elevation: MaterialStateProperty(12.0 )),
