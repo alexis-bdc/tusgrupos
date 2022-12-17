@@ -100,25 +100,19 @@ class MongoDatabase {
   }
 
   static Future<List<Map<String, dynamic>>> searchGroups(
-      String? nombre, String? ownerName) async {
-    if (ownerName != null) {
-      if (nombre != null) {
-        var res = await groups
-            .find(where.eq('nombre', nombre).eq('owner', ownerName))
-            .toList();
-        return res;
-      } else {
-        var res = await groups.find(where.eq('owner', ownerName)).toList();
-        return res;
-      }
+    String string,
+  ) async {
+    if (string == '') {
+      var res = await groups.find().toList();
+      return res;
     } else {
-      if (nombre != null) {
-        var res = await groups.find(where.eq('nombre', nombre)).toList();
-        return res;
-      } else {
-        var res = await groups.find().toList();
-        return res;
-      }
+      var res = await groups.find({
+        'nombre': {
+          r'$regex': string,
+          r'$options': 'i',
+        }
+      }).toList();
+      return res;
     }
   }
 

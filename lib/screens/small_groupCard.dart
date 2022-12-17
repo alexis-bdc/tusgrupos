@@ -7,8 +7,8 @@ class SmallGroupCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      title: Text(group.Name),
+    return Card(
+      child: Text(group.Name),
     );
   }
 }
