@@ -13,10 +13,10 @@ class GrupoScreen extends StatelessWidget {
         backgroundColor: Color.fromARGB(255, 120, 58, 100),
         title: Text('${grupo.Name}'),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [GruposCard(grupo: grupo)],
-        ),
+      body: ListView(
+        children: [
+          GruposCard(grupo: grupo),
+        ],
       ),
     );
   }
