@@ -126,6 +126,7 @@ class _LoginPageState extends State<LoginPage> {
 
   Future<void> _validateUser(String email, String password) async {
     var result = await MongoDatabase.findUser(email, password);
+    SharedPreferences prefs = await SharedPreferences.getInstance();
 
     if (email == '' || password == '') {
       // ignore: use_build_context_synchronously
@@ -134,10 +135,9 @@ class _LoginPageState extends State<LoginPage> {
       ));
     } else {
       if (result == true) {
-        SharedPreferences prefs = await SharedPreferences.getInstance();
         // get user id from db through email
         //var id = await MongoDatabase.getUserId(email);
-        prefs.setString('idUser', email);
+        prefs.setString('userEmail', email);
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => Landing()));
       } else {

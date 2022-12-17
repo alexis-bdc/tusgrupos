@@ -1,4 +1,5 @@
 import 'dart:developer';
+// import 'dart:html';
 
 import 'package:mongo_dart/mongo_dart.dart';
 import 'package:tusgrupos/dbHelper/constant.dart';
@@ -98,8 +99,33 @@ class MongoDatabase {
     }
   }
 
-  static Future<List<groupModel>> getGroups(String nombre) async {
-    var res = await groups.find(where.eq('nombre', nombre)).tolist();
-    return res;
+  static Future<List<Map<String, dynamic>>> searchGroups(
+      String? nombre, String? ownerName) async {
+    if (ownerName != null) {
+      if (nombre != null) {
+        var res = await groups
+            .find(where.eq('nombre', nombre).eq('owner', ownerName))
+            .toList();
+        return res;
+      } else {
+        var res = await groups.find(where.eq('owner', ownerName)).toList();
+        return res;
+      }
+    } else {
+      if (nombre != null) {
+        var res = await groups.find(where.eq('nombre', nombre)).toList();
+        return res;
+      } else {
+        var res = await groups.find().toList();
+        return res;
+      }
+    }
   }
+
+  // static Future<List<Map<String, dynamic>>> getOwnedGroups(
+  //     String owner) async {
+  //   var res = await groups.find(where.eq('owner', owner)).toList();
+  //   // print(res);
+  //   return res;
+  // }
 }
