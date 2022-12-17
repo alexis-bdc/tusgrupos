@@ -14,11 +14,17 @@ class GruposCard extends StatelessWidget {
       child: Container(
         margin: EdgeInsets.only(top: 30, bottom: 50),
         width: double.infinity,
-        height: 400,
+        height: 300,
         decoration: _cardBorders(),
         child: Stack(
-          alignment: Alignment.bottomLeft,
-          children: [_BackgroundImage(), _DetalleGrupo(grupo: grupo)],
+          alignment: Alignment.topLeft,
+          children: [
+            _BackgroundImage(),
+            Align(
+              alignment: AlignmentDirectional.bottomCenter,
+              child: _DetalleGrupo(grupo: grupo),
+            ),
+          ],
         ),
       ),
     );
@@ -34,7 +40,7 @@ class _DetalleGrupo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      height: 100,
+      height: 50,
       decoration: _DetalleGrupoDecoration(),
       child: Column(
         children: [
@@ -49,7 +55,7 @@ class _DetalleGrupo extends StatelessWidget {
             '${grupo.Description}',
             style: TextStyle(
                 fontSize: 15, color: Colors.black, fontWeight: FontWeight.bold),
-            maxLines: 3,
+            maxLines: 2,
             overflow: TextOverflow.ellipsis,
           )
         ],
@@ -58,7 +64,7 @@ class _DetalleGrupo extends StatelessWidget {
   }
 
   BoxDecoration _DetalleGrupoDecoration() => BoxDecoration(
-      color: Colors.white,
+      color: Color.fromARGB(255, 210, 154, 248),
       borderRadius: BorderRadius.only(
           bottomLeft: Radius.circular(25), bottomRight: Radius.circular(25)));
 }
@@ -70,20 +76,33 @@ class _BackgroundImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      height: 400,
-      child: FadeInImage(
-        placeholder: AssetImage('assets/jar-loading.gif'),
-        image: NetworkImage(
-            'https://i.kym-cdn.com/photos/images/facebook/002/471/150/78c'),
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(25),
+      child: Container(
+        width: double.infinity,
+        height: 250,
+        //decoration: _backgroundImageDecoration(),
+        child: const FadeInImage(
+          placeholder: AssetImage('assets/jar-loading.gif'),
+          image: NetworkImage(
+              'https://i.kym-cdn.com/photos/images/facebook/002/471/150/78c'),
+          fit: BoxFit.cover,
+        ),
       ),
     );
   }
 }
 
+//No se está ocupando
+BoxDecoration _backgroundImageDecoration() => BoxDecoration(
+      borderRadius: BorderRadius.only(
+        topLeft: Radius.circular(25),
+        topRight: Radius.circular(25),
+      ),
+    );
+
 BoxDecoration _cardBorders() => BoxDecoration(
-        color: Colors.pinkAccent,
+        color: Color.fromARGB(255, 210, 154, 248),
         borderRadius: BorderRadius.circular(50),
         boxShadow: [
           BoxShadow(
