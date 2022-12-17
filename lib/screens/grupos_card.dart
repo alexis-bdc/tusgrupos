@@ -46,14 +46,14 @@ class _DetalleGrupo extends StatelessWidget {
         children: [
           Text(
             '${grupo.Name}',
-            style: TextStyle(
+            style: const TextStyle(
                 fontSize: 20, color: Colors.black, fontWeight: FontWeight.bold),
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
           ),
           Text(
             '${grupo.Description}',
-            style: TextStyle(
+            style: const TextStyle(
                 fontSize: 15, color: Colors.black, fontWeight: FontWeight.bold),
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
@@ -63,7 +63,7 @@ class _DetalleGrupo extends StatelessWidget {
     );
   }
 
-  BoxDecoration _DetalleGrupoDecoration() => BoxDecoration(
+  BoxDecoration _DetalleGrupoDecoration() => const BoxDecoration(
       color: Color.fromARGB(255, 210, 154, 248),
       borderRadius: BorderRadius.only(
           bottomLeft: Radius.circular(25), bottomRight: Radius.circular(25)));

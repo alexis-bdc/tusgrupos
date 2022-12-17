@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tusgrupos/screens/crear_grupo_screen.dart';
 import 'package:tusgrupos/screens/grupo_screen.dart';
 import 'package:tusgrupos/screens/grupos_card.dart';
 import 'package:tusgrupos/dbHelper/mongodb.dart';
@@ -13,7 +14,16 @@ class VerMisGrupos extends StatelessWidget {
       // backgroundColor: Color.fromARGB(255, 190, 173, 185),
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 120, 58, 100),
-        title: Text('Mis grupos'),
+        title: const Text('Mis grupos'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.group_add_rounded),
+            onPressed: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const CreateGroup()));
+            },
+          ),
+        ],
       ),
       body: FutureBuilder(
         future: MongoDatabase.getGruposQuery(),

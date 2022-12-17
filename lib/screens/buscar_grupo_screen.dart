@@ -73,7 +73,7 @@ class _BuscarState extends State<BuscarGrupo> {
                 ),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Color.fromARGB(255, 63, 3, 43),
+                    backgroundColor: const Color.fromARGB(255, 63, 3, 43),
                     padding: const EdgeInsets.symmetric(
                         horizontal: 100, vertical: 10),
                   ),

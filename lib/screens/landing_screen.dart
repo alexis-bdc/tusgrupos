@@ -29,6 +29,7 @@ class _LandingState extends State<Landing> {
     //todo: define text style and colors
 
     return Scaffold(
+      backgroundColor: Color.fromARGB(255, 120, 58, 100),
       //--------------------body--------------------
       body: _child,
 
@@ -38,11 +39,11 @@ class _LandingState extends State<Landing> {
           FluidNavBarIcon(
               icon: Icons.groups_rounded,
               backgroundColor: Colors.pink[100],
-              extras: {"label": "Crear"}),
+              extras: {"label": "Grupos Creados"}),
           FluidNavBarIcon(
-              icon: Icons.group,
+              icon: Icons.home,
               backgroundColor: Colors.pink[100],
-              extras: {"label": "Mis Grupos"}),
+              extras: {"label": "Home"}),
           FluidNavBarIcon(
               icon: Icons.search,
               backgroundColor: Colors.pink[100],
@@ -50,11 +51,12 @@ class _LandingState extends State<Landing> {
         ],
         onChange: _handleNavigationChange,
         style: const FluidNavBarStyle(
+            // iconBackgroundColor: Color.fromARGB(255, 120, 58, 100),
             barBackgroundColor: Color.fromARGB(255, 120, 58, 100),
             iconSelectedForegroundColor: Color.fromARGB(255, 63, 3, 43),
             iconUnselectedForegroundColor: Colors.grey),
         scaleFactor: 1.5,
-        defaultIndex: 1,
+        defaultIndex: 0,
         itemBuilder: (icon, item) => Semantics(
           label: icon.extras!["label"],
           child: item,
@@ -67,10 +69,10 @@ class _LandingState extends State<Landing> {
     setState(() {
       switch (index) {
         case 0:
-          _child = GruposCreadosScreen();
+          _child = VerMisGrupos();
           break;
         case 1:
-          _child = VerMisGrupos();
+          _child = GruposCreadosScreen();
           break;
         case 2:
           _child = BuscarGrupo();

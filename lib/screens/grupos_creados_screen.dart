@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tusgrupos/dbHelper/mongodb.dart';
+import 'package:tusgrupos/models/group_model.dart';
 import 'package:tusgrupos/screens/crear_grupo_screen.dart';
+import 'package:tusgrupos/screens/small_groupCard.dart';
 
 class GruposCreadosScreen extends StatefulWidget {
   @override
@@ -12,21 +16,12 @@ class _GruposCreadosScreenState extends State<GruposCreadosScreen> {
     return Scaffold(
       // backgroundColor: Color.fromARGB(255, 190, 173, 185),
       appBar: AppBar(
-        title: Text('Grupos Creados'),
+        title: const Text('Grupos Creados'),
         backgroundColor: const Color.fromARGB(255, 120, 58, 100),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.group_add_rounded),
-            onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const CreateGroup()));
-            },
-          ),
-        ],
       ),
-      body: Center(
-        child: Text('Grupos Creados'),
-      ),
+      // body: ListView.builder(
+      //     itemBuilder: (BuildContext context, int index) {
+      //     }),
     );
   }
 }
