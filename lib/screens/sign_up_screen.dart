@@ -35,7 +35,7 @@ class _SignUpPageState extends State<SignUpPage> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             const Text(
-              'Sign up',
+              'Regístrate',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 40,
@@ -150,21 +150,24 @@ class _SignUpPageState extends State<SignUpPage> {
                     },
                     style: ElevatedButton.styleFrom(
                       padding: const EdgeInsets.fromLTRB(40, 15, 40, 15),
+                       backgroundColor: Colors.orange,
                     ),
                     child: const Text(
-                      'Sign up',
+                      'Registrate',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                       ),
+                      
                     ),
                   ),
+                
                   const SizedBox(
                     height: 20,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Text('Already registered?'),
+                      const Text('¿Ya estas registrado?'),
                       TextButton(
                         onPressed: () {
                           Navigator.pushReplacement(
@@ -174,7 +177,7 @@ class _SignUpPageState extends State<SignUpPage> {
                             ),
                           );
                         },
-                        child: const Text('Sign in'),
+                        child: const Text('Inicia tu sesión'),
                       ),
                     ],
                   ),

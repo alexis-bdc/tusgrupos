@@ -13,7 +13,7 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   // final _formKey = GlobalKey<FormState>();
-  var emailController = TextEditingController(text: 'ejemplo@usach.cl');
+  var emailController = TextEditingController(text: 'example@usach.cl');
   var passwordController = TextEditingController(text: '1234');
 
   @override
@@ -76,7 +76,7 @@ class _LoginPageState extends State<LoginPage> {
         ),
         onPressed: () =>
             _validateUser(emailController.text, passwordController.text),
-        child: const Text('Log In', style: TextStyle(color: Colors.white)),
+        child: const Text('Iniciar sesión', style: TextStyle(color: Colors.white)),
       ),
     );
 
@@ -90,8 +90,8 @@ class _LoginPageState extends State<LoginPage> {
 
     final signUpLabel = TextButton(
       child: const Text(
-        'Sign Up',
-        style: TextStyle(color: Colors.black54),
+        'Regístrate',
+        style: TextStyle(color: Color.fromARGB(136, 7, 38, 177)),
       ),
       onPressed: () =>
           Navigator.of(context).push(MaterialPageRoute(builder: (context) {
