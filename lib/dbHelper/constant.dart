@@ -7,3 +7,4 @@ const MONGO_CONN_URL =
 const USER_COLLECTION = "users";
 const GROUP_COLLECTION = "group";
 const INSCRIPTIONS_COLLECTION = "inscriptions";
+const COMMENTS_COLLECTION = "comments";
