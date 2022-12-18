@@ -43,9 +43,12 @@ class _LoginPageState extends State<LoginPage> {
         return null;
       },
       decoration: InputDecoration(
+        prefixIcon: const Icon(Icons.email),
         hintText: 'Email',
         contentPadding: const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
       ),
     );
 
@@ -61,9 +64,12 @@ class _LoginPageState extends State<LoginPage> {
       // initialValue: 'some password',
       obscureText: true,
       decoration: InputDecoration(
+        prefixIcon: const Icon(Icons.lock),
         hintText: 'Password',
         contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
       ),
     );
 
@@ -71,11 +77,8 @@ class _LoginPageState extends State<LoginPage> {
       padding: const EdgeInsets.symmetric(vertical: 16.0),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(24),
-          ),
-          backgroundColor: Colors.purple,
-          padding: const EdgeInsets.all(12),
+          padding: const EdgeInsets.fromLTRB(40, 15, 40, 15),
+          backgroundColor: const Color.fromARGB(255, 172, 0, 101),
         ),
         onPressed: () =>
             _validateUser(emailController.text, passwordController.text),
@@ -94,7 +97,7 @@ class _LoginPageState extends State<LoginPage> {
     final signUpLabel = TextButton(
       child: const Text(
         'Crear Cuenta',
-        style: TextStyle(color: Colors.black54),
+        style: TextStyle(color: Color.fromARGB(255, 122, 195, 255)),
       ),
       onPressed: () =>
           Navigator.of(context).push(MaterialPageRoute(builder: (context) {
@@ -107,17 +110,20 @@ class _LoginPageState extends State<LoginPage> {
       body: Center(
         child: ListView(
           shrinkWrap: true,
-          padding: EdgeInsets.only(left: 24.0, right: 24.0),
+          padding: const EdgeInsets.only(left: 24.0, right: 24.0),
           children: <Widget>[
             logo,
             SizedBox(height: 48.0),
             email,
-            SizedBox(height: 8.0),
+            const SizedBox(height: 20),
             password,
             SizedBox(height: 24.0),
             loginButton,
             // forgotLabel,
-            signUpLabel
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[const Text('¿No tienes cuenta?'), signUpLabel],
+            ),
           ],
         ),
       ),

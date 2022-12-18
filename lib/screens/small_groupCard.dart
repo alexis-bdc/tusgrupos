@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mongo_dart/mongo_dart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 // import 'package:mongo_dart/mongo_dart.dart';
 import 'package:tusgrupos/dbHelper/mongodb.dart';
@@ -7,13 +8,77 @@ import 'package:expansion_tile_card/expansion_tile_card.dart';
 // import 'package:tusgrupos/models/inscripciones_model.dart';
 
 class SmallGroupCard extends StatelessWidget {
-  const SmallGroupCard({Key? key, required this.group}) : super(key: key);
+  SmallGroupCard({Key? key, required this.group});
   final groupModel group;
+  var keycontroller = TextEditingController(text: '');
 
-  BuildContext? get context => null;
+  //todo: cambio vista a grupo especifico
 
   @override
   Widget build(BuildContext context) {
+    Widget _key = TextFormField(
+      controller: keycontroller,
+      decoration: InputDecoration(
+        fillColor: Colors.white,
+        filled: true,
+        prefixIcon: const Icon(Icons.lock),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        // contentPadding: const EdgeInsets.fromLTRB(1.0, 10.0, 20.0, 10.0),
+        // hintText: 'clave',
+        constraints: const BoxConstraints(
+          maxHeight: 50,
+          maxWidth: 250,
+        ),
+      ),
+    );
+
+    Future<void> _unirse(groupModel grupo, String password) async {
+      // ignore: unused_local_variable
+
+      if (password == grupo.password) {
+        var res = await MongoDatabase.inscribeUser(grupo);
+        switch (int.parse(res)) {
+          case 0:
+            showDialog(
+                context: context,
+                builder: (context) => const AlertDialog(
+                      title: Text('Errow inesperado!'),
+                      icon: Icon(Icons.error),
+                      iconColor: Colors.red,
+                    ));
+            break;
+          case 1:
+            showDialog(
+                context: context,
+                builder: (context) => const AlertDialog(
+                      title: Text('Inscrito con exito!'),
+                      icon: Icon(Icons.check),
+                      iconColor: Colors.green,
+                    ));
+            break;
+          case 2:
+            showDialog(
+                context: context,
+                builder: (context) => const AlertDialog(
+                      title: Text('Ya estas Inscrito!'),
+                      icon: Icon(Icons.tag_faces),
+                      iconColor: Colors.green,
+                    ));
+            break;
+        }
+      } else {
+        showDialog(
+            context: context,
+            builder: (context) => const AlertDialog(
+                  title: Text('Clave incorrecta!'),
+                  icon: Icon(Icons.close),
+                  iconColor: Colors.red,
+                ));
+      }
+    }
+
     return ExpansionTileCard(
       initialPadding: const EdgeInsets.all(10),
       baseColor: const Color.fromARGB(143, 217, 85, 160),
@@ -33,32 +98,45 @@ class SmallGroupCard extends StatelessWidget {
               horizontal: 16.0,
               vertical: 8.0,
             ))),
-        ButtonBar(
-          alignment: MainAxisAlignment.start,
-          children: <Widget>[
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(backgroundColor: Colors.purple),
-              onPressed: () => _unirse(group),
-              child: Row(
-                children: const <Widget>[
-                  Text('Unirse'),
-                  Icon(Icons.add),
-                ],
-              ),
+        _key,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            ButtonBar(
+              alignment: MainAxisAlignment.start,
+              children: <Widget>[
+                ElevatedButton(
+                  style:
+                      ElevatedButton.styleFrom(backgroundColor: Colors.purple),
+                  onPressed: () => _unirse(group, keycontroller.text),
+                  child: Row(
+                    children: const <Widget>[
+                      Text('Unirse'),
+                      Icon(Icons.add),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            ButtonBar(
+              alignment: MainAxisAlignment.start,
+              children: <Widget>[
+                ElevatedButton(
+                  style:
+                      ElevatedButton.styleFrom(backgroundColor: Colors.purple),
+                  onPressed: () {},
+                  child: Row(
+                    children: const <Widget>[
+                      Text('Ver Grupo'),
+                      Icon(Icons.forward),
+                    ],
+                  ),
+                ),
+              ],
             ),
           ],
         )
       ],
-    );
-  }
-
-  Future<void> _unirse(groupModel grupo) async {
-    // ignore: unused_local_variable
-    var res = await MongoDatabase.inscribeUser(grupo);
-    ScaffoldMessenger.of(context!).showSnackBar(
-      const SnackBar(
-        content: Text('Te has unido al grupo'),
-      ),
     );
   }
 }

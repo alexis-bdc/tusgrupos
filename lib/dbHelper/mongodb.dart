@@ -137,17 +137,16 @@ class MongoDatabase {
 
     if (inscriptions.find(where.eq('user', userId).eq('group', groupId)) !=
         null) {
-      return "existente";
+      return 2.toString(); //Ya está inscrito
     } else {
       final inscripcion = inscripcionesModel(
           User: userId, Group: groupId, EntryDate: DateTime.now());
-
       try {
         var res = await inscriptions.insertOne(inscripcion.toJson());
         if (res.isSuccess) {
-          return "Exito";
+          return 1.toString(); //Inscripción exitosa
         } else {
-          return "Error";
+          return 0.toString(); //Error
         }
       } catch (e) {
         return e.toString();
