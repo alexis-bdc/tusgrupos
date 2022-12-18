@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tusgrupos/dbHelper/mongodb.dart';
-import 'package:tusgrupos/screens/home_screen.dart';
+import 'package:tusgrupos/screens/landing_screen.dart';
+import 'package:tusgrupos/screens/landing_screen.dart';
 import 'package:tusgrupos/screens/sign_up_screen.dart';
 
 class LoginPage extends StatefulWidget {
@@ -13,6 +15,7 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   // final _formKey = GlobalKey<FormState>();
+
   var emailController = TextEditingController(text: 'example@usach.cl');
   var passwordController = TextEditingController(text: '1234');
 
@@ -71,12 +74,12 @@ class _LoginPageState extends State<LoginPage> {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(24),
           ),
-          backgroundColor: Colors.orange,
+          backgroundColor: Colors.purple,
           padding: const EdgeInsets.all(12),
         ),
         onPressed: () =>
             _validateUser(emailController.text, passwordController.text),
-        child: const Text('Iniciar sesión', style: TextStyle(color: Colors.white)),
+        child: const Text('Ingresar', style: TextStyle(color: Colors.white)),
       ),
     );
 
@@ -90,8 +93,8 @@ class _LoginPageState extends State<LoginPage> {
 
     final signUpLabel = TextButton(
       child: const Text(
-        'Regístrate',
-        style: TextStyle(color: Color.fromARGB(136, 7, 38, 177)),
+        'Crear Cuenta',
+        style: TextStyle(color: Colors.black54),
       ),
       onPressed: () =>
           Navigator.of(context).push(MaterialPageRoute(builder: (context) {
@@ -122,7 +125,8 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Future<void> _validateUser(String email, String password) async {
-    var result = await MongoDatabase.findUser(email, password);
+    var result = await MongoDatabase.checkUser(email, password);
+    SharedPreferences prefs = await SharedPreferences.getInstance();
 
     if (email == '' || password == '') {
       // ignore: use_build_context_synchronously
@@ -131,9 +135,11 @@ class _LoginPageState extends State<LoginPage> {
       ));
     } else {
       if (result == true) {
-        Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-          return const HomeScreen();
-        }));
+        // get user id from db through email
+        //var id = await MongoDatabase.getUserId(email);
+        prefs.setString('userEmail', email);
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => Landing()));
       } else {
         // ignore: use_build_context_synchronously
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(

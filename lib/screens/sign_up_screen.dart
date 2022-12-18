@@ -20,7 +20,7 @@ class _SignUpPageState extends State<SignUpPage> {
   var rememberValue = false;
   // var _passwordVisible = false;
   var NombreControler = TextEditingController();
-  var ApellidoController = TextEditingController();
+  // var ApellidoController = TextEditingController();
   var EmailController = TextEditingController();
   var PasswordController = TextEditingController();
 
@@ -35,10 +35,11 @@ class _SignUpPageState extends State<SignUpPage> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             const Text(
-              'Regístrate',
+              'Registro',
               style: TextStyle(
+                color: Color.fromARGB(255, 50, 0, 148),
                 fontWeight: FontWeight.bold,
-                fontSize: 40,
+                fontSize: 45,
               ),
             ),
             const SizedBox(
@@ -48,53 +49,25 @@ class _SignUpPageState extends State<SignUpPage> {
               key: _formKey,
               child: Column(
                 children: [
-                  Row(
-                    children: [
-                      //--------------NombreControler------------------
-                      Expanded(
-                        child: TextFormField(
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Favor ingresar su nombre';
-                            }
-                            return null;
-                          },
-                          controller: NombreControler,
-                          maxLines: 1,
-                          decoration: InputDecoration(
-                            hintText: 'Nombre',
-                            prefixIcon: const Icon(Icons.person),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                          ),
-                        ),
+                  TextFormField(
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Favor ingresar su nombre';
+                      }
+                      return null;
+                    },
+                    controller: NombreControler,
+                    maxLines: 1,
+                    decoration: InputDecoration(
+                      hintText: 'Nombre',
+                      prefixIcon: const Icon(Icons.person),
+                      prefixIconColor: const Color.fromARGB(255, 50, 0, 148),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
                       ),
-                      const SizedBox(
-                        width: 20,
-                      ),
-                      //--------------ApellidoController------------------
-                      Expanded(
-                        child: TextFormField(
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Favor ingresar su Apellido';
-                            }
-                            return null;
-                          },
-                          controller: ApellidoController,
-                          maxLines: 1,
-                          decoration: InputDecoration(
-                            hintText: 'Apellido',
-                            prefixIcon: const Icon(Icons.person),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
+                    ),
                   ),
+
                   const SizedBox(
                     height: 20,
                   ),
@@ -107,6 +80,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     maxLines: 1,
                     decoration: InputDecoration(
                       hintText: 'Correo',
+                      prefixIconColor: const Color.fromARGB(255, 50, 0, 148),
                       prefixIcon: const Icon(Icons.email),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
@@ -128,6 +102,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     maxLines: 1,
                     obscureText: true,
                     decoration: InputDecoration(
+                      prefixIconColor: const Color.fromARGB(255, 50, 0, 148),
                       prefixIcon: const Icon(Icons.lock),
                       hintText: 'Enter your password',
                       border: OutlineInputBorder(
@@ -143,42 +118,44 @@ class _SignUpPageState extends State<SignUpPage> {
                       if (_formKey.currentState!.validate()) {
                         _insertUser(
                             NombreControler.text,
-                            ApellidoController.text,
+                            // ApellidoController.text,
                             EmailController.text,
                             PasswordController.text);
                       }
                     },
                     style: ElevatedButton.styleFrom(
                       padding: const EdgeInsets.fromLTRB(40, 15, 40, 15),
-                       backgroundColor: Colors.orange,
+                      backgroundColor: const Color.fromARGB(255, 172, 0, 101),
                     ),
                     child: const Text(
-                      'Registrate',
+                      'Registrarse',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                       ),
-                      
                     ),
                   ),
-                
+
                   const SizedBox(
                     height: 20,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Text('¿Ya estas registrado?'),
+                      const Text('Ya tienes cuenta? '),
                       TextButton(
-                        onPressed: () {
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => LoginPage(),
-                            ),
-                          );
-                        },
-                        child: const Text('Inicia tu sesión'),
-                      ),
+                          onPressed: () {
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => LoginPage(),
+                              ),
+                            );
+                          },
+                          style: TextButton.styleFrom(
+                            foregroundColor:
+                                const Color.fromARGB(255, 122, 195, 255),
+                          ),
+                          child: const Text('Ingresa')),
                     ],
                   ),
                 ],
@@ -193,14 +170,14 @@ class _SignUpPageState extends State<SignUpPage> {
   Future<void> _insertUser(
       // ignore: non_constant_identifier_names
       String Nombre,
-      String Apellido,
+      // String Apellido,
       String email,
       String password) async {
     var _id = M.ObjectId();
     final user = userModel(
         id: _id,
         Name: Nombre,
-        LastName: Apellido,
+        // LastName: Apellido,
         Email: email,
         Password: password);
 
@@ -216,7 +193,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
   void _clearAll() {
     NombreControler.clear();
-    ApellidoController.clear();
+    // ApellidoController.clear();
     EmailController.clear();
     PasswordController.clear();
   }

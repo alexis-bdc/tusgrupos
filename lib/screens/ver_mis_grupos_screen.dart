@@ -1,19 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:tusgrupos/screens/crear_grupo_screen.dart';
 import 'package:tusgrupos/screens/grupo_screen.dart';
 import 'package:tusgrupos/screens/grupos_card.dart';
 import 'package:tusgrupos/dbHelper/mongodb.dart';
 import 'package:tusgrupos/models/group_model.dart';
 
+import 'package:shared_preferences/shared_preferences.dart';
+
 class VerMisGrupos extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // backgroundColor: Color.fromARGB(255, 190, 173, 185),
       appBar: AppBar(
-        backgroundColor: Colors.orange,
-        title: Text('Mis grupos'),
+        backgroundColor: const Color.fromARGB(255, 120, 58, 100),
+        title: const Text('Mis grupos'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.group_add_rounded),
+            onPressed: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const CreateGroup()));
+            },
+          ),
+        ],
       ),
       body: FutureBuilder(
-        future: MongoDatabase.getGrupos(),
+        future: MongoDatabase.getGruposQuery(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(
@@ -48,5 +61,13 @@ class VerMisGrupos extends StatelessWidget {
         },
       ),
     );
+  }
+
+  Future<String> getUserEmail() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String? email = prefs.getString('emailUser');
+    //print(email);
+    //setState(() => _userEmail = email);
+    return email!;
   }
 }

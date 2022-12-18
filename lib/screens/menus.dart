@@ -1,5 +1,9 @@
+import 'package:fluid_bottom_nav_bar/fluid_bottom_nav_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:tusgrupos/screens/home_screen.dart';
+import 'package:tusgrupos/screens/buscar_grupo_screen.dart';
+import 'package:tusgrupos/screens/crear_grupo_screen.dart';
+import 'package:tusgrupos/screens/landing_screen.dart';
+
 import 'package:tusgrupos/screens/login_screen.dart';
 import 'package:tusgrupos/screens/ver_mis_grupos_screen.dart';
 
