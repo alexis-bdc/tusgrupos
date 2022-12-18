@@ -125,7 +125,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Future<void> _validateUser(String email, String password) async {
-    var result = await MongoDatabase.findUser(email, password);
+    var result = await MongoDatabase.checkUser(email, password);
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     if (email == '' || password == '') {

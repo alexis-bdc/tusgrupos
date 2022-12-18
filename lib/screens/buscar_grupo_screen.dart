@@ -1,13 +1,12 @@
-import 'package:flutter/material.dart';
-import 'package:tusgrupos/screens/group_list.dart';
-import 'package:tusgrupos/screens/list_search.dart';
-import 'package:tusgrupos/screens/menus.dart';
+// import 'package:tusgrupos/screens/group_list.dart';
+// import 'package:tusgrupos/screens/list_search.dart';
+// import 'package:tusgrupos/screens/menus.dart';
+// import 'package:tusgrupos/screens/grupo_screen.dart';
+// import 'package:tusgrupos/screens/grupos_card.dart';
 
+import 'package:flutter/material.dart';
 import 'package:tusgrupos/dbHelper/mongodb.dart';
 import 'package:tusgrupos/models/group_model.dart';
-
-import 'package:tusgrupos/screens/grupo_screen.dart';
-import 'package:tusgrupos/screens/grupos_card.dart';
 import 'package:tusgrupos/screens/small_groupCard.dart';
 
 class BuscarGrupo extends StatefulWidget {

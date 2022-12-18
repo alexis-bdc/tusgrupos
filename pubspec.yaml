@@ -38,6 +38,8 @@ dependencies:
 
   mongo_dart: ^0.8.1
 
+  expansion_tile_card: ^2.0.0
+
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

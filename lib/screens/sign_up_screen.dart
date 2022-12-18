@@ -67,37 +67,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       ),
                     ),
                   ),
-                  // Row(
-                  //   children: [
-                  //     //--------------NombreControler------------------
-                  //     Expanded(
-                  //       child:
-                  //     ),
-                  //     const SizedBox(
-                  //       width: 20,
-                  //     ),
-                  //     --------------ApellidoController------------------
-                  //     Expanded(
-                  //       child: TextFormField(
-                  //         validator: (value) {
-                  //           if (value == null || value.isEmpty) {
-                  //             return 'Favor ingresar su Apellido';
-                  //           }
-                  //           return null;
-                  //         },
-                  //         controller: ApellidoController,
-                  //         maxLines: 1,
-                  //         decoration: InputDecoration(
-                  //           hintText: 'Apellido',
-                  //           prefixIcon: const Icon(Icons.person),
-                  //           border: OutlineInputBorder(
-                  //             borderRadius: BorderRadius.circular(10),
-                  //           ),
-                  //         ),
-                  //       ),
-                  //     ),
-                  //   ],
-                  // ),
+
                   const SizedBox(
                     height: 20,
                   ),

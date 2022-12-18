@@ -21,7 +21,7 @@ class _LandingState extends State<Landing> {
   @override
   void initState() {
     super.initState();
-    _child = VerMisGrupos();
+    _child = BuscarGrupo();
   }
 
   @override
