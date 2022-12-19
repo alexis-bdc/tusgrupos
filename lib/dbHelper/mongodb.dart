@@ -175,6 +175,20 @@ class MongoDatabase {
     return arrData;
   }
 
+  static Future<List<Map<String, dynamic>>> getCommentsQuery(
+      groupModel grupo) async {
+    final arrData = await comments.find(where.eq('group', grupo.id)).toList();
+    //print("Buscando" + email.toString() + "En Mongo");
+    return arrData;
+  }
+
+  static Future<List<Map<String, dynamic>>> getResponsesQuery(
+      commentModel hilo) async {
+    final arrData = await comments.find(where.eq('hilo', hilo.id)).toList();
+    //print("Buscando" + email.toString() + "En Mongo");
+    return arrData;
+  }
+
   // static Future<List<Map<String, dynamic>>> getOwnedGroups(
   //     String owner) async {
   //   var res = await groups.find(where.eq('owner', owner)).toList();
