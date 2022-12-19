@@ -5,6 +5,7 @@ import 'package:mongo_dart/mongo_dart.dart';
 import 'package:tusgrupos/dbHelper/constant.dart';
 import 'package:tusgrupos/models/comments_model.dart';
 import 'package:tusgrupos/models/group_model.dart';
+import 'package:tusgrupos/models/inscripciones_model.dart';
 import 'package:tusgrupos/models/user_model.dart';
 // import 'package:tusgrupos/models/comments_model.dart';
 // import 'package:tusgrupos/models/files_model.dart';
@@ -41,12 +42,6 @@ class MongoDatabase {
     return arrData;
   }
 
-  // static Future<void> insert() async {
-  //   try {} catch (e) {
-  //     print(e.toString());
-  //   }
-  // }
-
   static Future<String> insertUser(userModel user) async {
     try {
       // return await userCollection.insert(user.toJson());
@@ -79,8 +74,16 @@ class MongoDatabase {
     }
   }
 
-  static Future<bool> findUser(String email, String password) async {
+  static Future<bool> checkUser(String email, String password) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+
     var res = await users.findOne(where.eq('email', email));
+
+    // var userID = res['_id'].toString();
+    // print(typeof userID);
+    // prefs.setString('userId', userID);
+    // print(prefs.getString('userId'));
+
     if (res != null) {
       if (res['password'] == password) {
         return true;
@@ -92,35 +95,61 @@ class MongoDatabase {
     }
   }
 
-  static Future<String> getUserId(String email) async {
-    var res = await users.findOne(where.eq('email', email));
-    if (res != null) {
-      print(res);
-      return res['_id'].toString();
+  // static Future<userModel> getUser(String email) async {
+  //   var res = await users.find(where.eq('email', email)).first;
+
+  //   if (res is userModel) {
+  //     print("Es un usuario");
+  //   }
+
+  //   return res;
+  // }
+
+  static Future<List<Map<String, dynamic>>> searchGroups(
+    String string,
+  ) async {
+    if (string == '') {
+      var res = await groups.find().toList();
+      return res;
     } else {
-      return '';
+      var res = await groups.find({
+        'nombre': {
+          r'$regex': string,
+          r'$options': 'i',
+        }
+      }).toList();
+      return res;
     }
   }
 
-  static Future<List<Map<String, dynamic>>> searchGroups(
-      String? nombre, String? ownerName) async {
-    if (ownerName != null) {
-      if (nombre != null) {
-        var res = await groups
-            .find(where.eq('nombre', nombre).eq('owner', ownerName))
-            .toList();
-        return res;
-      } else {
-        var res = await groups.find(where.eq('owner', ownerName)).toList();
-        return res;
-      }
+  static Future<String> inscribeUser(groupModel group) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    String? userEmail = prefs.getString('userEmail');
+    // print(userEmail);
+    var user = await users.findOne(where.eq('email', userEmail));
+    var data = user['_id'].$oid.toString();
+    ObjectId userId = ObjectId.fromHexString(data);
+    ObjectId groupId = group.id;
+
+    // print(userId);
+    // print(groupId);
+
+    if (inscriptions.find(where.eq('user', userId).eq('group', groupId)) !=
+        null) {
+      return 2.toString(); //Ya está inscrito
     } else {
-      if (nombre != null) {
-        var res = await groups.find(where.eq('nombre', nombre)).toList();
-        return res;
-      } else {
-        var res = await groups.find().toList();
-        return res;
+      final inscripcion = inscripcionesModel(
+          User: userId, Group: groupId, EntryDate: DateTime.now());
+      try {
+        var res = await inscriptions.insertOne(inscripcion.toJson());
+        if (res.isSuccess) {
+          return 1.toString(); //Inscripción exitosa
+        } else {
+          return 0.toString(); //Error
+        }
+      } catch (e) {
+        return e.toString();
       }
     }
   }
