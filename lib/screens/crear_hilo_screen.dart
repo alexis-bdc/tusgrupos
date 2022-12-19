@@ -10,6 +10,7 @@ import 'package:mongo_dart/mongo_dart.dart' as M;
 //TO DO: Tiene que haber una retroalimentación de la creación del hilo
 //      También falta modificar el modelo del hilo para que guarde el título
 //      Falta hacer la pantalla del hilo
+//      Asegurarse que el nuevo hilo aparezca en la pantalla de hilos
 //
 
 class CrearHilo extends StatelessWidget {
