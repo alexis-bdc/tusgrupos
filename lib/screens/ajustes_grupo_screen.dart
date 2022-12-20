@@ -3,7 +3,7 @@ import 'package:tusgrupos/models/group_model.dart';
 import 'package:tusgrupos/screens/grupos_card.dart';
 import 'package:tusgrupos/screens/hilos_screen.dart';
 
-class GrupoScreen extends StatelessWidget {
+class AjustesGrupoScreen extends StatelessWidget {
   final groupModel grupo;
   final options = const [
     'Hilos',
@@ -16,14 +16,14 @@ class GrupoScreen extends StatelessWidget {
     Icons.person
   ];
 
-  const GrupoScreen({Key? key, required this.grupo}) : super(key: key);
+  const AjustesGrupoScreen({Key? key, required this.grupo}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color.fromARGB(255, 120, 58, 100),
-        title: Text('${grupo.Name}'),
+        title: Text(grupo.Name),
       ),
       body: Column(
         children: [

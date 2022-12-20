@@ -212,6 +212,14 @@ class MongoDatabase {
     return arrData;
   }
 
+  static Future<List<Map<String, dynamic>>> getInscripcionesQuery() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String? email = prefs.getString('emailUser');
+    final arrData = await inscriptions.find(where.eq('', email)).toList();
+    //print("Buscando" + email.toString() + "En Mongo");
+    return arrData;
+  }
+
   // static Future<List<Map<String, dynamic>>> getOwnedGroups(
   //     String owner) async {
   //   var res = await groups.find(where.eq('owner', owner)).toList();
