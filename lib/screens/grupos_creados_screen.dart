@@ -35,7 +35,7 @@ class _GruposCreadosScreenState extends State<GruposCreadosScreen> {
       //     itemBuilder: (BuildContext context, int index) {
       //     }),
       body: FutureBuilder(
-        future: MongoDatabase.getGruposQuery(),
+        future: MongoDatabase.getInscripcionesQuery(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(
@@ -44,7 +44,7 @@ class _GruposCreadosScreenState extends State<GruposCreadosScreen> {
           } else {
             if (snapshot.hasData) {
               var totalData = snapshot.data?.length;
-              //print("total Data" + totalData.toString());
+              print("total Data" + totalData.toString());
               return ListView.builder(
                 itemCount: totalData,
                 itemBuilder: (BuildContext context, int index) =>

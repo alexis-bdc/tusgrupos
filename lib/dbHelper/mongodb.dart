@@ -144,8 +144,11 @@ class MongoDatabase {
     // print(userId);
     // print(groupId);
 
-    if (inscriptions.find(where.eq('user', userId).eq('group', groupId)) !=
-        null) {
+    var temp =
+        await inscriptions.findOne({'_iduser': userId, '_idgroup': groupId});
+    print(temp);
+
+    if (temp != null) {
       return 2.toString(); //Ya está inscrito
     } else {
       final inscripcion = inscripcionesModel(
@@ -218,11 +221,26 @@ class MongoDatabase {
     return arrData;
   }
 
-  static Future<List<Map<String, dynamic>>> getInscripcionesQuery() async {
+  static Future<List> getInscripcionesQuery() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    final String? email = prefs.getString('emailUser');
-    final arrData = await inscriptions.find(where.eq('', email)).toList();
+    final String? email = prefs.getString('userEmail');
+    var user = await users.findOne(where.eq('email', email));
+    var data = user['_id'].$oid.toString();
+    ObjectId userId = ObjectId.fromHexString(data);
+    var arrInscriptions =
+        await inscriptions.find(where.eq('_iduser', userId)).toList();
     //print("Buscando" + email.toString() + "En Mongo");
+    List arrData = [];
+    for (var index = 0; index < arrInscriptions.length; index++) {
+      arrData.add(await groups
+          .findOne(where.eq('_id', arrInscriptions[index]['_idgroup'])));
+      print("Inscripciones encontradas" +
+          index.toString() +
+          "Para" +
+          email.toString());
+    }
+    //await groups.find(where.eq('id', arrInscriptions['id'].toString()));
+
     return arrData;
   }
 

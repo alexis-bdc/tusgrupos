@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tusgrupos/screens/buscar_grupo_screen.dart';
 import 'package:tusgrupos/screens/crear_grupo_screen.dart';
+import 'package:tusgrupos/screens/grupos_creados_screen.dart';
 import 'package:tusgrupos/screens/mis_grupos_screen.dart';
 // import 'package:tusgrupos/screens/menus.dart';
 // import 'package:tusgrupos/screens/participacion_grupo_screen.dart';
@@ -72,7 +73,8 @@ class _LandingState extends State<Landing> {
           _child = VerMisGrupos();
           break;
         case 1:
-          _child = MisGruposScreen();
+          //_child = MisGruposScreen();
+          _child = GruposCreadosScreen();
           break;
         case 2:
           _child = BuscarGrupo();
