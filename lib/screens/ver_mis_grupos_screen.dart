@@ -36,7 +36,7 @@ class VerMisGrupos extends StatelessWidget {
           } else {
             if (snapshot.hasData) {
               var totalData = snapshot.data?.length;
-              //print("total Data" + totalData.toString());
+              print("total Data" + totalData.toString());
               return ListView.builder(
                 itemCount: totalData,
                 itemBuilder: (BuildContext context, int index) =>

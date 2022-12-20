@@ -144,6 +144,7 @@ class _LoginPageState extends State<LoginPage> {
         // get user id from db through email
         //var id = await MongoDatabase.getUserId(email);
         prefs.setString('userEmail', email);
+        print(prefs.getString('userEmail'));
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => Landing()));
       } else {
