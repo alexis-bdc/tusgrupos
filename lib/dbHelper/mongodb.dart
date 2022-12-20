@@ -195,6 +195,35 @@ class MongoDatabase {
     return arrData;
   }
 
+  static Future<List> getInscripcionesQuery() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String? email = prefs.getString('userEmail');
+    var user = await users.findOne(where.eq('email', email));
+    var data = user['_id'].$oid.toString();
+    ObjectId userId = ObjectId.fromHexString(data);
+    var arrInscriptions =
+        await inscriptions.find(where.eq('_iduser', userId)).toList();
+    //print("Buscando" + email.toString() + "En Mongo");
+    List arrData = [];
+    for (var index = 0; index < arrInscriptions.length; index++) {
+      arrData.add(await groups
+          .findOne(where.eq('_id', arrInscriptions[index]['_idgroup'])));
+      print("Inscripciones encontradas" +
+          index.toString() +
+          "Para" +
+          email.toString());
+    }
+    //await groups.find(where.eq('id', arrInscriptions['id'].toString()));
+
+    return arrData;
+  }
+
+  // static Future<List<Map<String, dynamic>>> getOwnedGroups(
+  //     String owner) async {
+  //   var res = await groups.find(where.eq('owner', owner)).toList();
+  //   // print(res);
+  //   return res;
+  // }
   static Future<List> participantGroups(ObjectId userId) async {
     List temp = await inscriptions.find(where.eq('_iduser', userId)).toList();
     List temp2 = [];

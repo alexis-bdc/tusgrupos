@@ -12,8 +12,8 @@ import 'package:mongo_dart/mongo_dart.dart' as M;
 //      Falta hacer la pantalla del hilo                                     (Listo!)
 //      Asegurarse que el nuevo hilo aparezca en la pantalla de hilos
 //      Refinar la pantalla del hilo, tiene que aparecer el nombre del usuario que lo hizo
-//      Agregar la posibilidad de responder al hilo en la pantalla del hilo
-//      Hacer pantalla de responder hilo
+//      Agregar la posibilidad de responder al hilo en la pantalla del hilo  (Listo!)
+//      Hacer pantalla de responder hilo                                     (Listo!)
 //
 
 class CrearHilo extends StatelessWidget {

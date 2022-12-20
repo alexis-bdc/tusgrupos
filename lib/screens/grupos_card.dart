@@ -44,17 +44,17 @@ class _DetalleGrupo extends StatelessWidget {
       child: Column(
         children: [
           Text(
-            '${grupo.Name}',
+            grupo.Name,
             style: const TextStyle(
                 fontSize: 20, color: Colors.black, fontWeight: FontWeight.bold),
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
           ),
           Text(
-            '${grupo.Description}',
+            grupo.Description,
             style: const TextStyle(
                 fontSize: 15, color: Colors.black, fontWeight: FontWeight.bold),
-            maxLines: 2,
+            maxLines: 1,
             overflow: TextOverflow.ellipsis,
           )
         ],

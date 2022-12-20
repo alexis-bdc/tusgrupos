@@ -167,6 +167,9 @@ class _CreateGroupState extends State<CreateGroup> {
         content: Text('Nuevo Grupo'),
       ),
     );
+    if (result == 'Success') {
+      result = await MongoDatabase.inscribeUser(group);
+    }
     _clearAll();
   }
 
