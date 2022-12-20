@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 // import 'package:mongo_dart/mongo_dart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -30,7 +32,7 @@ class _MisGruposScreenState extends State<MisGruposScreen> {
     return Scaffold(
       appBar: AppBar(
           backgroundColor: const Color.fromARGB(255, 120, 58, 100),
-          title: const Text('Mis Grupos Inscritos'),
+          title: const Text('Grupos Inscritos'),
           leading: const Icon(Icons.group)
           // IconButton(
           //   icon: ,

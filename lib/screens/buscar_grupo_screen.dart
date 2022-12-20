@@ -1,8 +1,4 @@
-// import 'package:tusgrupos/screens/group_list.dart';
-// import 'package:tusgrupos/screens/list_search.dart';
-// import 'package:tusgrupos/screens/menus.dart';
-// import 'package:tusgrupos/screens/grupo_screen.dart';
-// import 'package:tusgrupos/screens/grupos_card.dart';
+// ignore_for_file: library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
 import 'package:tusgrupos/dbHelper/mongodb.dart';

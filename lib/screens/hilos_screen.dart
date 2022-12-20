@@ -3,8 +3,6 @@ import 'package:tusgrupos/dbHelper/mongodb.dart';
 import 'package:tusgrupos/models/group_model.dart';
 import 'package:tusgrupos/models/comments_model.dart';
 import 'package:tusgrupos/screens/crear_hilo_screen.dart';
-import 'package:tusgrupos/screens/grupo_screen.dart';
-import 'package:tusgrupos/screens/grupos_card.dart';
 import 'package:tusgrupos/screens/hilo_screen.dart';
 
 class HilosScreen extends StatelessWidget {

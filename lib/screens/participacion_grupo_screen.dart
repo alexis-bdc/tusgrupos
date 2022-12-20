@@ -3,8 +3,6 @@ import 'package:tusgrupos/screens/buscar_grupo_screen.dart';
 import 'package:tusgrupos/screens/crear_grupo_screen.dart';
 import 'package:tusgrupos/screens/inscribir_grupo_screen.dart';
 import 'package:tusgrupos/screens/menus.dart';
-import 'package:tusgrupos/screens/crear_hilo_screen.dart';
-import 'package:tusgrupos/screens/responder_hilo_screen.dart';
 
 class ParticipacionGrupos extends StatelessWidget {
   const ParticipacionGrupos({super.key});

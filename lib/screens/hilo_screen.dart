@@ -3,9 +3,6 @@ import 'package:tusgrupos/dbHelper/mongodb.dart';
 import 'package:tusgrupos/models/group_model.dart';
 import 'package:tusgrupos/models/comments_model.dart';
 import 'package:tusgrupos/models/respuesta_model.dart';
-import 'package:tusgrupos/screens/crear_hilo_screen.dart';
-import 'package:tusgrupos/screens/grupo_screen.dart';
-import 'package:tusgrupos/screens/grupos_card.dart';
 import 'package:tusgrupos/screens/responder_hilo_screen.dart';
 
 class HiloScreen extends StatelessWidget {
@@ -19,7 +16,7 @@ class HiloScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 120, 58, 100),
+        backgroundColor: const Color.fromARGB(255, 120, 58, 100),
         title: Text(hilo.Title),
 //        actions: [
 //          IconButton(
@@ -37,7 +34,7 @@ class HiloScreen extends StatelessWidget {
         future: MongoDatabase.getResponsesQuery(hilo, grupo),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           } else {

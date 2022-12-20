@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:tusgrupos/dbHelper/mongodb.dart';
 import 'package:tusgrupos/models/group_model.dart';
 
 class GruposCard extends StatelessWidget {

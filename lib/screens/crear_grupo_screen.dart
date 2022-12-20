@@ -1,12 +1,10 @@
+// ignore_for_file: library_private_types_in_public_api, non_constant_identifier_names
+
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tusgrupos/dbHelper/mongodb.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:tusgrupos/models/group_model.dart';
-import 'package:tusgrupos/screens/landing_screen.dart';
-import 'package:tusgrupos/models/user_model.dart';
-import 'package:tusgrupos/screens/menus.dart';
 import 'package:mongo_dart/mongo_dart.dart' as M;
 
 class CreateGroup extends StatefulWidget {
@@ -25,8 +23,6 @@ class _CreateGroupState extends State<CreateGroup> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: crear grupo screen
-
     return Scaffold(
       // backgroundColor: Color.fromARGB(255, 190, 173, 185),
 
@@ -34,24 +30,6 @@ class _CreateGroupState extends State<CreateGroup> {
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 120, 58, 100),
         title: const Text("Crear Grupo"),
-        // leading: Builder(
-        //   builder: (BuildContext context) {
-        //     return IconButton(
-        //       icon: const Icon(Icons.menu),
-        //       onPressed: () {
-        //         Scaffold.of(context).openDrawer();
-        //       },
-        //     );
-        //   },
-        // ),
-        // actions: <Widget>[
-        //   IconButton(
-        //     //todo: conectar a buscar grupo
-        //     onPressed: () {},
-        //     icon: const Icon(Icons.search),
-        //     tooltip: 'buscar grupos',
-        //   ),
-        // ]
       ),
 
       //--------------------drawer--------------------
