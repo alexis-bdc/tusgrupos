@@ -8,8 +8,12 @@ import 'package:mongo_dart/mongo_dart.dart' as M;
 
 //
 //TO DO: Tiene que haber una retroalimentación de la creación del hilo
-//      También falta modificar el modelo del hilo para que guarde el título
-//      Falta hacer la pantalla del hilo
+//      También falta modificar el modelo del hilo para que guarde el título (Listo!)
+//      Falta hacer la pantalla del hilo                                     (Listo!)
+//      Asegurarse que el nuevo hilo aparezca en la pantalla de hilos
+//      Refinar la pantalla del hilo, tiene que aparecer el nombre del usuario que lo hizo
+//      Agregar la posibilidad de responder al hilo en la pantalla del hilo
+//      Hacer pantalla de responder hilo
 //
 
 class CrearHilo extends StatelessWidget {
@@ -23,8 +27,6 @@ class CrearHilo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: crear grupo screen
-
     return Scaffold(
       //--------------------appbar--------------------
       appBar: AppBar(
@@ -114,6 +116,7 @@ class CrearHilo extends StatelessWidget {
                     _insertComment(
                         tituloController.text, descripcionController.text);
                     print('Comentario insertado!');
+                    Navigator.pop(context);
                   },
                   icon: const Icon(Icons.check),
                   tooltip: 'confirmar',
@@ -138,15 +141,17 @@ class CrearHilo extends StatelessWidget {
       id: _id,
       Owner: dueno.toString(),
       Group: grupo.id,
+      Title: titulo,
       Comment: descripcion,
       Date: now,
     );
 
     var result = await MongoDatabase.insertComment(comment);
-    if (result == "Success")
+    if (result == "Success") {
       print("Hilo Creado");
-    else
+    } else {
       print("Error en la inserción");
+    }
 
     //ScaffoldMessenger.of(context).showSnackBar(
     //  const SnackBar(

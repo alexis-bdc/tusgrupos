@@ -1,40 +1,51 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tusgrupos/dbHelper/mongodb.dart';
+import 'package:tusgrupos/models/comments_model.dart';
+import 'package:tusgrupos/models/group_model.dart';
+import 'package:tusgrupos/models/respuesta_model.dart';
 import 'package:tusgrupos/screens/landing_screen.dart';
 import 'package:tusgrupos/screens/menus.dart';
 
+import 'package:mongo_dart/mongo_dart.dart' as M;
+
 class ResponderHilo extends StatelessWidget {
-  const ResponderHilo({super.key});
+  final commentModel hilo;
+  final groupModel grupo;
+
+  var descripcionController = TextEditingController();
+  var user;
+
+  ResponderHilo({super.key, required this.hilo, required this.grupo});
 
   @override
   Widget build(BuildContext context) {
-    // TODO: crear grupo screen
-
     return Scaffold(
       //--------------------appbar--------------------
       appBar: AppBar(
-          backgroundColor: Colors.orange,
-          title: const Text("Responder Hilo"),
-          leading: Builder(
-            builder: (BuildContext context) {
-              return IconButton(
-                icon: const Icon(Icons.menu),
-                onPressed: () {
-                  Scaffold.of(context).openDrawer();
-                },
-              );
-            },
-          ),
-          actions: <Widget>[
-            IconButton(
-              //todo: conectar a buscar grupo
-              onPressed: () {},
-              icon: const Icon(Icons.search),
-              tooltip: 'buscar grupos',
-            ),
-          ]),
+        backgroundColor: Color.fromARGB(255, 120, 58, 100),
+        title: const Text("Responder Hilo"),
+//          leading: Builder(
+//            builder: (BuildContext context) {
+//              return IconButton(
+//                icon: const Icon(Icons.menu),
+//                onPressed: () {
+//                  Scaffold.of(context).openDrawer();
+//                },
+//              );
+//            },
+//          ),
+//          actions: <Widget>[
+//            IconButton(
+//              //todo: conectar a buscar grupo
+//              onPressed: () {},
+//              icon: const Icon(Icons.search),
+//              tooltip: 'buscar grupos',
+//            ),
+//          ]
+      ),
 
       //--------------------drawer--------------------
-      drawer: const MenuDrawer(),
 
       //--------------------body--------------------
       body: SingleChildScrollView(
@@ -45,9 +56,9 @@ class ResponderHilo extends StatelessWidget {
               children: [
                 Card(
                   child: Column(
-                    children: const [
+                    children: [
                       ListTile(
-                        title: Text('Nombre de Grupo'),
+                        title: Text(grupo.Name),
                       ),
                     ],
                   ),
@@ -55,9 +66,9 @@ class ResponderHilo extends StatelessWidget {
                 SizedBox(height: 30),
                 Card(
                   child: Column(
-                    children: const [
+                    children: [
                       ListTile(
-                        title: Text('Nombre del Hilo'),
+                        title: Text(hilo.Title),
                       ),
                     ],
                   ),
@@ -65,11 +76,9 @@ class ResponderHilo extends StatelessWidget {
                 SizedBox(height: 30),
                 TextFormField(
                   autofocus: true,
+                  controller: descripcionController,
                   //initialValue: "Clave",
                   //obscureText: true,
-                  onChanged: (value) {
-                    print('value: $value');
-                  },
                   validator: (value) {
                     if (value == null) return 'Campo requerido';
                     return value.length < 8 ? 'Ingresar título' : null;
@@ -89,34 +98,57 @@ class ResponderHilo extends StatelessWidget {
                     ),
                   ),
                 ),
+                const SizedBox(height: 30),
+                IconButton(
+                  onPressed: () {
+                    _insertRespuesta(descripcionController.text);
+                    print('Respuesta insertado!');
+                    Navigator.pop(context);
+                  },
+                  icon: const Icon(Icons.check),
+                  tooltip: 'confirmar',
+                  // disabledColor: Colors.grey,
+                  color: Colors.green[800],
+                  iconSize: 40,
+                ),
               ],
             )),
       ),
-      //--------------------BottomNavigationBar------------------------------
-      // bottomNavigationBar: BottomNavigationBar(
-      //   items: const <BottomNavigationBarItem>[
-      //     BottomNavigationBarItem(
-      //       icon: Icon(Icons.check),
-      //       label: 'Confirmar',
-      //     ),
-      //     BottomNavigationBarItem(
-      //       icon: Icon(Icons.cancel),
-      //       label: 'Cancelar',
-      //     )
-      //   ],
-      //   currentIndex: 0,
-      //   selectedItemColor: Colors.green,
-      //   unselectedItemColor: Colors.red,
-      //   onTap: (index) {
-      //     if (index == 0) {
-      //       Navigator.of(context).push(
-      //           MaterialPageRoute(builder: (context) => const HomeScreen()));
-      //     } else if (index == 1) {
-      //       Navigator.of(context).push(
-      //           MaterialPageRoute(builder: (context) => const HomeScreen()));
-      //     }
-      //   },
-      // ),
     );
+  }
+
+  void _insertRespuesta(String descripcion) async {
+    final prefs = await SharedPreferences.getInstance();
+
+    var _id = M.ObjectId();
+    final String? dueno = prefs.getString('idUser');
+    final now = DateTime.now();
+
+    final respuesta = respuestaModel(
+      id: _id,
+      Hilo: hilo.id,
+      Owner: dueno.toString(),
+      Group: grupo.id,
+      Comment: descripcion,
+      Date: now,
+    );
+
+    var result = await MongoDatabase.insertRespuesta(respuesta);
+    if (result == 'Success') {
+      print("Hilo Creado");
+    } else {
+      print("Error en la inserción");
+    }
+
+    //ScaffoldMessenger.of(context).showSnackBar(
+    //  const SnackBar(
+    //    content: Text('Nuevo Grupo'),
+    //  ),
+    //);
+    _clearAll();
+  }
+
+  void _clearAll() {
+    descripcionController.text = '';
   }
 }
