@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:tusgrupos/models/group_model.dart';
-import 'package:tusgrupos/screens/grupos_card.dart';
 import 'package:tusgrupos/screens/hilos_screen.dart';
 
 class GrupoScreen extends StatelessWidget {

@@ -1,5 +1,4 @@
 import 'dart:developer';
-// import 'dart:html';
 
 import 'package:mongo_dart/mongo_dart.dart';
 import 'package:tusgrupos/dbHelper/constant.dart';
@@ -32,29 +31,7 @@ class MongoDatabase {
     respuestas = db.collection(RESPUESTAS_COLLECTION);
   }
 
-  // static Future<List<Map<String, dynamic>>> getGrupos() async {
-  //   final arrData = await groups.find().toList();
-  //   return arrData;
-  // }
-
-  static Future<List> participantGroups(ObjectId userId) async {
-    var temp = await inscriptions.find(where.eq('_iduser', userId)).toList();
-    final arrData = [];
-    // List<ObjectId> groupsId = [];
-    for (var i = 0; i < temp.length; i++) {
-      arrData[i] = await groups.findOne(where.eq('_id', temp[i]['_idgroup']));
-      print(arrData[i]);
-    }
-    return arrData;
-  }
-
-  static Future<List<Map<String, dynamic>>> getGruposQuery() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    final String? email = prefs.getString('emailUser');
-    final arrData = await groups.find(where.eq('owner', email)).toList();
-    //print("Buscando" + email.toString() + "En Mongo");
-    return arrData;
-  }
+  //----------------------------inserciones-------------------------------------
 
   static Future<String> insertUser(userModel user) async {
     try {
@@ -88,65 +65,16 @@ class MongoDatabase {
     }
   }
 
-  static Future<bool> checkUser(String email, String password) async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-
-    var res = await users.findOne(where.eq('email', email));
-
-    // var userID = res['_id'].toString();
-    // print(typeof userID);
-    // prefs.setString('userId', userID);
-    // print(prefs.getString('userId'));
-
-    if (res != null) {
-      if (res['password'] == password) {
-        return true;
-      } else {
-        return false;
-      }
-    } else {
-      return false;
-    }
-  }
-
-  static Future<ObjectId> getUserId(String email) async {
-    var res = await users.findOne(where.eq('email', email));
-    return res['_id'];
-  }
-
-  static Future<List<Map<String, dynamic>>> searchGroups(
-    String string,
-  ) async {
-    if (string == '') {
-      var res = await groups.find().toList();
-      return res;
-    } else {
-      var res = await groups.find({
-        'nombre': {
-          r'$regex': string,
-          r'$options': 'i',
-        }
-      }).toList();
-      return res;
-    }
-  }
-
   static Future<String> inscribeUser(groupModel group) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
     String? userEmail = prefs.getString('userEmail');
-    // print(userEmail);
-    var user = await users.findOne(where.eq('email', userEmail));
-    var data = user['_id'].$oid.toString();
-    ObjectId userId = ObjectId.fromHexString(data);
-    ObjectId groupId = group.id;
 
-    // print(userId);
-    // print(groupId);
+    ObjectId userId = await getUserId(userEmail!);
+    ObjectId groupId = group.id;
 
     var temp =
         await inscriptions.findOne({'_iduser': userId, '_idgroup': groupId});
-    print(temp);
 
     if (temp != null) {
       return 2.toString(); //Ya está inscrito
@@ -182,18 +110,6 @@ class MongoDatabase {
     }
   }
 
-  static Future<List<Map<String, dynamic>>> getComments() async {
-    final arrData = await comments.find().toList();
-    return arrData;
-  }
-
-  static Future<List<Map<String, dynamic>>> getCommentsQuery(
-      groupModel grupo) async {
-    final arrData = await comments.find(where.eq('group', grupo.id)).toList();
-    //print("Buscando" + email.toString() + "En Mongo");
-    return arrData;
-  }
-
   static Future<String> insertRespuesta(respuestaModel respuesta) async {
     try {
       // return await userCollection.insert(user.toJson());
@@ -208,6 +124,64 @@ class MongoDatabase {
       // print(e.toString());
       return e.toString();
     }
+  }
+
+  //-----------------------------Consultas--------------------------------------
+
+  static Future<ObjectId> getUserId(String email) async {
+    var res = await users.findOne(where.eq('email', email));
+    return res['_id'];
+  }
+
+  static Future<List<Map<String, dynamic>>> getGruposQuery() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String? email = prefs.getString('emailUser');
+    final arrData = await groups.find(where.eq('owner', email)).toList();
+    //print("Buscando" + email.toString() + "En Mongo");
+    return arrData;
+  }
+
+  static Future<bool> checkUser(String email, String password) async {
+    var res = await users.findOne(where.eq('email', email));
+
+    if (res != null) {
+      if (res['password'] == password) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
+  }
+
+  static Future<List<Map<String, dynamic>>> searchGroups(
+    String string,
+  ) async {
+    if (string == '') {
+      var res = await groups.find().toList();
+      return res;
+    } else {
+      var res = await groups.find({
+        'nombre': {
+          r'$regex': string,
+          r'$options': 'i',
+        }
+      }).toList();
+      return res;
+    }
+  }
+
+  static Future<List<Map<String, dynamic>>> getComments() async {
+    final arrData = await comments.find().toList();
+    return arrData;
+  }
+
+  static Future<List<Map<String, dynamic>>> getCommentsQuery(
+      groupModel grupo) async {
+    final arrData = await comments.find(where.eq('group', grupo.id)).toList();
+    //print("Buscando" + email.toString() + "En Mongo");
+    return arrData;
   }
 
   static Future<List<Map<String, dynamic>>> getResponsesQuery(
@@ -250,4 +224,18 @@ class MongoDatabase {
   //   // print(res);
   //   return res;
   // }
+  static Future<List> participantGroups(ObjectId userId) async {
+    List temp = await inscriptions.find(where.eq('_iduser', userId)).toList();
+    List temp2 = [];
+    for (var i = 0; i < temp.length; i++) {
+      temp2.add(await groups.findOne(where.eq('_id', temp[i]['_idgroup'])));
+    }
+    // print(temp2);
+    return temp2;
+  }
+
+  //------------------------------Updates---------------------------------------
+
+  //------------------------------Deletes---------------------------------------
+
 }

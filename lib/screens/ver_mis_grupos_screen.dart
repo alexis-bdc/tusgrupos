@@ -14,7 +14,8 @@ class VerMisGrupos extends StatelessWidget {
       // backgroundColor: Color.fromARGB(255, 190, 173, 185),
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 120, 58, 100),
-        title: const Text('Mis grupos Creados'),
+        title: const Text('Grupos Creados'),
+        leading: const Icon(Icons.co_present_outlined),
         actions: [
           IconButton(
             icon: const Icon(Icons.group_add_rounded),
@@ -29,7 +30,7 @@ class VerMisGrupos extends StatelessWidget {
         future: MongoDatabase.getGruposQuery(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           } else {
@@ -53,7 +54,7 @@ class VerMisGrupos extends StatelessWidget {
                         )),
               );
             } else {
-              return Center(
+              return const Center(
                 child: Text("No data available."),
               );
             }

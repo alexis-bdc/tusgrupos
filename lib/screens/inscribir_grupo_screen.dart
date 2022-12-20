@@ -1,4 +1,3 @@
-import 'package:tusgrupos/screens/landing_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:tusgrupos/screens/menus.dart';
 

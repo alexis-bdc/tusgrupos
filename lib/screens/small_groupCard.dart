@@ -1,11 +1,10 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
-import 'package:mongo_dart/mongo_dart.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-// import 'package:mongo_dart/mongo_dart.dart';
 import 'package:tusgrupos/dbHelper/mongodb.dart';
 import 'package:tusgrupos/models/group_model.dart';
 import 'package:expansion_tile_card/expansion_tile_card.dart';
-// import 'package:tusgrupos/models/inscripciones_model.dart';
+import 'package:tusgrupos/screens/grupos_card.dart';
 
 class SmallGroupCard extends StatelessWidget {
   SmallGroupCard({Key? key, required this.group});
@@ -138,5 +137,16 @@ class SmallGroupCard extends StatelessWidget {
         )
       ],
     );
+  }
+}
+
+class participationCard extends StatelessWidget {
+  const participationCard({super.key, required this.group});
+  final groupModel group;
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement participationCard
+    return GruposCard(grupo: group);
   }
 }
