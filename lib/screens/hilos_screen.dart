@@ -49,7 +49,8 @@ class HilosScreen extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                       builder: (context) => HiloScreen(
-                          hilo: commentModel.fromJson(snapshot.data![index])),
+                          hilo: commentModel.fromJson(snapshot.data![index]),
+                          grupo: grupo),
                     ),
                   ),
                   child: ListTile(

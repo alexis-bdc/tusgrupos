@@ -27,8 +27,6 @@ class CrearHilo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: crear grupo screen
-
     return Scaffold(
       //--------------------appbar--------------------
       appBar: AppBar(
@@ -141,7 +139,6 @@ class CrearHilo extends StatelessWidget {
 
     final comment = commentModel(
       id: _id,
-      Hilo: _id,
       Owner: dueno.toString(),
       Group: grupo.id,
       Title: titulo,

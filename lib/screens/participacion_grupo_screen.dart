@@ -71,7 +71,8 @@ class ParticipacionGrupos extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const ResponderHilo()),
+                        //ResponderHilo()
+                        builder: (context) => const BuscarGrupo()),
                   );
                 },
                 // style: ButtonStyle(elevation: MaterialStateProperty(12.0 )),

@@ -6,6 +6,7 @@ import 'package:tusgrupos/dbHelper/constant.dart';
 import 'package:tusgrupos/models/comments_model.dart';
 import 'package:tusgrupos/models/group_model.dart';
 import 'package:tusgrupos/models/inscripciones_model.dart';
+import 'package:tusgrupos/models/respuesta_model.dart';
 import 'package:tusgrupos/models/user_model.dart';
 // import 'package:tusgrupos/models/comments_model.dart';
 // import 'package:tusgrupos/models/files_model.dart';
@@ -18,6 +19,7 @@ class MongoDatabase {
   static var groups;
   static var inscriptions;
   static var comments;
+  static var respuestas;
 
   static connect() async {
     db = await Db.create(MONGO_CONN_URL);
@@ -27,6 +29,7 @@ class MongoDatabase {
     groups = db.collection(GROUP_COLLECTION);
     inscriptions = db.collection(INSCRIPTIONS_COLLECTION);
     comments = db.collection(COMMENTS_COLLECTION);
+    respuestas = db.collection(RESPUESTAS_COLLECTION);
   }
 
   static Future<List<Map<String, dynamic>>> getGrupos() async {
@@ -182,10 +185,30 @@ class MongoDatabase {
     return arrData;
   }
 
+  static Future<String> insertRespuesta(respuestaModel respuesta) async {
+    try {
+      // return await userCollection.insert(user.toJson());
+      var result = await respuestas.insertOne(respuesta.toJson());
+      if (result.isSuccess) {
+        // print(group);
+        return "Success";
+      } else {
+        return "Error";
+      }
+    } catch (e) {
+      // print(e.toString());
+      return e.toString();
+    }
+  }
+
   static Future<List<Map<String, dynamic>>> getResponsesQuery(
-      commentModel hilo) async {
-    final arrData = await comments.find(where.eq('hilo', hilo.id)).toList();
-    //print("Buscando" + email.toString() + "En Mongo");
+      commentModel hilo, groupModel grupo) async {
+    final arrData = await respuestas.find(where.eq('hilo', hilo.id)).toList();
+    //print("Buscando en grupo" +
+    //    grupo.id.toString() +
+    //    "En Hilo" +
+    //    hilo.id.toString());
+    //print('Respuestas encontradas: ' + arrData.toString());
     return arrData;
   }
 
