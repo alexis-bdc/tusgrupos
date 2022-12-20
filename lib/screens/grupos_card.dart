@@ -83,8 +83,7 @@ class _BackgroundImage extends StatelessWidget {
         //decoration: _backgroundImageDecoration(),
         child: const FadeInImage(
           placeholder: AssetImage('assets/jar-loading.gif'),
-          image: NetworkImage(
-              'https://i.kym-cdn.com/photos/images/facebook/002/471/150/78c'),
+          image: AssetImage('assets/default_group.jpg'),
           fit: BoxFit.cover,
         ),
       ),
