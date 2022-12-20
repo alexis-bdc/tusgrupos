@@ -150,6 +150,7 @@ class _CreateGroupState extends State<CreateGroup> {
   }
 
   void _insertGroup(String nombre, String descripcion, String clave) async {
+    final prefs = await SharedPreferences.getInstance();
     var _id = M.ObjectId();
     final String? dueno = prefs.getString('userEmail');
 
@@ -157,7 +158,7 @@ class _CreateGroupState extends State<CreateGroup> {
 
     final group = groupModel(
       id: _id,
-      Owner: dueno,
+      idOwner: user['_id'],
       OwnerName: userModel.fromJson(user).Name,
       Name: nombre,
       Description: descripcion,

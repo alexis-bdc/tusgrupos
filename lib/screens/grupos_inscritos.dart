@@ -8,14 +8,14 @@ import 'package:tusgrupos/models/group_model.dart';
 import 'package:tusgrupos/screens/small_groupCard.dart';
 // import 'package:tusgrupos/models/group_model.dart';
 
-class MisGruposScreen extends StatefulWidget {
-  const MisGruposScreen({Key? key}) : super(key: key);
+class GruposInscritos extends StatefulWidget {
+  const GruposInscritos({Key? key}) : super(key: key);
 
   @override
-  _MisGruposScreenState createState() => _MisGruposScreenState();
+  _GruposInscritosState createState() => _GruposInscritosState();
 }
 
-class _MisGruposScreenState extends State<MisGruposScreen> {
+class _GruposInscritosState extends State<GruposInscritos> {
   // var _child;
 
   Future<List> getGroups() async {
