@@ -20,6 +20,7 @@ class _GruposCreadosScreenState extends State<GruposCreadosScreen> {
       appBar: AppBar(
         title: const Text('Grupos Creados'),
         backgroundColor: const Color.fromARGB(255, 120, 58, 100),
+        leading: const Icon(Icons.co_present_outlined),
         actions: [
           IconButton(
             icon: const Icon(Icons.group_add_rounded),

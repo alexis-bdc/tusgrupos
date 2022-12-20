@@ -42,7 +42,7 @@ class _LandingState extends State<Landing> {
               backgroundColor: Colors.pink[100],
               extras: {"label": "Grupos Creados"}),
           FluidNavBarIcon(
-              icon: Icons.home,
+              icon: Icons.manage_accounts,
               backgroundColor: Colors.pink[100],
               extras: {"label": "Home"}),
           FluidNavBarIcon(

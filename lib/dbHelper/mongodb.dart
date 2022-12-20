@@ -208,10 +208,10 @@ class MongoDatabase {
     for (var index = 0; index < arrInscriptions.length; index++) {
       arrData.add(await groups
           .findOne(where.eq('_id', arrInscriptions[index]['_idgroup'])));
-      print("Inscripciones encontradas" +
-          index.toString() +
-          "Para" +
-          email.toString());
+      // print("Inscripciones encontradas" +
+      //     index.toString() +
+      //     "Para" +
+      //     email.toString());
     }
     //await groups.find(where.eq('id', arrInscriptions['id'].toString()));
 
@@ -224,6 +224,7 @@ class MongoDatabase {
   //   // print(res);
   //   return res;
   // }
+
   static Future<List> participantGroups(ObjectId userId) async {
     List temp = await inscriptions.find(where.eq('_iduser', userId)).toList();
     List temp2 = [];
