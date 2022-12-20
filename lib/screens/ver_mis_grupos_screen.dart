@@ -15,6 +15,7 @@ class VerMisGrupos extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 120, 58, 100),
         title: const Text('Mis grupos Creados'),
+        leading: const Icon(Icons.co_present_outlined),
         actions: [
           IconButton(
             icon: const Icon(Icons.group_add_rounded),

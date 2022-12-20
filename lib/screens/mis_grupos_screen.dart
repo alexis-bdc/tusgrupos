@@ -29,8 +29,14 @@ class _MisGruposScreenState extends State<MisGruposScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Mis Grupos'),
-      ),
+          backgroundColor: const Color.fromARGB(255, 120, 58, 100),
+          title: const Text('Mis Grupos Inscritos'),
+          leading: const Icon(Icons.group)
+          // IconButton(
+          //   icon: ,
+          //   onPressed: () {},
+          // ),
+          ),
       body: FutureBuilder(
           future: getGroups(),
           builder: (context, snapshot) {

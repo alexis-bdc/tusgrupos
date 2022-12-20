@@ -73,7 +73,8 @@ class MongoDatabase {
     ObjectId userId = await getUserId(userEmail!);
     ObjectId groupId = group.id;
 
-    var temp = await inscriptions.findOne({'user': userId, 'group': groupId});
+    var temp =
+        await inscriptions.findOne({'_iduser': userId, '_idgroup': groupId});
 
     if (temp != null) {
       return 2.toString(); //Ya está inscrito

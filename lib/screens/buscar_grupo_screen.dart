@@ -30,6 +30,7 @@ class _BuscarState2 extends State {
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 120, 58, 100),
         title: const Text('Buscar Grupo'),
+        leading: const Icon(Icons.search),
       ),
       body: Column(
         children: [
