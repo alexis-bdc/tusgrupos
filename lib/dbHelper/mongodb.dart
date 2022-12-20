@@ -144,9 +144,15 @@ class MongoDatabase {
     return res['_id'];
   }
 
+  static Future<Map<String, dynamic>> getUser(String email) async {
+    var res = await users.findOne(where.eq('email', email));
+    return res;
+  }
+
   static Future<List<Map<String, dynamic>>> getGruposQuery() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    final String? email = prefs.getString('emailUser');
+    final String? email = prefs.getString('userEmail');
+    print("Querying with email: " + email.toString());
     final arrData = await groups.find(where.eq('owner', email)).toList();
     //print("Buscando" + email.toString() + "En Mongo");
     return arrData;

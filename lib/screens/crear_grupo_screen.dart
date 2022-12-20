@@ -5,6 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tusgrupos/dbHelper/mongodb.dart';
 
 import 'package:tusgrupos/models/group_model.dart';
+import 'package:tusgrupos/models/user_model.dart';
 import 'package:mongo_dart/mongo_dart.dart' as M;
 
 class CreateGroup extends StatefulWidget {
@@ -150,9 +151,14 @@ class _CreateGroupState extends State<CreateGroup> {
 
   void _insertGroup(String nombre, String descripcion, String clave) async {
     var _id = M.ObjectId();
+    final String? dueno = prefs.getString('userEmail');
+
+    final user = await MongoDatabase.getUser(dueno.toString());
+
     final group = groupModel(
       id: _id,
-      // idOwner: idowner,
+      Owner: dueno,
+      OwnerName: userModel.fromJson(user).Name,
       Name: nombre,
       Description: descripcion,
       password: clave,

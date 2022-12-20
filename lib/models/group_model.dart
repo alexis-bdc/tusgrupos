@@ -12,13 +12,14 @@ String groupModelToJson(groupModel data) => json.encode(data.toJson());
 class groupModel {
   groupModel(
       {required this.id,
-      this.idOwner,
+      this.Owner,
+      required this.OwnerName,
       required this.Name,
       required this.Description,
       required this.password});
 
   ObjectId id;
-  ObjectId? idOwner;
+  String? Owner;
   String? OwnerName;
   String Name;
   String Description;
@@ -28,7 +29,8 @@ class groupModel {
 
   factory groupModel.fromJson(Map<String, dynamic> json) => groupModel(
         id: json["_id"],
-        idOwner: json["_idowner"],
+        Owner: json["_idowner"],
+        OwnerName: json["ownerName"],
         Name: json["nombre"],
         Description: json["descripcion"],
         // Admin: json["admin"],
@@ -38,7 +40,8 @@ class groupModel {
 
   Map<String, dynamic> toJson() => {
         "_id": id,
-        "_idowner": idOwner,
+        "_idowner": Owner,
+        "ownerName": OwnerName,
         "nombre": Name,
         "descripcion": Description,
         // "admin": Admin,
