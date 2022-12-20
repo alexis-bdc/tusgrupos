@@ -29,8 +29,19 @@ class MongoDatabase {
     comments = db.collection(COMMENTS_COLLECTION);
   }
 
-  static Future<List<Map<String, dynamic>>> getGrupos() async {
-    final arrData = await groups.find().toList();
+  // static Future<List<Map<String, dynamic>>> getGrupos() async {
+  //   final arrData = await groups.find().toList();
+  //   return arrData;
+  // }
+
+  static Future<List> participantGroups(ObjectId userId) async {
+    var temp = await inscriptions.find(where.eq('_iduser', userId)).toList();
+    final arrData = [];
+    // List<ObjectId> groupsId = [];
+    for (var i = 0; i < temp.length; i++) {
+      arrData[i] = await groups.findOne(where.eq('_id', temp[i]['_idgroup']));
+      print(arrData[i]);
+    }
     return arrData;
   }
 
@@ -95,15 +106,10 @@ class MongoDatabase {
     }
   }
 
-  // static Future<userModel> getUser(String email) async {
-  //   var res = await users.find(where.eq('email', email)).first;
-
-  //   if (res is userModel) {
-  //     print("Es un usuario");
-  //   }
-
-  //   return res;
-  // }
+  static Future<ObjectId> getUserId(String email) async {
+    var res = await users.findOne(where.eq('email', email));
+    return res['_id'];
+  }
 
   static Future<List<Map<String, dynamic>>> searchGroups(
     String string,
