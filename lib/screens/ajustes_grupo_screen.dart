@@ -28,9 +28,7 @@ class AjustesGrupoScreen extends StatelessWidget {
       body: Column(
         children: [
           //GruposCard(grupo: grupo),
-          const Image(
-              image: NetworkImage(
-                  'https://i.kym-cdn.com/photos/images/facebook/002/471/150/78c')),
+          const Image(image: AssetImage('assets/default_group.jpg')),
           const SizedBox(height: 20),
 //          ListView.separated(
 //            shrinkWrap: true,
