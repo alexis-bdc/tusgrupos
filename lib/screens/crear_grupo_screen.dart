@@ -24,6 +24,7 @@ class _CreateGroupState extends State<CreateGroup> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       // backgroundColor: Color.fromARGB(255, 190, 173, 185),
 
       //--------------------appbar--------------------
@@ -148,14 +149,10 @@ class _CreateGroupState extends State<CreateGroup> {
   }
 
   void _insertGroup(String nombre, String descripcion, String clave) async {
-    final prefs = await SharedPreferences.getInstance();
-
     var _id = M.ObjectId();
-    final String? dueno = prefs.getString('idUser');
-
     final group = groupModel(
       id: _id,
-      Owner: dueno,
+      // idOwner: idowner,
       Name: nombre,
       Description: descripcion,
       password: clave,

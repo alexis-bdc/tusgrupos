@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+// import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tusgrupos/dbHelper/mongodb.dart';
 import 'package:tusgrupos/models/group_model.dart';
 import 'package:tusgrupos/screens/ajustes_grupo_screen.dart';
 import 'package:tusgrupos/screens/crear_grupo_screen.dart';
 import 'package:tusgrupos/screens/grupos_card.dart';
-import 'package:tusgrupos/screens/small_groupCard.dart';
 
 class GruposCreadosScreen extends StatefulWidget {
   @override

@@ -6,9 +6,9 @@ import 'package:tusgrupos/screens/hilos_screen.dart';
 class AjustesGrupoScreen extends StatelessWidget {
   final groupModel grupo;
   final options = const [
-    'Hilos',
-    'Detalles',
-    'Participantes',
+    'Hilos aaaa',
+    'Detalles aaaaa',
+    'Participantes aaaaa',
   ];
   final iconos = const [
     Icons.add_comment_rounded,
@@ -22,7 +22,7 @@ class AjustesGrupoScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 120, 58, 100),
+        backgroundColor: const Color.fromARGB(255, 120, 58, 100),
         title: Text(grupo.Name),
       ),
       body: Column(
@@ -30,28 +30,6 @@ class AjustesGrupoScreen extends StatelessWidget {
           //GruposCard(grupo: grupo),
           const Image(image: AssetImage('assets/default_group.jpg')),
           const SizedBox(height: 20),
-//          ListView.separated(
-//            shrinkWrap: true,
-//            itemBuilder: (context, index) => ListTile(
-//              leading: Icon(
-//                iconos[index],
-//                color: Colors.purple,
-//              ),
-//              title: Text(options[index]),
-//              trailing:
-//                  const Icon(Icons.arrow_forward, color: Colors.pinkAccent),
-//              onTap: () => Navigator.push(
-//                context,
-//                MaterialPageRoute(
-//                  builder: (context) => HilosScreen(
-//                    grupo: grupo,
-//                  ),
-//                ),
-//              ),
-//            ),
-//            separatorBuilder: (_, __) => const Divider(),
-//            itemCount: 3,
-//          ),
           ListTile(
             leading: Icon(
               iconos[0],

@@ -114,10 +114,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   ElevatedButton(
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        _insertUser(
-                            NombreControler.text,
-                            // ApellidoController.text,
-                            EmailController.text,
+                        _insertUser(NombreControler.text, EmailController.text,
                             PasswordController.text);
                       }
                     },

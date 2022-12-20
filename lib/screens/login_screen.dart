@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tusgrupos/dbHelper/mongodb.dart';
 import 'package:tusgrupos/screens/landing_screen.dart';
-import 'package:tusgrupos/screens/landing_screen.dart';
 import 'package:tusgrupos/screens/sign_up_screen.dart';
 
 class LoginPage extends StatefulWidget {
@@ -16,8 +15,8 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   // final _formKey = GlobalKey<FormState>();
 
-  var emailController = TextEditingController(text: 'jlayon@usach.cl');
-  var passwordController = TextEditingController(text: '12345');
+  var emailController = TextEditingController(text: 'alexis.bolados@usach.cl');
+  var passwordController = TextEditingController(text: '123');
 
   @override
   Widget build(BuildContext context) {

@@ -50,6 +50,17 @@ class MongoDatabase {
   }
 
   static Future<String> insertGroup(groupModel group) async {
+    final prefs = await SharedPreferences.getInstance();
+
+    String? email = prefs.getString('idUser');
+    ObjectId? idowner = await getUserId(email!);
+
+    if (idowner != null) {
+      group.idOwner = idowner;
+      var ownername = await users.findOne(where.eq('_id', idowner));
+      group.OwnerName = ownername['nombre'];
+    }
+
     try {
       // return await userCollection.insert(user.toJson());
       var result = await groups.insertOne(group.toJson());
@@ -180,18 +191,12 @@ class MongoDatabase {
   static Future<List<Map<String, dynamic>>> getCommentsQuery(
       groupModel grupo) async {
     final arrData = await comments.find(where.eq('group', grupo.id)).toList();
-    //print("Buscando" + email.toString() + "En Mongo");
     return arrData;
   }
 
   static Future<List<Map<String, dynamic>>> getResponsesQuery(
       commentModel hilo, groupModel grupo) async {
     final arrData = await respuestas.find(where.eq('hilo', hilo.id)).toList();
-    //print("Buscando en grupo" +
-    //    grupo.id.toString() +
-    //    "En Hilo" +
-    //    hilo.id.toString());
-    //print('Respuestas encontradas: ' + arrData.toString());
     return arrData;
   }
 
@@ -201,29 +206,18 @@ class MongoDatabase {
     var user = await users.findOne(where.eq('email', email));
     var data = user['_id'].$oid.toString();
     ObjectId userId = ObjectId.fromHexString(data);
+
     var arrInscriptions =
         await inscriptions.find(where.eq('_iduser', userId)).toList();
-    //print("Buscando" + email.toString() + "En Mongo");
+
     List arrData = [];
     for (var index = 0; index < arrInscriptions.length; index++) {
       arrData.add(await groups
           .findOne(where.eq('_id', arrInscriptions[index]['_idgroup'])));
-      // print("Inscripciones encontradas" +
-      //     index.toString() +
-      //     "Para" +
-      //     email.toString());
     }
-    //await groups.find(where.eq('id', arrInscriptions['id'].toString()));
 
     return arrData;
   }
-
-  // static Future<List<Map<String, dynamic>>> getOwnedGroups(
-  //     String owner) async {
-  //   var res = await groups.find(where.eq('owner', owner)).toList();
-  //   // print(res);
-  //   return res;
-  // }
 
   static Future<List> participantGroups(ObjectId userId) async {
     List temp = await inscriptions.find(where.eq('_iduser', userId)).toList();
