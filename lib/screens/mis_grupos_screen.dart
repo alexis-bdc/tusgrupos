@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tusgrupos/dbHelper/mongodb.dart';
 import 'package:tusgrupos/models/group_model.dart';
+import 'package:tusgrupos/screens/small_groupCard.dart';
 // import 'package:tusgrupos/models/group_model.dart';
 
 class MisGruposScreen extends StatefulWidget {
@@ -13,7 +14,7 @@ class MisGruposScreen extends StatefulWidget {
 }
 
 class _MisGruposScreenState extends State<MisGruposScreen> {
-  var _child;
+  // var _child;
 
   Future<List> getGroups() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -24,31 +25,38 @@ class _MisGruposScreenState extends State<MisGruposScreen> {
     return groups;
   }
 
-  Future<Widget> __body(groupModel grupo) async {
-    return Container(
-      child: Text(grupo.Name),
-    );
-  }
-
-  @override
-  Widget initState() {
-    super.initState();
-    return _child = const Center(
-        child: Text('Mis Grupos',
-            style: TextStyle(
-              fontSize: 30,
-              fontWeight: FontWeight.bold,
-              color: Colors.black,
-            )));
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Mis Grupos'),
       ),
-      body: _child,
+      body: FutureBuilder(
+          future: getGroups(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            } else {
+              if (snapshot.hasData) {
+                var totalData = snapshot.data?.length;
+                return ListView.builder(
+                  itemCount: totalData,
+                  itemBuilder: (BuildContext context, int index) =>
+                      GestureDetector(
+                    child: participationCard(
+                      group: groupModel.fromJson(snapshot.data![index]),
+                    ),
+                  ),
+                );
+              } else {
+                return const Center(
+                  child: Text('No hay grupos'),
+                );
+              }
+            }
+          }),
     );
   }
 }

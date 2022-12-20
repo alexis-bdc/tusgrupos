@@ -5,6 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tusgrupos/dbHelper/mongodb.dart';
 import 'package:tusgrupos/models/group_model.dart';
 import 'package:expansion_tile_card/expansion_tile_card.dart';
+import 'package:tusgrupos/screens/grupos_card.dart';
 // import 'package:tusgrupos/models/inscripciones_model.dart';
 
 class SmallGroupCard extends StatelessWidget {
@@ -138,5 +139,16 @@ class SmallGroupCard extends StatelessWidget {
         )
       ],
     );
+  }
+}
+
+class participationCard extends StatelessWidget {
+  const participationCard({super.key, required this.group});
+  final groupModel group;
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement participationCard
+    return GruposCard(grupo: group);
   }
 }
