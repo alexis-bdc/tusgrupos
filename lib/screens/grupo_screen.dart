@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:tusgrupos/dbHelper/mongodb.dart';
+// import 'package:tusgrupos/dbHelper/mongodb.dart';
+// import 'package:tusgrupos/dbHelper/mongodb.dart';
 import 'package:tusgrupos/models/comments_model.dart';
 import 'package:tusgrupos/models/group_model.dart';
+import 'package:tusgrupos/models/inscripciones_model.dart';
 import 'package:tusgrupos/screens/crear_hilo_screen.dart';
 import 'package:tusgrupos/screens/hilo_screen.dart';
-import 'package:tusgrupos/screens/participacion_grupo_screen.dart';
-import 'package:tusgrupos/screens/participantes_screen.dart';
+// import 'package:tusgrupos/screens/participacion_grupo_screen.dart';
+// import 'package:tusgrupos/screens/participantes_screen.dart';
 
 class GrupoScreen extends StatelessWidget {
   GrupoScreen({super.key, required this.group});
@@ -48,22 +50,15 @@ class GrupoScreen extends StatelessWidget {
       );
     }
 
-    return Scaffold(
-        appBar: AppBar(
-          backgroundColor: const Color.fromARGB(255, 120, 58, 100),
-          title: Text(group.Name),
-          actions: [
-            IconButton(
-                icon: const Icon(Icons.add_comment_rounded),
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => CrearHilo(grupo: group)));
-                })
-          ],
-        ),
-        body: Column(
+    verificaInscripcion(groupModel Group) async {
+      var res = await inscripcionesModel.isUserInscribed(Group);
+      return res;
+    }
+
+    _body() {
+      // ignore: unrelated_type_equality_checks
+      if (verificaInscripcion(group) == true) {
+        return Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -93,7 +88,29 @@ class GrupoScreen extends StatelessWidget {
             ),
             Expanded(child: listhilos(group)),
           ],
-        ));
+        );
+      } else {
+        return const Center(child: Text('No estas inscrito en este grupo'));
+      }
+    }
+
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: const Color.fromARGB(255, 120, 58, 100),
+        title: Text(group.Name),
+        actions: [
+          IconButton(
+              icon: const Icon(Icons.add_comment_rounded),
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => CrearHilo(grupo: group)));
+              })
+        ],
+      ),
+      body: _body(),
+    );
   }
 }
 

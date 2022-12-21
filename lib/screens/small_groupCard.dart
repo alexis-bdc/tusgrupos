@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:tusgrupos/models/group_model.dart';
 import 'package:expansion_tile_card/expansion_tile_card.dart';
 import 'package:tusgrupos/models/inscripciones_model.dart';
+import 'package:tusgrupos/screens/grupo_screen.dart';
 import 'package:tusgrupos/screens/grupos_card.dart';
 
 class SmallGroupCard extends StatelessWidget {
@@ -124,7 +125,12 @@ class SmallGroupCard extends StatelessWidget {
                 ElevatedButton(
                   style:
                       ElevatedButton.styleFrom(backgroundColor: Colors.purple),
-                  onPressed: () {},
+                  onPressed: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => GrupoScreen(group: group),
+                    ),
+                  ),
                   child: Row(
                     children: const <Widget>[
                       Text('Ver Grupo'),

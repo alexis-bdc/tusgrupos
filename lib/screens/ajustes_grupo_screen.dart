@@ -25,6 +25,7 @@ class AjustesGrupoScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 120, 58, 100),
         title: Text(grupo.Name),

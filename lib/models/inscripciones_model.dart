@@ -84,4 +84,19 @@ class inscripcionesModel {
 
     return arrUsers;
   }
+
+  static Future<bool> isUserInscribed(groupModel grupo) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? userEmail = prefs.getString('userEmail');
+    ObjectId userId = await userModel.getUserId(userEmail!);
+
+    var res = await MongoDatabase.inscriptions
+        .findOne({'_iduser': userId, '_idgroup': grupo.id});
+
+    if (res != null) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }
