@@ -3,6 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tusgrupos/dbHelper/mongodb.dart';
 import 'package:tusgrupos/models/comments_model.dart';
 import 'package:tusgrupos/models/group_model.dart';
+import 'package:tusgrupos/models/user_model.dart';
 import 'package:tusgrupos/models/respuesta_model.dart';
 
 import 'package:mongo_dart/mongo_dart.dart' as M;
@@ -119,13 +120,16 @@ class ResponderHilo extends StatelessWidget {
     final prefs = await SharedPreferences.getInstance();
 
     var _id = M.ObjectId();
-    final String? dueno = prefs.getString('idUser');
+    final String? dueno = prefs.getString('userEmail');
     final now = DateTime.now();
+
+    final user = await MongoDatabase.getUser(dueno.toString());
 
     final respuesta = respuestaModel(
       id: _id,
       Hilo: hilo.id,
       Owner: dueno.toString(),
+      OwnerName: userModel.fromJson(user).Name,
       Group: grupo.id,
       Comment: descripcion,
       Date: now,

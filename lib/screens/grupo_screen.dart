@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:tusgrupos/models/group_model.dart';
 import 'package:tusgrupos/screens/hilos_screen.dart';
+import 'package:tusgrupos/screens/participacion_grupo_screen.dart';
+import 'package:tusgrupos/screens/participantes_screen.dart';
 
 class GrupoScreen extends StatelessWidget {
   final groupModel grupo;

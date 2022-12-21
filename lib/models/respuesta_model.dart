@@ -14,6 +14,7 @@ class respuestaModel {
     required this.id,
     required this.Hilo,
     required this.Owner,
+    required this.OwnerName,
     required this.Group,
     required this.Comment,
     required this.Date,
@@ -22,6 +23,7 @@ class respuestaModel {
   ObjectId id;
   ObjectId Hilo;
   String Owner;
+  String OwnerName;
   ObjectId Group;
   String Comment;
   DateTime Date;
@@ -30,6 +32,7 @@ class respuestaModel {
         id: json["_id"],
         Hilo: json["hilo"],
         Owner: json["owner"],
+        OwnerName: json["ownerName"],
         Group: json["group"],
         Comment: json["comment"],
         Date: json["date"],
@@ -39,6 +42,7 @@ class respuestaModel {
         "_id": id,
         "hilo": Hilo,
         "owner": Owner,
+        "ownerName": OwnerName,
         "group": Group,
         "comment": Comment,
         "date": Date,

@@ -5,6 +5,7 @@ import 'package:tusgrupos/dbHelper/constant.dart';
 import 'package:tusgrupos/models/comments_model.dart';
 import 'package:tusgrupos/models/group_model.dart';
 import 'package:tusgrupos/models/inscripciones_model.dart';
+import 'package:tusgrupos/models/moderador_model.dart';
 import 'package:tusgrupos/models/respuesta_model.dart';
 import 'package:tusgrupos/models/user_model.dart';
 // import 'package:tusgrupos/models/comments_model.dart';
@@ -19,6 +20,7 @@ class MongoDatabase {
   static var inscriptions;
   static var comments;
   static var respuestas;
+  static var moderadores;
 
   static connect() async {
     db = await Db.create(MONGO_CONN_URL);
@@ -29,6 +31,7 @@ class MongoDatabase {
     inscriptions = db.collection(INSCRIPTIONS_COLLECTION);
     comments = db.collection(COMMENTS_COLLECTION);
     respuestas = db.collection(RESPUESTAS_COLLECTION);
+    moderadores = db.collection(MODERADORES_COLLECTION);
   }
 
   //----------------------------inserciones-------------------------------------
@@ -122,6 +125,23 @@ class MongoDatabase {
       }
     } catch (e) {
       // print(e.toString());
+      return e.toString();
+    }
+  }
+
+  static Future<String> userToMod(groupModel group, ObjectId userId) async {
+    ObjectId groupId = group.id;
+
+    final moderador =
+        moderadorModel(User: userId, Group: groupId, EntryDate: DateTime.now());
+    try {
+      var res = await moderadores.insertOne(moderador.toJson());
+      if (res.isSuccess) {
+        return 1.toString(); //Inscripción exitosa
+      } else {
+        return 0.toString(); //Error
+      }
+    } catch (e) {
       return e.toString();
     }
   }
@@ -240,8 +260,82 @@ class MongoDatabase {
     return temp2;
   }
 
+  static Future<List> getParticipantesNoModsQuery(ObjectId grupoId) async {
+    var arrInscriptions =
+        await inscriptions.find(where.eq('_idgroup', grupoId)).toList();
+    //print("Buscando" + email.toString() + "En Mongo");
+
+    List arrUsers = [];
+    for (var index = 0; index < arrInscriptions.length; index++) {
+      print(arrInscriptions[index]['_iduser']);
+      if (!(await isMod(arrInscriptions[index]['_iduser'])))
+        arrUsers.add(await users
+            .findOne(where.eq('_id', arrInscriptions[index]['_iduser'])));
+      print("Inscripciones encontradas" + index.toString());
+    }
+    //await groups.find(where.eq('id', arrInscriptions['id'].toString()));
+
+    return arrUsers;
+  }
+
+  static Future<List> getParticipantesQuery(ObjectId grupoId) async {
+    var arrInscriptions =
+        await inscriptions.find(where.eq('_idgroup', grupoId)).toList();
+    //print("Buscando" + email.toString() + "En Mongo");
+
+    List arrUsers = [];
+    for (var index = 0; index < arrInscriptions.length; index++) {
+      arrUsers.add(await users
+          .findOne(where.eq('_id', arrInscriptions[index]['_iduser'])));
+      //await groups.find(where.eq('id', arrInscriptions['id'].toString()));
+    }
+
+    return arrUsers;
+  }
+
+  static Future<bool> isMod(ObjectId userId) async {
+    var res = await moderadores.findOne(where.eq('_iduser', userId));
+
+    if (res != null) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  static Future<List> getModeradoresQuery(ObjectId grupoId) async {
+    var arrModeradores =
+        await moderadores.find(where.eq('_idgroup', grupoId)).toList();
+    //print("Buscando" + email.toString() + "En Mongo");
+
+    List arrUsers = [];
+    for (var index = 0; index < arrModeradores.length; index++) {
+      arrUsers.add(await users
+          .findOne(where.eq('_id', arrModeradores[index]['_iduser'])));
+      //await groups.find(where.eq('id', arrInscriptions['id'].toString()));
+    }
+
+    return arrUsers;
+  }
+
   //------------------------------Updates---------------------------------------
 
   //------------------------------Deletes---------------------------------------
-
+  static Future<String> deleteMod(ObjectId userId, groupModel grupo) async {
+    ObjectId groupId = grupo.id;
+    try {
+      // return await userCollection.insert(user.toJson());
+      var result =
+          await moderadores.deleteOne({"_iduser": userId, "_idgroup": groupId});
+      if (result.isSuccess) {
+        // print(user);
+        return "Success";
+      } else {
+        return "Error";
+      }
+    } catch (e) {
+      // print(e.toString());
+      return e.toString();
+    }
+  }
 }

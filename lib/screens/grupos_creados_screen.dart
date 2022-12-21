@@ -35,7 +35,7 @@ class _GruposCreadosScreenState extends State<GruposCreadosScreen> {
       //     itemBuilder: (BuildContext context, int index) {
       //     }),
       body: FutureBuilder(
-        future: MongoDatabase.getInscripcionesQuery(),
+        future: MongoDatabase.getGruposQuery(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(
