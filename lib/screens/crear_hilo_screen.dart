@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tusgrupos/models/comments_model.dart';
 import 'package:tusgrupos/models/group_model.dart';
+import 'package:tusgrupos/models/user_model.dart';
+import 'package:tusgrupos/screens/hilos_screen.dart';
 
 import '../dbHelper/mongodb.dart';
 import 'package:mongo_dart/mongo_dart.dart' as M;
@@ -115,8 +117,14 @@ class CrearHilo extends StatelessWidget {
                   onPressed: () {
                     _insertComment(
                         tituloController.text, descripcionController.text);
-                    print('Comentario insertado!');
+                    //print('Comentario insertado!');
                     Navigator.pop(context);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => HilosScreen(grupo: grupo),
+                      ),
+                    );
                   },
                   icon: const Icon(Icons.check),
                   tooltip: 'confirmar',
@@ -134,12 +142,15 @@ class CrearHilo extends StatelessWidget {
     final prefs = await SharedPreferences.getInstance();
 
     var _id = M.ObjectId();
-    final String? dueno = prefs.getString('idUser');
+    final String? dueno = prefs.getString('userEmail');
     final now = DateTime.now();
+
+    final user = await MongoDatabase.getUser(dueno.toString());
 
     final comment = commentModel(
       id: _id,
       Owner: dueno.toString(),
+      OwnerName: userModel.fromJson(user).Name,
       Group: grupo.id,
       Title: titulo,
       Comment: descripcion,

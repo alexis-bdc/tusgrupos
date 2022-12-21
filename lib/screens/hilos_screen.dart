@@ -58,6 +58,8 @@ class HilosScreen extends StatelessWidget {
                     ),
                     title: Text(
                         commentModel.fromJson(snapshot.data![index]).Title),
+                    subtitle: Text(
+                        commentModel.fromJson(snapshot.data![index]).OwnerName),
                     trailing: const Icon(Icons.arrow_forward,
                         color: Colors.pinkAccent),
                   ),

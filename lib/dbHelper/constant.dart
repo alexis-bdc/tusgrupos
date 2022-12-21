@@ -9,3 +9,4 @@ const GROUP_COLLECTION = "group";
 const INSCRIPTIONS_COLLECTION = "inscriptions";
 const COMMENTS_COLLECTION = "comments";
 const RESPUESTAS_COLLECTION = "respuestas";
+const MODERADORES_COLLECTION = "moderadores";

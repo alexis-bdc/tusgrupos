@@ -13,7 +13,7 @@ class commentModel {
   commentModel({
     required this.id,
     required this.Owner,
-    //required this.OwnerName,
+    required this.OwnerName,
     required this.Group,
     required this.Title,
     required this.Comment,
@@ -22,7 +22,7 @@ class commentModel {
 
   ObjectId id;
   String Owner;
-  //String OwnerName;
+  String OwnerName;
   ObjectId Group;
   String Title;
   String Comment;
@@ -31,7 +31,7 @@ class commentModel {
   factory commentModel.fromJson(Map<String, dynamic> json) => commentModel(
         id: json["_id"],
         Owner: json["owner"],
-        //OwnerName: json["ownerName"],
+        OwnerName: json["ownerName"],
         Group: json["group"],
         Title: json["title"],
         Comment: json["comment"],
@@ -41,7 +41,7 @@ class commentModel {
   Map<String, dynamic> toJson() => {
         "_id": id,
         "owner": Owner,
-        //"ownerName": OwnerName
+        "ownerName": OwnerName,
         "group": Group,
         "title": Title,
         "comment": Comment,

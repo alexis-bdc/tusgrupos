@@ -72,8 +72,9 @@ class HiloScreen extends StatelessWidget {
                         Icons.forum_outlined,
                         color: Colors.purple,
                       ),
-                      title: Text(
-                          respuestaModel.fromJson(snapshot.data![index]).Owner),
+                      title: Text(respuestaModel
+                          .fromJson(snapshot.data![index])
+                          .OwnerName),
                       subtitle: Text(respuestaModel
                           .fromJson(snapshot.data![index])
                           .Comment),
