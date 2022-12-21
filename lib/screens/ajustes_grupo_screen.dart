@@ -86,16 +86,16 @@ class AjustesGrupoScreen extends StatelessWidget {
               ),
             ),
           ),
-          Divider(),
-          ListTile(
-              leading: Icon(
-                iconos[3],
-                color: Colors.purple,
-              ),
-              title: Text(options[3]),
-              trailing:
-                  const Icon(Icons.arrow_forward, color: Colors.pinkAccent),
-              onTap: () => {}),
+          // Divider(),
+          // ListTile(
+          //     leading: Icon(
+          //       iconos[3],
+          //       color: Colors.purple,
+          //     ),
+          //     title: Text(options[3]),
+          //     trailing:
+          //         const Icon(Icons.arrow_forward, color: Colors.pinkAccent),
+          //     onTap: () => {}),
         ],
       ),
     );

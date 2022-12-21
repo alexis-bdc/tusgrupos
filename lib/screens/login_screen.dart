@@ -16,8 +16,8 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   // final _formKey = GlobalKey<FormState>();
 
-  var emailController = TextEditingController(text: 'alexis.bolados@usach.cl');
-  var passwordController = TextEditingController(text: '123');
+  var emailController = TextEditingController(text: 'jlayon@usach.cl');
+  var passwordController = TextEditingController(text: '12345');
 
   @override
   Widget build(BuildContext context) {
