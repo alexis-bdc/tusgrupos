@@ -50,48 +50,52 @@ class GrupoScreen extends StatelessWidget {
       );
     }
 
-    verificaInscripcion(groupModel Group) async {
-      var res = await inscripcionesModel.isUserInscribed(Group);
-      return res;
-    }
+    // verificaInscripcion(groupModel Group) {
+    //   var res = inscripcionesModel.inscribeUser(Group);
+    //   print(res);
+    //   if (int.parse(res) == 2) {
+    //     return true;
+    //   } else {
+    //     return false;
+    //   }
+    // }
 
     _body() {
       // ignore: unrelated_type_equality_checks
-      if (verificaInscripcion(group) == true) {
-        return Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            const SizedBox(
-              height: 10,
-            ),
-            Container(
-              constraints: const BoxConstraints(maxWidth: 350),
-              alignment: Alignment.center,
-              padding: const EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                color: const Color.fromARGB(143, 158, 0, 89),
-                borderRadius: const BorderRadius.all(Radius.circular(10)),
-                border: Border.all(
-                  color: const Color.fromARGB(255, 208, 46, 138),
-                  width: 2,
-                ),
-              ),
-              child: Text(
-                group.Description,
-                style: const TextStyle(
-                    fontSize: 20, color: Color.fromARGB(255, 255, 255, 255)),
+      // var res = verificaInscripcion(group);
+      // print(res);
+
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          const SizedBox(
+            height: 10,
+          ),
+          Container(
+            constraints: const BoxConstraints(maxWidth: 350),
+            alignment: Alignment.center,
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: const Color.fromARGB(143, 158, 0, 89),
+              borderRadius: const BorderRadius.all(Radius.circular(10)),
+              border: Border.all(
+                color: const Color.fromARGB(255, 208, 46, 138),
+                width: 2,
               ),
             ),
-            const SizedBox(
-              height: 20,
+            child: Text(
+              group.Description,
+              style: const TextStyle(
+                  fontSize: 20, color: Color.fromARGB(255, 255, 255, 255)),
             ),
-            Expanded(child: listhilos(group)),
-          ],
-        );
-      } else {
-        return const Center(child: Text('No estas inscrito en este grupo'));
-      }
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          Expanded(child: listhilos(group)),
+        ],
+      );
     }
 
     return Scaffold(

@@ -119,27 +119,27 @@ class SmallGroupCard extends StatelessWidget {
                 ),
               ],
             ),
-            ButtonBar(
-              alignment: MainAxisAlignment.start,
-              children: <Widget>[
-                ElevatedButton(
-                  style:
-                      ElevatedButton.styleFrom(backgroundColor: Colors.purple),
-                  onPressed: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => GrupoScreen(group: group),
-                    ),
-                  ),
-                  child: Row(
-                    children: const <Widget>[
-                      Text('Ver Grupo'),
-                      Icon(Icons.forward),
-                    ],
-                  ),
-                ),
-              ],
-            ),
+            // ButtonBar(
+            //   alignment: MainAxisAlignment.start,
+            //   children: <Widget>[
+            //     ElevatedButton(
+            //       style:
+            //           ElevatedButton.styleFrom(backgroundColor: Colors.purple),
+            //       onPressed: () => Navigator.push(
+            //         context,
+            //         MaterialPageRoute(
+            //           builder: (context) => GrupoScreen(group: group),
+            //         ),
+            //       ),
+            //       child: Row(
+            //         children: const <Widget>[
+            //           Text('Ver Grupo'),
+            //           Icon(Icons.forward),
+            //         ],
+            //       ),
+            //     ),
+            //   ],
+            // ),
           ],
         )
       ],
