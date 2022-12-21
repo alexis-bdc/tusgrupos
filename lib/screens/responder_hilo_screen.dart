@@ -80,7 +80,7 @@ class ResponderHilo extends StatelessWidget {
                   //obscureText: true,
                   validator: (value) {
                     if (value == null) return 'Campo requerido';
-                    return value.length < 8 ? 'Ingresar título' : null;
+                    return value.length < 8 ? 'Ingresar Descripción' : null;
                   },
                   minLines: 5,
                   maxLines: 10,

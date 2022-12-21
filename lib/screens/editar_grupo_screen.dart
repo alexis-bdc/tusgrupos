@@ -1,26 +1,19 @@
 // ignore_for_file: library_private_types_in_public_api, non_constant_identifier_names
 
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:tusgrupos/models/group_model.dart';
-import 'package:tusgrupos/models/inscripciones_model.dart';
-import 'package:tusgrupos/models/user_model.dart';
-import 'package:mongo_dart/mongo_dart.dart' as M;
+import 'package:tusgrupos/screens/ajustes_grupo_screen.dart';
 
-class CreateGroup extends StatefulWidget {
-  const CreateGroup({Key? key}) : super(key: key);
+class EditarGrupo extends StatelessWidget {
+  final groupModel grupo;
+
+  EditarGrupo({Key? key, required this.grupo}) : super(key: key);
   // final userModel user;
-  @override
-  _CreateGroupState createState() => _CreateGroupState();
-}
 
-class _CreateGroupState extends State<CreateGroup> {
-  final _formkey = GlobalKey<FormState>();
   var NombreControler = TextEditingController();
   var descripcionControler = TextEditingController();
   var claveControler = TextEditingController();
-  var user;
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +24,7 @@ class _CreateGroupState extends State<CreateGroup> {
       //--------------------appbar--------------------
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 120, 58, 100),
-        title: const Text("Crear Grupo"),
+        title: Text("Editar Grupo " + grupo.Name),
       ),
 
       //--------------------drawer--------------------
@@ -45,7 +38,6 @@ class _CreateGroupState extends State<CreateGroup> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             Form(
-              key: _formkey,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
@@ -54,7 +46,9 @@ class _CreateGroupState extends State<CreateGroup> {
                   ),
                   //-------------------nombre-------------------------
                   TextFormField(
+                    //initialValue: grupo.Name,
                     controller: NombreControler,
+                    //autovalidateMode: AutovalidateMode.onUserInteraction,
                     decoration: InputDecoration(
                       hintText: 'Nombre del grupo',
                       filled: true,
@@ -65,9 +59,10 @@ class _CreateGroupState extends State<CreateGroup> {
                     ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Por favor ingrese un nombre';
+                        NombreControler.text = grupo.Name;
+                      } else {
+                        NombreControler.text = value;
                       }
-                      return null;
                     },
                   ),
                   const SizedBox(
@@ -75,7 +70,9 @@ class _CreateGroupState extends State<CreateGroup> {
                   ),
                   //-------------------descripcion-------------------------
                   TextFormField(
+                    //initialValue: grupo.Description,
                     controller: descripcionControler,
+                    //autovalidateMode: AutovalidateMode.onUserInteraction,
                     decoration: InputDecoration(
                       filled: true,
                       fillColor: Colors.grey.shade200,
@@ -86,9 +83,10 @@ class _CreateGroupState extends State<CreateGroup> {
                     ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Por favor ingrese una descripcion';
+                        descripcionControler.text = grupo.Description;
+                      } else {
+                        descripcionControler.text = value;
                       }
-                      return null;
                     },
                     minLines: 5,
                     maxLines: 10,
@@ -100,7 +98,9 @@ class _CreateGroupState extends State<CreateGroup> {
 
                   //-------------------clave-------------------------
                   TextFormField(
+                    //initialValue: grupo.password,
                     controller: claveControler,
+                    //autovalidateMode: AutovalidateMode.onUserInteraction,
                     decoration: InputDecoration(
                       filled: true,
                       fillColor: Colors.grey.shade200,
@@ -112,9 +112,10 @@ class _CreateGroupState extends State<CreateGroup> {
                     ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Por favor ingrese una clave';
+                        claveControler.text = grupo.password;
+                      } else {
+                        claveControler.text = value;
                       }
-                      return null;
                     },
                   ),
                 ],
@@ -127,10 +128,16 @@ class _CreateGroupState extends State<CreateGroup> {
               children: [
                 IconButton(
                   onPressed: () {
-                    if (_formkey.currentState!.validate()) {
-                      _insertGroup(NombreControler.text,
-                          descripcionControler.text, claveControler.text);
-                    }
+                    _updateGroup(NombreControler.text,
+                        descripcionControler.text, claveControler.text, grupo);
+                    Navigator.pop(context);
+                    Navigator.pop(context);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => AjustesGrupoScreen(grupo: grupo),
+                      ),
+                    );
                   },
                   icon: const Icon(Icons.check),
                   tooltip: 'confirmar',
@@ -149,31 +156,17 @@ class _CreateGroupState extends State<CreateGroup> {
     );
   }
 
-  void _insertGroup(String nombre, String descripcion, String clave) async {
-    final prefs = await SharedPreferences.getInstance();
-    var _id = M.ObjectId();
-    final String? dueno = prefs.getString('userEmail');
+  void _updateGroup(
+      String nombre, String descripcion, String clave, groupModel grupo) async {
+    final updateGrupo = groupModel(
+        id: grupo.id,
+        idOwner: grupo.idOwner,
+        OwnerName: grupo.OwnerName,
+        Name: nombre.toString(),
+        Description: descripcion.toString(),
+        password: clave.toString());
 
-    final user = await userModel.getUser(dueno.toString());
-
-    final group = groupModel(
-      id: _id,
-      idOwner: user['_id'],
-      OwnerName: userModel.fromJson(user).Name,
-      Name: nombre,
-      Description: descripcion,
-      password: clave,
-    );
-
-    var result = await groupModel.insertGroup(group);
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('Nuevo Grupo'),
-      ),
-    );
-    if (result == 'Success') {
-      result = await inscripcionesModel.inscribeUser(group);
-    }
+    var result = await groupModel.updateGroup(updateGrupo);
     _clearAll();
   }
 

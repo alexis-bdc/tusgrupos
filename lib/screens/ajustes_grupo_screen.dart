@@ -1,21 +1,23 @@
 import 'package:flutter/material.dart';
+
 import 'package:tusgrupos/models/group_model.dart';
-import 'package:tusgrupos/screens/grupos_card.dart';
-import 'package:tusgrupos/screens/hilos_screen.dart';
+import 'package:tusgrupos/screens/editar_grupo_screen.dart';
 import 'package:tusgrupos/screens/moderadores_screen.dart';
 import 'package:tusgrupos/screens/participantes_screen.dart';
 
 class AjustesGrupoScreen extends StatelessWidget {
   final groupModel grupo;
   final options = const [
-    'Información',
-    'Moderadores',
-    'Participantes',
+    'Editar Información',
+    'Eliminar Moderador',
+    'Designar Moderador',
+    'Eliminar Participante',
   ];
   final iconos = const [
     Icons.info_outline_rounded,
     Icons.security_rounded,
-    Icons.person
+    Icons.person,
+    Icons.delete_outline_outlined
   ];
 
   const AjustesGrupoScreen({Key? key, required this.grupo}) : super(key: key);
@@ -39,7 +41,14 @@ class AjustesGrupoScreen extends StatelessWidget {
             ),
             title: Text(options[0]),
             trailing: const Icon(Icons.arrow_forward, color: Colors.pinkAccent),
-            onTap: () => {},
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => EditarGrupo(
+                  grupo: grupo,
+                ),
+              ),
+            ),
           ),
           Divider(),
           ListTile(
@@ -75,6 +84,16 @@ class AjustesGrupoScreen extends StatelessWidget {
               ),
             ),
           ),
+          Divider(),
+          ListTile(
+              leading: Icon(
+                iconos[3],
+                color: Colors.purple,
+              ),
+              title: Text(options[3]),
+              trailing:
+                  const Icon(Icons.arrow_forward, color: Colors.pinkAccent),
+              onTap: () => {}),
         ],
       ),
     );

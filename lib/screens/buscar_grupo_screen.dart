@@ -1,7 +1,7 @@
 // ignore_for_file: library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
-import 'package:tusgrupos/dbHelper/mongodb.dart';
+
 import 'package:tusgrupos/models/group_model.dart';
 import 'package:tusgrupos/screens/small_groupCard.dart';
 

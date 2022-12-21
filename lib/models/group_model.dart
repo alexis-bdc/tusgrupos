@@ -109,4 +109,42 @@ class groupModel {
     }
     return temp2;
   }
+
+  static Future<String> updateGroup(groupModel updateGrupo) async {
+    //  try {
+    //    await MongoDatabase.groups
+    //        .updateOne(where.eq('_id', group.id), modify.set('nombre', nombre));
+//
+    //    await MongoDatabase.groups.updateOne(
+    //        where.eq('_id', group.id), modify.set('descripcion', descripcion));
+//
+    //    var result = await MongoDatabase.groups.updateOne(
+    //        where.eq('_id', group.id), modify.set('password', password));
+//
+    //    if (result.isSuccess) {
+    //      return "Success";
+    //    } else {
+    //      return "Error";
+    //    }
+    //  } catch (e) {
+    //    return e.toString();
+    //  }
+    try {
+      var result =
+          await MongoDatabase.groups.findOne(where.eq('_id', updateGrupo.id));
+      result["nombre"] = updateGrupo.Name;
+      result["descripcion"] = updateGrupo.Description;
+      result["password"] = updateGrupo.password;
+      var response = await MongoDatabase.groups.save(result);
+      if (result.isSuccess) {
+        // print(group);
+        return "Success";
+      } else {
+        return "Error";
+      }
+    } catch (e) {
+      // print(e.toString());
+      return e.toString();
+    }
+  }
 }

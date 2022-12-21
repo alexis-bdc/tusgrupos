@@ -74,10 +74,10 @@ class HiloScreen extends StatelessWidget {
                       ),
                       title: Text(respuestaModel
                           .fromJson(snapshot.data![index])
-                          .OwnerName),
+                          .Comment),
                       subtitle: Text(respuestaModel
                           .fromJson(snapshot.data![index])
-                          .Comment),
+                          .OwnerName),
                     ),
 //                ),
                   ),
