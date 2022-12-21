@@ -7,6 +7,7 @@ import 'package:tusgrupos/screens/participantes_screen.dart';
 
 class AjustesGrupoScreen extends StatelessWidget {
   final groupModel grupo;
+
   final options = const [
     'Editar Información',
     'Eliminar Moderador',
