@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tusgrupos/screens/buscar_grupo_screen.dart';
-import 'package:tusgrupos/screens/crear_grupo_screen.dart';
 import 'package:tusgrupos/screens/grupos_creados_screen.dart';
 import 'package:tusgrupos/screens/grupos_inscritos.dart';
-// import 'package:tusgrupos/screens/menus.dart';
-// import 'package:tusgrupos/screens/participacion_grupo_screen.dart';
-import 'package:tusgrupos/screens/ver_mis_grupos_screen.dart';
 import 'package:fluid_bottom_nav_bar/fluid_bottom_nav_bar.dart';
 
 class Landing extends StatefulWidget {
@@ -22,7 +18,7 @@ class _LandingState extends State<Landing> {
   @override
   void initState() {
     super.initState();
-    _child = VerMisGrupos();
+    _child = const GruposInscritos();
   }
 
   @override
