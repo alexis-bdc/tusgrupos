@@ -5,6 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tusgrupos/dbHelper/mongodb.dart';
 
 import 'package:tusgrupos/models/group_model.dart';
+import 'package:tusgrupos/models/inscripciones_model.dart';
 import 'package:tusgrupos/models/user_model.dart';
 import 'package:mongo_dart/mongo_dart.dart' as M;
 
@@ -154,7 +155,7 @@ class _CreateGroupState extends State<CreateGroup> {
     var _id = M.ObjectId();
     final String? dueno = prefs.getString('userEmail');
 
-    final user = await MongoDatabase.getUser(dueno.toString());
+    final user = await userModel.getUser(dueno.toString());
 
     final group = groupModel(
       id: _id,
@@ -165,14 +166,14 @@ class _CreateGroupState extends State<CreateGroup> {
       password: clave,
     );
 
-    var result = await MongoDatabase.insertGroup(group);
+    var result = await groupModel.insertGroup(group);
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
         content: Text('Nuevo Grupo'),
       ),
     );
     if (result == 'Success') {
-      result = await MongoDatabase.inscribeUser(group);
+      result = await inscripcionesModel.inscribeUser(group);
     }
     _clearAll();
   }

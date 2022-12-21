@@ -123,7 +123,7 @@ class ResponderHilo extends StatelessWidget {
     final String? dueno = prefs.getString('userEmail');
     final now = DateTime.now();
 
-    final user = await MongoDatabase.getUser(dueno.toString());
+    final user = await userModel.getUser(dueno.toString());
 
     final respuesta = respuestaModel(
       id: _id,
@@ -135,7 +135,7 @@ class ResponderHilo extends StatelessWidget {
       Date: now,
     );
 
-    var result = await MongoDatabase.insertRespuesta(respuesta);
+    var result = await respuestaModel.insertRespuesta(respuesta);
     if (result == 'Success') {
       print("Hilo Creado");
     } else {

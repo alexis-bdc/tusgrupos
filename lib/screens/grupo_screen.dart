@@ -15,7 +15,7 @@ class GrupoScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     listhilos(groupModel Group) {
       return FutureBuilder(
-        future: MongoDatabase.getCommentsQuery(Group),
+        future: commentModel.getCommentsQuery(Group),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tusgrupos/dbHelper/mongodb.dart';
+import 'package:tusgrupos/models/user_model.dart';
 import 'package:tusgrupos/screens/landing_screen.dart';
 import 'package:tusgrupos/screens/sign_up_screen.dart';
 
@@ -130,7 +131,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Future<void> _validateUser(String email, String password) async {
-    var result = await MongoDatabase.checkUser(email, password);
+    var result = await userModel.checkUser(email, password);
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     if (email == '' || password == '') {

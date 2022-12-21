@@ -145,7 +145,7 @@ class CrearHilo extends StatelessWidget {
     final String? dueno = prefs.getString('userEmail');
     final now = DateTime.now();
 
-    final user = await MongoDatabase.getUser(dueno.toString());
+    final user = await userModel.getUser(dueno.toString());
 
     final comment = commentModel(
       id: _id,
@@ -157,7 +157,7 @@ class CrearHilo extends StatelessWidget {
       Date: now,
     );
 
-    var result = await MongoDatabase.insertComment(comment);
+    var result = await commentModel.insertComment(comment);
     if (result == "Success") {
       print("Hilo Creado");
     } else {

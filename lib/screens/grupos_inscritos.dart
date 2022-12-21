@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tusgrupos/dbHelper/mongodb.dart';
 import 'package:tusgrupos/models/group_model.dart';
+import 'package:tusgrupos/models/inscripciones_model.dart';
+import 'package:tusgrupos/models/user_model.dart';
 import 'package:tusgrupos/screens/grupo_screen.dart';
 import 'package:tusgrupos/screens/small_groupCard.dart';
 // import 'package:tusgrupos/models/group_model.dart';
@@ -22,8 +24,8 @@ class _GruposInscritosState extends State<GruposInscritos> {
   Future<List> getGroups() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? userEmail = prefs.getString('userEmail');
-    var userId = await MongoDatabase.getUserId(userEmail!);
-    var groups = await MongoDatabase.participantGroups(userId);
+    var userId = await userModel.getUserId(userEmail!);
+    var groups = await groupModel.participantGroups(userId);
 
     return groups;
   }

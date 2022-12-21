@@ -36,127 +36,7 @@ class MongoDatabase {
 
   //----------------------------inserciones-------------------------------------
 
-  static Future<String> insertUser(userModel user) async {
-    try {
-      // return await userCollection.insert(user.toJson());
-      var result = await users.insertOne(user.toJson());
-      if (result.isSuccess) {
-        // print(user);
-        return "Success";
-      } else {
-        return "Error";
-      }
-    } catch (e) {
-      // print(e.toString());
-      return e.toString();
-    }
-  }
-
-  static Future<String> insertGroup(groupModel group) async {
-    try {
-      // return await userCollection.insert(user.toJson());
-      var result = await groups.insertOne(group.toJson());
-      if (result.isSuccess) {
-        // print(group);
-        return "Success";
-      } else {
-        return "Error";
-      }
-    } catch (e) {
-      // print(e.toString());
-      return e.toString();
-    }
-  }
-
-  static Future<String> inscribeUser(groupModel group) async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-
-    String? userEmail = prefs.getString('userEmail');
-
-    ObjectId userId = await getUserId(userEmail!);
-    ObjectId groupId = group.id;
-
-    var temp =
-        await inscriptions.findOne({'_iduser': userId, '_idgroup': groupId});
-
-    if (temp != null) {
-      return 2.toString(); //Ya está inscrito
-    } else {
-      final inscripcion = inscripcionesModel(
-          User: userId, Group: groupId, EntryDate: DateTime.now());
-      try {
-        var res = await inscriptions.insertOne(inscripcion.toJson());
-        if (res.isSuccess) {
-          return 1.toString(); //Inscripción exitosa
-        } else {
-          return 0.toString(); //Error
-        }
-      } catch (e) {
-        return e.toString();
-      }
-    }
-  }
-
-  static Future<String> insertComment(commentModel comment) async {
-    try {
-      // return await userCollection.insert(user.toJson());
-      var result = await comments.insertOne(comment.toJson());
-      if (result.isSuccess) {
-        // print(group);
-        return "Success";
-      } else {
-        return "Error";
-      }
-    } catch (e) {
-      // print(e.toString());
-      return e.toString();
-    }
-  }
-
-  static Future<String> insertRespuesta(respuestaModel respuesta) async {
-    try {
-      // return await userCollection.insert(user.toJson());
-      var result = await respuestas.insertOne(respuesta.toJson());
-      if (result.isSuccess) {
-        // print(group);
-        return "Success";
-      } else {
-        return "Error";
-      }
-    } catch (e) {
-      // print(e.toString());
-      return e.toString();
-    }
-  }
-
-  static Future<String> userToMod(groupModel group, ObjectId userId) async {
-    ObjectId groupId = group.id;
-
-    final moderador =
-        moderadorModel(User: userId, Group: groupId, EntryDate: DateTime.now());
-    try {
-      var res = await moderadores.insertOne(moderador.toJson());
-      if (res.isSuccess) {
-        return 1.toString(); //Inscripción exitosa
-      } else {
-        return 0.toString(); //Error
-      }
-    } catch (e) {
-      return e.toString();
-    }
-  }
-
   //-----------------------------Consultas--------------------------------------
-
-  static Future<ObjectId> getUserId(String email) async {
-    var res = await users.findOne(where.eq('email', email));
-    return res['_id'];
-  }
-
-  static Future<Map<String, dynamic>> getUser(String email) async {
-    var res = await users.findOne(where.eq('email', email));
-    return res;
-  }
 
   // static Future<List<Map<String, dynamic>>> getGruposQuery() async {
   //   final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -167,150 +47,30 @@ class MongoDatabase {
   //   return arrData;
   // }
 
-  static Future<bool> checkUser(String email, String password) async {
-    var res = await users.findOne(where.eq('email', email));
-
-    if (res != null) {
-      if (res['password'] == password) {
-        return true;
-      } else {
-        return false;
-      }
-    } else {
-      return false;
-    }
-  }
-
-  static Future<List<Map<String, dynamic>>> searchGroups(
-    String string,
-  ) async {
-    if (string == '') {
-      var res = await groups.find().toList();
-      return res;
-    } else {
-      var res = await groups.find({
-        'nombre': {
-          r'$regex': string,
-          r'$options': 'i',
-        }
-      }).toList();
-      return res;
-    }
-  }
-
   // static Future<List<Map<String, dynamic>>> getComments() async {
   //   final arrData = await comments.find().toList();
   //   return arrData;
   // }
 
-  static Future<List<Map<String, dynamic>>> getCommentsQuery(
-      groupModel grupo) async {
-    final arrData = await comments.find(where.eq('group', grupo.id)).toList();
-    return arrData;
-  }
-
-  static Future<List<Map<String, dynamic>>> getResponsesQuery(
-      commentModel hilo, groupModel grupo) async {
-    final arrData = await respuestas.find(where.eq('hilo', hilo.id)).toList();
-    return arrData;
-  }
-
-  static Future<List> getCreadosQuery() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    final String? email = prefs.getString('userEmail');
-
-    ObjectId userId = await getUserId(email!);
-
-    var grupos = await groups.find(where.eq('_idowner', userId)).toList();
-
-    return grupos;
-  }
-
-  static Future<List> participantGroups(ObjectId userId) async {
-    List temp = await inscriptions.find(where.eq('_iduser', userId)).toList();
-    List temp2 = [];
-    for (var i = 0; i < temp.length; i++) {
-      temp2.add(await groups.findOne(where.eq('_id', temp[i]['_idgroup'])));
-    }
-    return temp2;
-  }
-
-  static Future<List> getParticipantesNoModsQuery(ObjectId grupoId) async {
-    var arrInscriptions =
-        await inscriptions.find(where.eq('_idgroup', grupoId)).toList();
-    //print("Buscando" + email.toString() + "En Mongo");
-
-    List arrUsers = [];
-    for (var index = 0; index < arrInscriptions.length; index++) {
-      print(arrInscriptions[index]['_iduser']);
-      if (!(await isMod(arrInscriptions[index]['_iduser'])))
-        arrUsers.add(await users
-            .findOne(where.eq('_id', arrInscriptions[index]['_iduser'])));
-      print("Inscripciones encontradas" + index.toString());
-    }
-    //await groups.find(where.eq('id', arrInscriptions['id'].toString()));
-
-    return arrUsers;
-  }
-
-  static Future<List> getParticipantesQuery(ObjectId grupoId) async {
-    var arrInscriptions =
-        await inscriptions.find(where.eq('_idgroup', grupoId)).toList();
-    //print("Buscando" + email.toString() + "En Mongo");
-
-    List arrUsers = [];
-    for (var index = 0; index < arrInscriptions.length; index++) {
-      arrUsers.add(await users
-          .findOne(where.eq('_id', arrInscriptions[index]['_iduser'])));
-      //await groups.find(where.eq('id', arrInscriptions['id'].toString()));
-    }
-
-    return arrUsers;
-  }
-
-  static Future<bool> isMod(ObjectId userId) async {
-    var res = await moderadores.findOne(where.eq('_iduser', userId));
-
-    if (res != null) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  static Future<List> getModeradoresQuery(ObjectId grupoId) async {
-    var arrModeradores =
-        await moderadores.find(where.eq('_idgroup', grupoId)).toList();
-    //print("Buscando" + email.toString() + "En Mongo");
-
-    List arrUsers = [];
-    for (var index = 0; index < arrModeradores.length; index++) {
-      arrUsers.add(await users
-          .findOne(where.eq('_id', arrModeradores[index]['_iduser'])));
-      //await groups.find(where.eq('id', arrInscriptions['id'].toString()));
-    }
-
-    return arrUsers;
-  }
+//  static Future<List> getParticipantesNoModsQuery(ObjectId grupoId) async {
+//    var arrInscriptions =
+//        await inscriptions.find(where.eq('_idgroup', grupoId)).toList();
+//    //print("Buscando" + email.toString() + "En Mongo");
+//
+//    List arrUsers = [];
+//    for (var index = 0; index < arrInscriptions.length; index++) {
+//      print(arrInscriptions[index]['_iduser']);
+//      if (!(await isMod(arrInscriptions[index]['_iduser'], grupoId)))
+//        arrUsers.add(await users
+//            .findOne(where.eq('_id', arrInscriptions[index]['_iduser'])));
+//      print("Inscripciones encontradas" + index.toString());
+//    }
+//    //await groups.find(where.eq('id', arrInscriptions['id'].toString()));
+//
+//    return arrUsers;
+//  }
 
   //------------------------------Updates---------------------------------------
 
   //------------------------------Deletes---------------------------------------
-  static Future<String> deleteMod(ObjectId userId, groupModel grupo) async {
-    ObjectId groupId = grupo.id;
-    try {
-      // return await userCollection.insert(user.toJson());
-      var result =
-          await moderadores.deleteOne({"_iduser": userId, "_idgroup": groupId});
-      if (result.isSuccess) {
-        // print(user);
-        return "Success";
-      } else {
-        return "Error";
-      }
-    } catch (e) {
-      // print(e.toString());
-      return e.toString();
-    }
-  }
 }

@@ -1,9 +1,10 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
-import 'package:tusgrupos/dbHelper/mongodb.dart';
+
 import 'package:tusgrupos/models/group_model.dart';
 import 'package:expansion_tile_card/expansion_tile_card.dart';
+import 'package:tusgrupos/models/inscripciones_model.dart';
 import 'package:tusgrupos/screens/grupos_card.dart';
 
 class SmallGroupCard extends StatelessWidget {
@@ -37,7 +38,7 @@ class SmallGroupCard extends StatelessWidget {
       // ignore: unused_local_variable
 
       if (password == grupo.password) {
-        var res = await MongoDatabase.inscribeUser(grupo);
+        var res = await inscripcionesModel.inscribeUser(grupo);
         switch (int.parse(res)) {
           case 0:
             showDialog(

@@ -29,7 +29,7 @@ class HilosScreen extends StatelessWidget {
         ],
       ),
       body: FutureBuilder(
-        future: MongoDatabase.getCommentsQuery(grupo),
+        future: commentModel.getCommentsQuery(grupo),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(

@@ -2,6 +2,9 @@
 
 import 'dart:convert';
 import 'package:mongo_dart/mongo_dart.dart';
+import 'package:tusgrupos/dbHelper/mongodb.dart';
+import 'package:tusgrupos/models/comments_model.dart';
+import 'package:tusgrupos/models/group_model.dart';
 
 respuestaModel respuestaModelFromJson(String str) =>
     respuestaModel.fromJson(json.decode(str));
@@ -47,4 +50,27 @@ class respuestaModel {
         "comment": Comment,
         "date": Date,
       };
+
+  static Future<String> insertRespuesta(respuestaModel respuesta) async {
+    try {
+      // return await userCollection.insert(user.toJson());
+      var result = await MongoDatabase.respuestas.insertOne(respuesta.toJson());
+      if (result.isSuccess) {
+        // print(group);
+        return "Success";
+      } else {
+        return "Error";
+      }
+    } catch (e) {
+      // print(e.toString());
+      return e.toString();
+    }
+  }
+
+  static Future<List<Map<String, dynamic>>> getResponsesQuery(
+      commentModel hilo, groupModel grupo) async {
+    final arrData =
+        await MongoDatabase.respuestas.find(where.eq('hilo', hilo.id)).toList();
+    return arrData;
+  }
 }

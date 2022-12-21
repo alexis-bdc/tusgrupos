@@ -3,6 +3,8 @@
 import 'dart:convert';
 import 'package:mongo_dart/mongo_dart.dart';
 
+import 'package:tusgrupos/dbHelper/mongodb.dart';
+
 userModel userModelFromJson(String str) => userModel.fromJson(json.decode(str));
 
 String userModelToJson(userModel data) => json.encode(data.toJson());
@@ -38,4 +40,44 @@ class userModel {
         "email": Email,
         "password": Password,
       };
+
+  static Future<String> insertUser(userModel user) async {
+    try {
+      // return await userCollection.insert(user.toJson());
+      var result = await MongoDatabase.users.insertOne(user.toJson());
+      if (result.isSuccess) {
+        // print(user);
+        return "Success";
+      } else {
+        return "Error";
+      }
+    } catch (e) {
+      // print(e.toString());
+      return e.toString();
+    }
+  }
+
+  static Future<ObjectId> getUserId(String email) async {
+    var res = await MongoDatabase.users.findOne(where.eq('email', email));
+    return res['_id'];
+  }
+
+  static Future<Map<String, dynamic>> getUser(String email) async {
+    var res = await MongoDatabase.users.findOne(where.eq('email', email));
+    return res;
+  }
+
+  static Future<bool> checkUser(String email, String password) async {
+    var res = await MongoDatabase.users.findOne(where.eq('email', email));
+
+    if (res != null) {
+      if (res['password'] == password) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
+  }
 }

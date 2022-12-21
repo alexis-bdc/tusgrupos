@@ -2,53 +2,13 @@ import 'package:flutter/material.dart';
 
 import 'package:tusgrupos/dbHelper/mongodb.dart';
 import 'package:tusgrupos/models/group_model.dart';
+import 'package:tusgrupos/models/moderador_model.dart';
 import 'package:tusgrupos/models/user_model.dart';
 
 import 'package:mongo_dart/mongo_dart.dart' as M;
 
 class ModeradoresScreen extends StatelessWidget {
   final groupModel grupo;
-
-  Future<void> tryUnmod(M.ObjectId userId, context) async {
-    // ignore: unused_local_variable
-
-    var res = await MongoDatabase.isMod(userId);
-
-    if (res == true) {
-      showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-          title: Text('Ya es moderador'),
-          icon: Icon(Icons.add_moderator_rounded),
-          iconColor: Colors.green,
-          actions: [
-            TextButton(
-                onPressed: () => Navigator.pop(context),
-                child: const Text("Cancelar"))
-          ],
-        ),
-      );
-    } else {
-      var res = await MongoDatabase.userToMod(grupo, userId);
-      if (res == '1') {
-        showDialog(
-            context: context,
-            builder: (context) => const AlertDialog(
-                  title: Text('Moderador Registrado'),
-                  icon: Icon(Icons.check),
-                  iconColor: Colors.green,
-                ));
-      } else {
-        showDialog(
-            context: context,
-            builder: (context) => const AlertDialog(
-                  title: Text('Error inesperado!'),
-                  icon: Icon(Icons.error),
-                  iconColor: Colors.red,
-                ));
-      }
-    }
-  }
 
   const ModeradoresScreen({Key? key, required this.grupo}) : super(key: key);
 
@@ -60,7 +20,7 @@ class ModeradoresScreen extends StatelessWidget {
         title: Text(grupo.Name),
       ),
       body: FutureBuilder(
-        future: MongoDatabase.getModeradoresQuery(grupo.id),
+        future: moderadorModel.getModeradoresQuery(grupo.id),
         //initialData: InitialData,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -85,7 +45,7 @@ class ModeradoresScreen extends StatelessWidget {
                               actions: [
                                 TextButton(
                                     onPressed: () async => {
-                                          print(await MongoDatabase.deleteMod(
+                                          print(await moderadorModel.deleteMod(
                                               userModel
                                                   .fromJson(
                                                       snapshot.data![index])

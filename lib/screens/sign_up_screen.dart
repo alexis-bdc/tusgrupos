@@ -1,7 +1,6 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:mongo_dart/mongo_dart.dart' as M;
-import 'package:tusgrupos/dbHelper/mongodb.dart';
 import 'package:tusgrupos/models/user_model.dart';
 import 'package:tusgrupos/screens/login_screen.dart';
 
@@ -176,7 +175,7 @@ class _SignUpPageState extends State<SignUpPage> {
         Password: password);
 
     // ignore: unused_local_variable
-    var result = await MongoDatabase.insertUser(user);
+    var result = await userModel.insertUser(user);
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
         content: Text('Nuevo Usuario'),

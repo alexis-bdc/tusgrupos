@@ -31,7 +31,7 @@ class HiloScreen extends StatelessWidget {
         //      ],
       ),
       body: FutureBuilder(
-        future: MongoDatabase.getResponsesQuery(hilo, grupo),
+        future: respuestaModel.getResponsesQuery(hilo, grupo),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(

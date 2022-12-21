@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'package:tusgrupos/dbHelper/mongodb.dart';
 import 'package:tusgrupos/models/group_model.dart';
+import 'package:tusgrupos/models/inscripciones_model.dart';
+import 'package:tusgrupos/models/moderador_model.dart';
 import 'package:tusgrupos/models/user_model.dart';
 
 import 'package:mongo_dart/mongo_dart.dart' as M;
@@ -12,7 +14,7 @@ class ParticipantesScreen extends StatelessWidget {
   Future<void> tryMod(M.ObjectId userId, context) async {
     // ignore: unused_local_variable
 
-    var res = await MongoDatabase.isMod(userId);
+    var res = await moderadorModel.isMod(userId, grupo.id);
 
     if (res == true) {
       showDialog(
@@ -29,7 +31,7 @@ class ParticipantesScreen extends StatelessWidget {
         ),
       );
     } else {
-      var res = await MongoDatabase.userToMod(grupo, userId);
+      var res = await moderadorModel.userToMod(grupo, userId);
       if (res == '1') {
         showDialog(
             context: context,
@@ -60,7 +62,7 @@ class ParticipantesScreen extends StatelessWidget {
         title: Text(grupo.Name),
       ),
       body: FutureBuilder(
-        future: MongoDatabase.getParticipantesQuery(grupo.id),
+        future: inscripcionesModel.getParticipantesQuery(grupo.id),
         //initialData: InitialData,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {

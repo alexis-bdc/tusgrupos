@@ -14,7 +14,7 @@ class BuscarGrupo extends StatefulWidget {
 
 class _BuscarState2 extends State {
   // TextEditingController searchField = TextEditingController(text: '');
-  var _query = MongoDatabase.searchGroups('');
+  var _query = groupModel.searchGroups('');
 
   // void updateList(String value) {
   //   _query = MongoDatabase.searchGroups(value);
@@ -37,7 +37,7 @@ class _BuscarState2 extends State {
             child: TextFormField(
               onChanged: (value) {
                 setState(() {
-                  _query = MongoDatabase.searchGroups(value);
+                  _query = groupModel.searchGroups(value);
                 });
               },
               // controller: searchField,
