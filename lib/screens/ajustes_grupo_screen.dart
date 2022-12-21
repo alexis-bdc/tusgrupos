@@ -6,9 +6,9 @@ import 'package:tusgrupos/screens/hilos_screen.dart';
 class AjustesGrupoScreen extends StatelessWidget {
   final groupModel grupo;
   final options = const [
-    'Hilos aaaa',
-    'Detalles aaaaa',
-    'Participantes aaaaa',
+    'Hilos',
+    'Detalles',
+    'Participantes',
   ];
   final iconos = const [
     Icons.add_comment_rounded,

@@ -14,7 +14,7 @@ class HilosScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 120, 58, 100),
+        backgroundColor: const Color.fromARGB(255, 120, 58, 100),
         title: Text('Hilos - ${grupo.Name}'),
         actions: [
           IconButton(
@@ -32,7 +32,7 @@ class HilosScreen extends StatelessWidget {
         future: MongoDatabase.getCommentsQuery(grupo),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           } else {
@@ -52,7 +52,7 @@ class HilosScreen extends StatelessWidget {
                     ),
                   ),
                   child: ListTile(
-                    leading: Icon(
+                    leading: const Icon(
                       Icons.forum_outlined,
                       color: Colors.purple,
                     ),
@@ -64,7 +64,7 @@ class HilosScreen extends StatelessWidget {
                 ),
               );
             } else {
-              return Center(
+              return const Center(
                 child: Text("No data available."),
               );
             }

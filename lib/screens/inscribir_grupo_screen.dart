@@ -82,31 +82,6 @@ class InscribirGrupo extends StatelessWidget {
               ],
             )),
       ),
-      //--------------------BottomNavigationBar------------------------------
-      // bottomNavigationBar: BottomNavigationBar(
-      //   items: const <BottomNavigationBarItem>[
-      //     BottomNavigationBarItem(
-      //       icon: Icon(Icons.check),
-      //       label: 'Confirmar',
-      //     ),
-      //     BottomNavigationBarItem(
-      //       icon: Icon(Icons.cancel),
-      //       label: 'Cancelar',
-      //     )
-      //   ],
-      //   currentIndex: 0,
-      //   selectedItemColor: Colors.green,
-      //   unselectedItemColor: Colors.red,
-      //   onTap: (index) {
-      //     if (index == 0) {
-      //       Navigator.of(context).push(
-      //           MaterialPageRoute(builder: (context) => const HomeScreen()));
-      //     } else if (index == 1) {
-      //       Navigator.of(context).push(
-      //           MaterialPageRoute(builder: (context) => const HomeScreen()));
-      //     }
-      //   },
-      // ),
     );
   }
 }

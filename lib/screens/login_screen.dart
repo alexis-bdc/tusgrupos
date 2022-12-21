@@ -43,7 +43,7 @@ class _LoginPageState extends State<LoginPage> {
       },
       decoration: InputDecoration(
         prefixIcon: const Icon(Icons.email),
-        hintText: 'Email',
+        hintText: 'Correo',
         contentPadding: const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
@@ -64,7 +64,7 @@ class _LoginPageState extends State<LoginPage> {
       obscureText: true,
       decoration: InputDecoration(
         prefixIcon: const Icon(Icons.lock),
-        hintText: 'Password',
+        hintText: 'Contraseña',
         contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),

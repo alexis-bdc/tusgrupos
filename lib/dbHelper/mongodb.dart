@@ -178,10 +178,10 @@ class MongoDatabase {
     }
   }
 
-  static Future<List<Map<String, dynamic>>> getComments() async {
-    final arrData = await comments.find().toList();
-    return arrData;
-  }
+  // static Future<List<Map<String, dynamic>>> getComments() async {
+  //   final arrData = await comments.find().toList();
+  //   return arrData;
+  // }
 
   static Future<List<Map<String, dynamic>>> getCommentsQuery(
       groupModel grupo) async {
@@ -204,16 +204,6 @@ class MongoDatabase {
     var grupos = await groups.find(where.eq('_idowner', userId)).toList();
 
     return grupos;
-    // var arrInscriptions =
-    //     await inscriptions.find(where.eq('_iduser', userId)).toList();
-
-    // List arrData = [];
-    // for (var index = 0; index < arrInscriptions.length; index++) {
-    //   arrData.add(await groups
-    //       .findOne(where.eq('_id', arrInscriptions[index]['_idgroup'])));
-    // }
-
-    // return arrData;
   }
 
   static Future<List> participantGroups(ObjectId userId) async {

@@ -1,93 +1,114 @@
 import 'package:flutter/material.dart';
+import 'package:tusgrupos/dbHelper/mongodb.dart';
+import 'package:tusgrupos/models/comments_model.dart';
 import 'package:tusgrupos/models/group_model.dart';
-import 'package:tusgrupos/screens/hilos_screen.dart';
+import 'package:tusgrupos/screens/crear_hilo_screen.dart';
+import 'package:tusgrupos/screens/hilo_screen.dart';
 
 class GrupoScreen extends StatelessWidget {
-  final groupModel grupo;
-  final options = const [
-    'Hilos',
-    'Detalles',
-    'Participantes',
-  ];
-  final iconos = const [
-    Icons.add_comment_rounded,
-    Icons.description_rounded,
-    Icons.person
-  ];
-
-  const GrupoScreen({Key? key, required this.grupo}) : super(key: key);
+  GrupoScreen({super.key, required this.group});
+  groupModel group;
 
   @override
   Widget build(BuildContext context) {
+    listhilos(groupModel Group) {
+      return FutureBuilder(
+        future: MongoDatabase.getCommentsQuery(Group),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          } else {
+            if (snapshot.hasData) {
+              var totalData = snapshot.data?.length;
+              return ListView.builder(
+                itemCount: totalData,
+                itemBuilder: (BuildContext context, int index) =>
+                    GestureDetector(
+                  child: hiloCard(commentModel.fromJson(snapshot.data![index])),
+                  onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => HiloScreen(
+                            hilo: commentModel.fromJson(snapshot.data![index]),
+                            grupo: Group)),
+                  ),
+                ),
+              );
+            } else {
+              return const Center(
+                child: Text('No hay hilos'),
+              );
+            }
+          }
+        },
+      );
+    }
+
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 120, 58, 100),
-        title: Text('${grupo.Name}'),
-      ),
-      body: Column(
-        children: [
-          //GruposCard(grupo: grupo),
-          const Image(image: AssetImage('assets/default_group.jpg')),
-          const SizedBox(height: 20),
-//          ListView.separated(
-//            shrinkWrap: true,
-//            itemBuilder: (context, index) => ListTile(
-//              leading: Icon(
-//                iconos[index],
-//                color: Colors.purple,
-//              ),
-//              title: Text(options[index]),
-//              trailing:
-//                  const Icon(Icons.arrow_forward, color: Colors.pinkAccent),
-//              onTap: () => Navigator.push(
-//                context,
-//                MaterialPageRoute(
-//                  builder: (context) => HilosScreen(
-//                    grupo: grupo,
-//                  ),
-//                ),
-//              ),
-//            ),
-//            separatorBuilder: (_, __) => const Divider(),
-//            itemCount: 3,
-//          ),
-          ListTile(
-            leading: Icon(
-              iconos[0],
-              color: Colors.purple,
+        appBar: AppBar(
+          backgroundColor: const Color.fromARGB(255, 120, 58, 100),
+          title: Text(group.Name),
+          actions: [
+            IconButton(
+                icon: const Icon(Icons.add_comment_rounded),
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => CrearHilo(grupo: group)));
+                })
+          ],
+        ),
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const SizedBox(
+              height: 10,
             ),
-            title: Text(options[0]),
-            trailing: const Icon(Icons.arrow_forward, color: Colors.pinkAccent),
-            onTap: () => Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => HilosScreen(
-                  grupo: grupo,
+            Container(
+              constraints: const BoxConstraints(maxWidth: 350),
+              alignment: Alignment.center,
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                color: const Color.fromARGB(143, 158, 0, 89),
+                borderRadius: const BorderRadius.all(Radius.circular(10)),
+                border: Border.all(
+                  color: const Color.fromARGB(255, 208, 46, 138),
+                  width: 2,
                 ),
               ),
+              child: Text(
+                group.Description,
+                style: const TextStyle(
+                    fontSize: 20, color: Color.fromARGB(255, 255, 255, 255)),
+              ),
             ),
-          ),
-          Divider(),
-          ListTile(
-            leading: Icon(
-              iconos[1],
-              color: Colors.purple,
+            const SizedBox(
+              height: 20,
             ),
-            title: Text(options[1]),
-            trailing: const Icon(Icons.arrow_forward, color: Colors.pinkAccent),
-            onTap: () => {},
-          ),
-          Divider(),
-          ListTile(
-            leading: Icon(
-              iconos[2],
-              color: Colors.purple,
-            ),
-            title: Text(options[2]),
-            trailing: const Icon(Icons.arrow_forward, color: Colors.pinkAccent),
-            onTap: () => {},
-          ),
-        ],
+            Expanded(child: listhilos(group)),
+          ],
+        ));
+  }
+}
+
+class hiloCard extends StatelessWidget {
+  hiloCard(this.hilo);
+  commentModel hilo;
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: ListTile(
+        leading: const Icon(
+          Icons.forum_outlined,
+          color: Colors.purple,
+        ),
+        title: Text(hilo.Title),
+        subtitle: Text('${hilo.Owner} - ${hilo.Date}'),
       ),
     );
   }

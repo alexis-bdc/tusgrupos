@@ -92,7 +92,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   TextFormField(
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Please enter your password';
+                        return 'Favor ingresar su contraseña';
                       }
                       return null;
                     },
@@ -102,7 +102,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     decoration: InputDecoration(
                       prefixIconColor: const Color.fromARGB(255, 50, 0, 148),
                       prefixIcon: const Icon(Icons.lock),
-                      hintText: 'Enter your password',
+                      hintText: 'Contraseña',
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),

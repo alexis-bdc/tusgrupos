@@ -23,10 +23,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-// TODO: screen mis grupos
-// TODO: screen buscar grupo
-// TODO: screen respuesta / subir archivo
-// TODO: screen crear hilo
-// TODO: screen this group
-// TODO: screen control de grupo

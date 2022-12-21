@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tusgrupos/dbHelper/mongodb.dart';
 import 'package:tusgrupos/models/group_model.dart';
+import 'package:tusgrupos/screens/grupo_screen.dart';
 import 'package:tusgrupos/screens/small_groupCard.dart';
 // import 'package:tusgrupos/models/group_model.dart';
 
@@ -53,6 +54,13 @@ class _GruposInscritosState extends State<GruposInscritos> {
                   itemCount: totalData,
                   itemBuilder: (BuildContext context, int index) =>
                       GestureDetector(
+                    onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => GrupoScreen(
+                              group:
+                                  groupModel.fromJson(snapshot.data![index])),
+                        )),
                     child: participationCard(
                       group: groupModel.fromJson(snapshot.data![index]),
                     ),
