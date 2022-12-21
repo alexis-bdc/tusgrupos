@@ -12,13 +12,13 @@ class AjustesGrupoScreen extends StatelessWidget {
     'Editar Información',
     'Eliminar Moderador',
     'Designar Moderador',
-    'Eliminar Participante',
+    // 'Eliminar Participante',
   ];
   final iconos = const [
     Icons.info_outline_rounded,
     Icons.security_rounded,
     Icons.person,
-    Icons.delete_outline_outlined
+    // Icons.delete_outline_outlined
   ];
 
   const AjustesGrupoScreen({Key? key, required this.grupo}) : super(key: key);
